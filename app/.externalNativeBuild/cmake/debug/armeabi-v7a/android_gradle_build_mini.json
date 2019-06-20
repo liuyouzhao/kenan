@@ -1,0 +1,18 @@
+{
+  "buildFiles": [
+    "/home/hujia/Android/Sdk/ndk-bundle/build/cmake/android.toolchain.cmake",
+    "/mnt/1t/workspace/kenan/app/CMakeLists.txt",
+    "/home/hujia/Android/Sdk/ndk-bundle/build/cmake/platforms.cmake"
+  ],
+  "cleanCommands": [
+    "/home/hujia/Android/Sdk/cmake/3.10.2.4988404/bin/cmake --build /mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/debug/armeabi-v7a --target clean"
+  ],
+  "libraries": {
+    "kenan-Debug-armeabi-v7a": {
+      "artifactName": "kenan",
+      "buildCommand": "/home/hujia/Android/Sdk/cmake/3.10.2.4988404/bin/cmake --build /mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/debug/armeabi-v7a --target kenan",
+      "abi": "armeabi-v7a",
+      "output": "/mnt/1t/workspace/kenan/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libkenan.so"
+    }
+  }
+}

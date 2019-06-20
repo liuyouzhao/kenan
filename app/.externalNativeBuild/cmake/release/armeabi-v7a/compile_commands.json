@@ -1,0 +1,229 @@
+[
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/native-lib.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/native-lib.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/native-lib.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-engine2/AliTransformationMatrix.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/AliTransformationMatrix.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/AliTransformationMatrix.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-engine2/NativeEnv.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/NativeEnv.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/NativeEnv.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-engine2/effect.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/effect.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/effect.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-engine2/gl3d_impl.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/gl3d_impl.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/gl3d_impl.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-engine2/graphics2d.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/graphics2d.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/graphics2d.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-engine2/shaders.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/shaders.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/shaders.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-engine2/sprite2d.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/sprite2d.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/sprite2d.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-engine2/system.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/system.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-engine2/system.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-system/Assert.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/Assert.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/Assert.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-system/Base64.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/Base64.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/Base64.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-system/CallBackFuncs.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/CallBackFuncs.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/CallBackFuncs.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-system/DCSocket.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/DCSocket.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/DCSocket.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-system/JsLoader.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/JsLoader.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/JsLoader.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-system/ResourceLoader.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/ResourceLoader.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/ResourceLoader.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-system/ThreadPool.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/ThreadPool.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/ThreadPool.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-system/fs.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/fs.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-system/fs.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-graphics/Image.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-graphics/Image.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-graphics/Image.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-graphics/ImageData.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-graphics/ImageData.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-graphics/ImageData.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-graphics/ImageLoader.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-graphics/ImageLoader.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-graphics/ImageLoader.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++0x -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/kenan-graphics/PixelArray.cpp.o -c /mnt/1t/workspace/kenan/app/src/main/cpp/kenan-graphics/PixelArray.cpp",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/kenan-graphics/PixelArray.cpp"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/png.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/png.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/png.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngerror.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngerror.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngerror.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pnggccrd.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pnggccrd.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pnggccrd.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngget.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngget.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngget.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngmem.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngmem.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngmem.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngpread.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngpread.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngpread.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngread.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngread.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngread.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngrio.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngrio.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngrio.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngrtran.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngrtran.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngrtran.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngrutil.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngrutil.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngrutil.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngset.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngset.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngset.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngtrans.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngtrans.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngtrans.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngvcrd.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngvcrd.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngvcrd.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngwio.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngwio.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngwio.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngwrite.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngwrite.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngwrite.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngwtran.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngwtran.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngwtran.c"
+},
+
+{
+  "directory": "/mnt/1t/workspace/kenan/app/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi19 --gcc-toolchain=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hujia/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dkenan_EXPORTS -I../../../../libs/include/v8 -I../../../../libs/include/libpng -I../../../../src/main/cpp -I../../../../src/main/cpp/kenan-engine2 -I../../../../src/main/cpp/kenan-system -I../../../../src/main/cpp/kenan-graphics  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/kenan.dir/src/main/cpp/thirdparty/libpng/pngwutil.c.o   -c /mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngwutil.c",
+  "file": "/mnt/1t/workspace/kenan/app/src/main/cpp/thirdparty/libpng/pngwutil.c"
+}
+]
