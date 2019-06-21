@@ -25,8 +25,10 @@ file(GLOB kenan_system_cpp
     "src/main/cpp/kenan-system/*.cpp")
 
 file(GLOB kenan_v8bindings_cpp
-    "src/main/cpp/kenan-v8bindings/*.h"
-    "src/main/cpp/kenan-v8bindings/V8Image.cpp")
+    "src/main/cpp/kenan-v8bindings/V8Main.h"
+    "src/main/cpp/kenan-v8bindings/V8Main.cpp"
+    "src/main/cpp/kenan-v8bindings/V8Log.h"
+    "src/main/cpp/kenan-v8bindings/V8Log.cpp")
 
 file(GLOB thirdparty_png_c
 	src/main/cpp/thirdparty/libpng/png.c
@@ -51,6 +53,7 @@ file(GLOB thirdparty_png_c
 add_library( ${APP_NAME} SHARED src/main/cpp/native-lib.cpp  ${kenan_engine2_cpp}
                                                              ${kenan_system_cpp}
                                                              ${kenan_graphics_cpp}
+                                                             ${kenan_v8bindings_cpp}
                                                              ${thirdparty_png_c})
 
 target_include_directories( ${APP_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/libs/include/v8
@@ -58,7 +61,9 @@ target_include_directories( ${APP_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/libs/include
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-engine2
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-system
-                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-graphics)
+                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-graphics
+                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-platform
+                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-v8bindings)
 
 target_link_libraries( ${APP_NAME} v8_base v8_snapshot log
                                     z

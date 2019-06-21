@@ -38,6 +38,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/kenan-engine2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/kenan-system" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/kenan-graphics" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/kenan-v8bindings" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />

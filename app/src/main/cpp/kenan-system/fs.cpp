@@ -64,18 +64,11 @@ void ReadDataFromInputStream(png_structp png_ptr, png_bytep outBytes,
 		png_size_t byteCountToRead) {
 	if (png_ptr->io_ptr == NULL)
 		return; // add custom error handling here
-	LOGE("ReadDataFromInputStream ---------------- 1");
 	ByteStream& stream = *(ByteStream*) png_ptr->io_ptr;
-	LOGE("ReadDataFromInputStream ---------------- 2");
 	byteCountToRead = stream.length;
-	LOGE("ReadDataFromInputStream ---------------- 3 %d", byteCountToRead);
 	//outBytes = stream.data;
 	outBytes = (png_bytep)malloc(byteCountToRead * sizeof(unsigned char));
 	memcpy(outBytes, stream.data, byteCountToRead * sizeof(unsigned char));
-	LOGE("ReadDataFromInputStream ---------------- 4 %p", outBytes);
-	LOGE("Begin check...");
-
-	LOGE("End check...");
 
 } // end ReadDataFromInputStream()
 void error_callback(png_structp png, png_const_charp error_msg) {

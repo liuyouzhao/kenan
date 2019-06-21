@@ -19,8 +19,8 @@ public class MyActivity extends AppCompatActivity {
         initV8();
 
         // Example of a call to a native method
-        TextView tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(stringFromV8());
+        //TextView tv = (TextView) findViewById(R.id.sample_text);
+        //tv.setText(stringFromV8());
     }
 
     /**

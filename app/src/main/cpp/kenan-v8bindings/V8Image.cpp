@@ -161,11 +161,11 @@ v8::Handle<v8::Value> V8Image::getImageData(const v8::FunctionCallbackInfo<v8::V
 v8::Persistent<v8::FunctionTemplate> V8Image::CreateImage(Isolate* isolate)
 {
     isolate_ = isolate;
-    s_functionTemplate = v8::Persistent<v8::FunctionTemplate>::New(FunctionTemplate::New(V8Image::ImageCreate));
+    s_functionTemplate = FunctionTemplate::New(isolate_, V8Image::ImageCreate);
     s_functionTemplate->SetClassName(v8::String::NewFromUtf8(GetIsolate(), "Image"));
-    s_classProto = v8::Persistent<ObjectTemplate>::New(s_functionTemplate->PrototypeTemplate());
+    s_classProto = s_functionTemplate->PrototypeTemplate();
 
-    s_objectTemplate = v8::Persistent<ObjectTemplate>::New(s_functionTemplate->InstanceTemplate());
+    s_objectTemplate = s_functionTemplate->InstanceTemplate();
     s_objectTemplate ->SetInternalFieldCount(1);
     s_objectTemplate ->SetAccessor(v8::String::NewFromUtf8(GetIsolate(), "src"),    V8Image::GetSrc,    V8Image::SetSrc);
     s_objectTemplate ->SetAccessor(v8::String::NewFromUtf8(GetIsolate(), "width"),  V8Image::GetWidth,  V8Image::SetWidth);

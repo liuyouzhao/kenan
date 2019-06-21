@@ -1,7 +1,7 @@
 #ifndef ASSERT_H
 #define ASSERT_H
 
-namespace DCanvas
+namespace kenan_system
 {
 #if defined(__GNUC__)
 #define WTF_PRETTY_FUNCTION __PRETTY_FUNCTION__

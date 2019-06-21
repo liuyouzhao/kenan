@@ -9,7 +9,7 @@
 #define ABS(a)   ((a < 0) ? -a : a)
 #define ave(a,b) ((a + b) * 0.5f)
 
-namespace DCanvas
+namespace kenan_system
 {
 
 const float piFloat = 3.14159265358979323846f;
