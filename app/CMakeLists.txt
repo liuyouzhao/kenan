@@ -50,7 +50,11 @@ file(GLOB thirdparty_png_c
 	src/main/cpp/thirdparty/libpng/pngwutil.c
 	"src/main/cpp/thirdparty/libpng/*.h")
 
-add_library( ${APP_NAME} SHARED src/main/cpp/native-lib.cpp  ${kenan_engine2_cpp}
+file(GLOB main_cpp
+    src/main/cpp/mainjni.cpp)
+
+add_library( ${APP_NAME} SHARED                              ${main_cpp}
+                                                             ${kenan_engine2_cpp}
                                                              ${kenan_system_cpp}
                                                              ${kenan_graphics_cpp}
                                                              ${kenan_v8bindings_cpp}

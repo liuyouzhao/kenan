@@ -7,6 +7,9 @@
 #include "defines.h"
 
 using namespace kenan_system;
+
+namespace kenan_v8bindings {
+
 Persistent<ObjectTemplate> V8Log::logTemplate;
 
 void V8Log::info(const v8::FunctionCallbackInfo<v8::Value>& args)
@@ -63,4 +66,5 @@ Handle<Object> V8Log::genSingleton(Isolate* isolate)
     v8::Local<v8::Object> instance = instance_t->NewInstance();
 
     return instance;
+}
 }

@@ -9,6 +9,8 @@
 
 using namespace v8;
 
+namespace kenan_v8bindings {
+
 class V8Log {
 public:
     static void info(const v8::FunctionCallbackInfo<v8::Value>& args);
@@ -21,6 +23,6 @@ private:
     static Persistent<ObjectTemplate> logTemplate;
 };
 
-
+}
 
 #endif //KENAN_V8LOG_H

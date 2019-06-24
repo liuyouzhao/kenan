@@ -5,10 +5,14 @@
 #ifndef KENAN_V8MAIN_H
 #define KENAN_V8MAIN_H
 
+#include "libplatform/libplatform.h"
 #include <v8.h>
 #include <string>
 
 using namespace v8;
+
+namespace kenan_v8bindings {
+
 class V8Main {
 
 public:
@@ -25,6 +29,9 @@ public:
     void initV8Environment();
     void firstRunJavascript(std::string javascript);
     void runJavascript(std::string javascript);
+
+    void onFrameUpdateCallback();
+
     void destroyV8Environment();
 private:
     static V8Main *m_instance;
@@ -35,10 +42,9 @@ private:
     v8::Local<v8::Context> context;
     Persistent<Context> persistentContext;
 
-
     Local<Context> setupJavascriptEnvironment(Isolate *isolate, Local<Context> context);
 };
 
-
+}
 
 #endif //KENAN_V8MAIN_H
