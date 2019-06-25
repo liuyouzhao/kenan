@@ -5,28 +5,22 @@
 #include "Log.h"
 #include "defines.h"
 
+#define LOG_TAG "[kenan]"
+
 namespace kenan_system
 {
-    void Log::info(const char *tag, const char *format,...)
+    void Log::info(const char *tag, const char *content)
     {
-        va_list args;
-        va_start(args, format);
-        __LOGI(tag, format, args);
-        va_end(args);
+        __LOGI(tag, "%s", content);
     }
 
-    void Log::debug(const char *tag, const char *format,...)
+    void Log::debug(const char *tag, const char *content)
     {
-        va_list args;
-        va_start(args, format);
-        __LOGD(tag, format, args);
-        va_end(args);
+        __LOGD(tag, "%s", content);
     }
-    void Log::error(const char *tag, const char *format,...)
+
+    void Log::error(const char *tag, const char *content)
     {
-        va_list args;
-        va_start(args, format);
-        __LOGE(tag, format, args);
-        va_end(args);
+        __LOGE(tag, "%s", content);
     }
 }

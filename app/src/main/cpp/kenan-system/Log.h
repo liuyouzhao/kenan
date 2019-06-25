@@ -13,9 +13,9 @@ namespace kenan_system
 class Log
 {
 public:
-    static void info(const char *tag, const char *format,...);
-    static void debug(const char *tag, const char *format,...);
-    static void error(const char *tag, const char *format,...);
+    static void info(const char *tag, const char *content);
+    static void debug(const char *tag, const char *content);
+    static void error(const char *tag, const char *content);
 };
 
 }

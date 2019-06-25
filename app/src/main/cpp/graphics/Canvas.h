@@ -26,7 +26,7 @@ public:
     int getId();
     RenderingContext* get_renderingContext() { return m_context; }
 
-    v8::Handle<v8::Value> get_context(const v8::FunctionCallbackInfo<v8::Value>& args);
+    void get_context(const v8::FunctionCallbackInfo<v8::Value>& args);
 
     RenderingContext* getContext(const char* type);
     RenderingContext* getContext(const char* type, hash_map<std::string, bool> hashAttri);

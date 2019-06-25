@@ -217,7 +217,7 @@ RenderingContext* Canvas::getContext(const char* type, std::hash_map<std::string
 	return NULL;
 }
 
-v8::Handle<v8::Value> Canvas::get_context(const v8::FunctionCallbackInfo<v8::Value>& args)
+void Canvas::get_context(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     v8::String::Utf8Value value(args[0]);
 

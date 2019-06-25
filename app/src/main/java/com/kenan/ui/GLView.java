@@ -404,7 +404,7 @@ public class GLView extends GLSurfaceView
                 JNILIB.OnResume();
                 sReady = true;
             }
-            JNILIB.begin(0, 0, SCode);
+            JNILIB.begin(480, 800, SCode);
             JNILIB.OnFrame();
             if(JsFrameCallback.sMotionEventList.size() > 0 && JNILIB.hasInited) {
                 float rateWidth = sStandardWidth / sWidth;

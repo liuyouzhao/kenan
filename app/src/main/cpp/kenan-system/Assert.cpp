@@ -13,16 +13,16 @@ void ReportAssertionFailure(const char* file, int line, const char* function, co
 {
     if (assertion)
     {
-        kenan_system::Log::error("Assert", "ASSERTION FAILED: %s\n", assertion);
+        __LOGE(TAG_ASSERT, "ASSERTION FAILED: %s\n", assertion);
         fprintf(stderr,"ASSERTION FAILED: %s\n", assertion);
     }
     else
     {
-        kenan_system::Log::error("Assert", "SHOULD NEVER BE REACHED");
+        __LOGE(TAG_ASSERT, "SHOULD NEVER BE REACHED");
         fprintf(stderr,"SHOULD NEVER BE REACHED\n");
     }
 
-    kenan_system::Log::error("Assert", "(%s:%d %s)\n", file, line, function);
+    __LOGE(TAG_ASSERT, "(%s:%d %s)\n", file, line, function);
     fprintf(stderr,"(%s:%d %s)\n", file, line, function);
 }
 

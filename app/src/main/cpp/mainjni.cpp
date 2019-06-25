@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "V8Main.h"
+#include "gl2d_impl.h"
 
 
 #undef LOG_TAG
@@ -22,7 +23,16 @@ extern "C"
     JNIEXPORT void JNICALL Java_com_kenan_jni_JNILIB_OnLoadResource(JNIEnv* env, jobject obj, jint resId);
 };
 
-JNIEXPORT void JNICALL Java_com_kenan_jni_JNILIB_init(JNIEnv *env, jobject obj, jint width, jint height, jstring code) {
+JNIEXPORT void JNICALL Java_com_kenan_jni_JNILIB_init(JNIEnv *env, jobject obj, jint _width, jint _height, jstring code) {
+
+    /**
+    (1) Init graphics
+    */
+    Gl2d_Impl::instance()->_Init(_width, _height);
+
+    /**
+    (2) Init V8
+    */
     char* javascriptCode = NULL;
     javascriptCode = (char*)env->GetStringUTFChars(code, 0);
     V8Main::instance()->initV8Environment();

@@ -12,8 +12,10 @@ int current_length = 0;
 HEFFECT CALL Gl2d_Impl::Effect_Load(gl2EffectState shader)
 {
     if(current_length > MAX_EFFECTS_NUMBER)
+    {
+        __LOGE(__FUNCTION__, "Effect_Load error! %d is too large.", current_length);
         return -1;
-
+    }
     HEFFECT hEffect = -1;
     const char* _vertex_shader = NULL;
     const char* _flag_shader = NULL;

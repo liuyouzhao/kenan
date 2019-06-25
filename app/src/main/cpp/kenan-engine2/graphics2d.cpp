@@ -403,6 +403,7 @@ void CALL Gl2d_Impl::Gfx_RenderQuad(const gl2dQuad *quad)
     if (CurPrimType != GL2D_PRIM_QUADS || nPrim >= VERTEX_BUFFER_SIZE / GL2D_PRIM_QUADS
     || CurTexture != quad->tex || CurBlendMode != quad->blend || CurEffect != OldEffect)
     {
+        LOGE("Gfx_RunderQuad _render_batch immediately");
         _render_batch(false);
 
         // Update Scissor
@@ -454,6 +455,7 @@ void CALL Gl2d_Impl::Gfx_RenderQuad(const gl2dQuad *quad)
     _color_length += 16;
     _texcoord_length += 8;
     nPrim++;
+    LOGE("Gfx_RunderQuad nPrim is %d", nPrim);
 }
 
 void CALL Gl2d_Impl::Gfx_RenderQuadEx(float x1, float y1, float x2, float y2,
@@ -1135,8 +1137,11 @@ void CALL Gl2d_Impl::Texture_Free(HTEXTURE tex)
 //////// Implementation ////////
 void Gl2d_Impl::_render_batch(bool bEndScene)
 {
-    if (!nPrim) return;
-
+    if (!nPrim) {
+        LOGE("nPrim is 0");
+        return;
+    }
+    LOGE("Wow! nPrim is %d", nPrim);
     if (CurTexture != (HTEXTURE)NO_TEXTURE)
     {
         glActiveTexture(GL_TEXTURE0);
@@ -1186,7 +1191,6 @@ void Gl2d_Impl::_render_batch(bool bEndScene)
 
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
             glDrawElements(GL_TRIANGLES, nPrim * 6, GL_UNSIGNED_SHORT, 0);
-
         }
 
         break;
@@ -1229,20 +1233,10 @@ void Gl2d_Impl::_render_batch(bool bEndScene)
         glDrawArrays(GL_LINES, 0, nPrim * GL2D_PRIM_LINES);
         break;
     }
-
     nPrim=0;
-
-    /// renew the buffer data
-    //SAFE_DELETE(_vertex_data);
-    //SAFE_DELETE(_texcoord_data);
-    //SAFE_DELETE(_color_data);
-
     _vertex_length = 0;
     _texcoord_length = 0;
     _color_length = 0;
-    //_vertex_data = (GLfloat *)malloc(sizeof(GLfloat) * VERTEX_BUFFER_SIZE * GL2D_SIZE_POINT2D);
-    //_color_data = (GLfloat *)malloc(sizeof(GLfloat) * VERTEX_BUFFER_SIZE * GL2D_SIZE_COLOR);
-    //_texcoord_data = (GLfloat *)malloc(sizeof(GLfloat) * VERTEX_BUFFER_SIZE * GL2D_SIZE_TEXCOORD);
 }
 
 void Gl2d_Impl::Gfx_SetLineWidth(float width)

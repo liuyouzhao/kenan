@@ -29,7 +29,9 @@ public:
                int w, int h,  Gl2d_Impl* gl2d);
 
     Gl2dSprite(const Gl2dSprite &spr);
-    ~Gl2dSprite() {}
+    ~Gl2dSprite() {
+        referance --;
+    }
 
     void        Render(float x, float y);
     void        RenderInt(int x,int y);
@@ -89,6 +91,8 @@ protected:
     float       hotX, hotY;
     int         nhotX, nhotY;
     bool        bXFlip, bYFlip;
+
+    static int referance;
 };
 
 #endif // ALISPRITE_H

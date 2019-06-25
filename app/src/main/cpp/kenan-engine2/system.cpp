@@ -34,6 +34,8 @@ using namespace android;
 #include <stdlib.h>
 #endif
 
+Gl2d_Impl* Gl2d_Impl::s_self = NULL;
+
 void CALL Gl2d_Impl::Release()
 {
     //eglMakeCurrent(eglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);

@@ -12,10 +12,17 @@
 using namespace v8;
 
 namespace kenan_v8bindings {
-
 class V8Main {
 
 public:
+    enum V8CodeState
+    {
+        NOT_READY,
+        COMPILED,
+        RUN_FIRST,
+        RUNNING
+    };
+
     static V8Main *instance()
     {
         if(m_instance == NULL)
@@ -42,7 +49,10 @@ private:
     v8::Local<v8::Context> context;
     Persistent<Context> persistentContext;
 
-    Local<Context> setupJavascriptEnvironment(Isolate *isolate, Local<Context> context);
+    void setupJavascriptGlobalObjects(Isolate *isolate, Local<Context> context);
+    Local<Context> createJavascriptContext(Isolate *isolate);
+
+    V8CodeState codeState;
 };
 
 }

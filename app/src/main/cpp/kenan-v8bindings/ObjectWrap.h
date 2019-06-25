@@ -12,7 +12,7 @@
 
 using namespace v8;
 
-namespace DCanvas
+namespace kenan_v8bindings
 {
 #ifndef CASTTOCLASS
 #define CASTTOCLASS(CLASSNAME, INFO)	\
@@ -21,35 +21,17 @@ namespace DCanvas
 	void* ptr = wrap->Value();	\
     CLASSNAME *class_impl =  static_cast<CLASSNAME*>(ptr);
 #endif
-
-v8::Handle<v8::Value> THROW_EXCEPTION(ExceptionType type, const char *str)
-{
-    switch(type){
-        case TError:
-            return v8::ThrowException(v8::Exception::Error(v8::String::New(str)));
-        case TRangeError:
-            return v8::ThrowException(v8::Exception::RangeError(v8::String::New(str)));
-        case TSyntaxError:
-            return v8::ThrowException(v8::Exception::SyntaxError(v8::String::New(str)));
-        case TTypeError:
-            return v8::ThrowException(v8::Exception::TypeError(v8::String::New(str)));
-        case TReferenceError:
-            return v8::ThrowException(v8::Exception::ReferenceError(v8::String::New(str)));
-    }
-    return v8::ThrowException(v8::Exception::Error(v8::String::New("exception Type not found")));
-}
-
-
 enum ExceptionType
 {
     TError  = 0,
-    TRangeError ,
-    TReferenceError ,
-    TSyntaxError ,
+    TRangeError,
+    TReferenceError,
+    TSyntaxError,
     TTypeError
 };
 
-v8::Handle<v8::Value> THROW_EXCEPTION(ExceptionType type, const char *str) ;
+v8::Handle<v8::Value> THROW_EXCEPTION(Isolate *isolate, ExceptionType type, const char *str);
+
 class ObjectWrap
 {
  public:
@@ -77,11 +59,14 @@ class ObjectWrap
     {
         if(handle.IsEmpty())
         {
-            THROW_EXCEPTION(TError, "unwrap : Object is not exist!");
+            THROW_EXCEPTION(handle->GetIsolate(), TError, "unwrap : Object is not exist!");
         }
+        Handle<External> field = Handle<External>::Cast(handle->GetInternalField(0));
+        void* ptr = field->Value();
+
         //assert(!handle.IsEmpty());
         //assert(handle->InternalFieldCount() > 0);
-        return static_cast<T*>(handle->GetAlignedPointerFromInternalField(0));
+        return static_cast<T*>(ptr);
     }
 
     v8::Persistent<v8::Object> handle_; // ro
@@ -143,6 +128,6 @@ private:
     }
 };
 
-} // namespace DCanvas
+} // namespace kenan_v8bindings
 
 #endif // OBJECTWRAP_H

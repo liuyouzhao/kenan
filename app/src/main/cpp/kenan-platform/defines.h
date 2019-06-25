@@ -31,15 +31,19 @@
 #define CLOUDX_SCREEN_WIDTH     480
 #define CLOUDX_SCREEN_HEIGHT    800
 
+#define TAG_SYS "[kenan-sys]"
+#define TAG_JS  "[kenan-js]"
+#define TAG_ASSERT "[kenan-assert]"
+
 #ifdef __ANDROID__
 #undef LOG_TAG
 #undef LOGI
 #undef LOGE
 #undef LOGD
 #include <android/log.h>
-#define  __LOGI(format,...)  __android_log_print(ANDROID_LOG_INFO, format, __VA_ARGS__)
-#define  __LOGE(format,...)  __android_log_print(ANDROID_LOG_ERROR, format, __VA_ARGS__)
-#define  __LOGD(format,...)  __android_log_print(ANDROID_LOG_DEBUG, format, __VA_ARGS__)
+#define  __LOGI(tag,...)  __android_log_print(ANDROID_LOG_INFO, tag, __VA_ARGS__)
+#define  __LOGE(tag,...)  __android_log_print(ANDROID_LOG_ERROR, tag, __VA_ARGS__)
+#define  __LOGD(tag,...)  __android_log_print(ANDROID_LOG_DEBUG, tag, __VA_ARGS__)
 #define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)

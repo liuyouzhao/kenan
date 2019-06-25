@@ -2,12 +2,16 @@
 #include "gl2d.h"
 #include "gl2d_impl.h"
 #include "sprite2d.h"
+#include "defines.h"
 
 #if IN_LINUXx86
 #include <string.h>
 #elif IN_ANDROID
 #include <string.h>
 #endif
+
+int Gl2dSprite::referance = 0;
+#define LOG_TAG "Gl2dSprite"
 
 Gl2dSprite::Gl2dSprite( HTEXTURE texture, float texx1, float texy1, float texx2, float texy2,
                         int w, int h, Gl2d_Impl* gl2d )
@@ -106,6 +110,9 @@ Gl2dSprite::Gl2dSprite(HTEXTURE texture, float texx1, float texy1, float texx2, 
     quad.v[3].a = 1.0f;
 
     quad.blend=BLEND_DEFAULT;
+
+    referance ++;
+    LOGE("reference %d", referance);
 }
 
 Gl2dSprite::Gl2dSprite(const Gl2dSprite &spr)

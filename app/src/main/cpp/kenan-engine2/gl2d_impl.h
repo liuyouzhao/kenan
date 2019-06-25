@@ -63,6 +63,16 @@ class Gl2d_Impl : public Gl2d
 #endif
 {
 public:
+
+    static Gl2d_Impl* instance()
+    {
+        if(s_self == NULL)
+        {
+            s_self = new Gl2d_Impl();
+        }
+        return s_self;
+    }
+
     Gl2d_Impl();
     virtual void        CALL    Release();
 
@@ -294,6 +304,8 @@ private:
     GLfloat              _pfIdentity[GL2D_MATRIX_ARRAY_LENGTH];
 
     bool 				 m_isNative;
+
+    static Gl2d_Impl *s_self;
 };
 
 typedef class Gl2d_Impl * GLContextRef;
