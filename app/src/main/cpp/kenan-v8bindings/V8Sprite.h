@@ -20,8 +20,6 @@ class V8Sprite
 public:
 	V8Sprite();
     ~V8Sprite();
-
-    static void Destroy(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void Render(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void RenderEx(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void SetColor(const v8::FunctionCallbackInfo<v8::Value>& args);

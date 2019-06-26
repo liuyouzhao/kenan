@@ -20,17 +20,10 @@ V8Sprite::~V8Sprite()
 {
 }
 
-void V8Sprite::Destroy(const v8::FunctionCallbackInfo<v8::Value>& args)
-{
-	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.This());
-	CHECK_INTERNAL(s, args)
-	delete s;
-	s = NULL;
-}
-
 void V8Sprite::Render(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
     CHECK_INTERNAL(s, args)
 	if(args.Length() != 2) {
 		 THROW_EXCEPTION(args.GetIsolate(), TError, "Render wrong arguments: 2");
@@ -44,7 +37,8 @@ void V8Sprite::Render(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Sprite::RenderEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
     CHECK_INTERNAL(s, args)
 	if(args.Length() != 3 && args.Length() != 4 && args.Length() != 5) {
 		 THROW_EXCEPTION(args.GetIsolate(), TError, "Render wrong arguments: 3/4/5");
@@ -69,7 +63,8 @@ void V8Sprite::RenderEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Sprite::SetColor(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
     CHECK_INTERNAL(s, args)
 	if(args.Length() != 5) {
 		 THROW_EXCEPTION(args.GetIsolate(), TError, "SetColor wrong arguments: 5");
@@ -86,7 +81,8 @@ void V8Sprite::SetColor(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Sprite::SetHotSpot(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
     CHECK_INTERNAL(s, args)
 	if(args.Length() != 2) {
 		 THROW_EXCEPTION(args.GetIsolate(), TError, "Render wrong arguments: 2");
@@ -100,7 +96,8 @@ void V8Sprite::SetHotSpot(const v8::FunctionCallbackInfo<v8::Value>& args)
 //void        SetBlendMode(int blend) { quad.blend = blend; }
 void V8Sprite::SetBlendMode(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
     CHECK_INTERNAL(s, args)
 	if(args.Length() < 1) {
 		 THROW_EXCEPTION(args.GetIsolate(), TError, "Render wrong arguments: 1");
@@ -113,7 +110,8 @@ void V8Sprite::SetBlendMode(const v8::FunctionCallbackInfo<v8::Value>& args)
 //void Gl2dSprite::SetTexture(HTEXTURE tex)
 void V8Sprite::SetTexture(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
     CHECK_INTERNAL(s, args)
 	if(args.Length() < 1) {
 		 THROW_EXCEPTION(args.GetIsolate(), TError, "SetTexture wrong arguments: 1");
@@ -125,7 +123,8 @@ void V8Sprite::SetTexture(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Sprite::SetUV(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
     CHECK_INTERNAL(s, args)
 	if(args.Length() != 4) {
         THROW_EXCEPTION(args.GetIsolate(), TError, "SetUV wrong arguments: 4");
@@ -160,7 +159,6 @@ Handle<Object> V8Sprite::Create(Isolate *isolate, const v8::FunctionCallbackInfo
         proto_t.Get(isolate)->Set(isolate, "SetBlendMode", v8::FunctionTemplate::New(isolate, V8Sprite::SetBlendMode));
         proto_t.Get(isolate)->Set(isolate, "SetTexture", v8::FunctionTemplate::New(isolate, V8Sprite::SetTexture));
         proto_t.Get(isolate)->Set(isolate, "SetUV", v8::FunctionTemplate::New(isolate, V8Sprite::SetUV));
-        proto_t.Get(isolate)->Set(isolate, "Destroy", v8::FunctionTemplate::New(isolate, V8Sprite::Destroy));
 
         instance_t.Reset(isolate, functionTemplate_t.Get(isolate)->InstanceTemplate());
         instance_t.Get(isolate)->SetInternalFieldCount(1);

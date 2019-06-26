@@ -21,7 +21,7 @@ public class MyActivity extends Activity {
     boolean mHasInited = false;
 
     public String readCode() {
-        String fileName = "test1.js";
+        String fileName = "test-renderer.js";
         String res = "";
         try {
             InputStream in = getAssets().open(fileName);
@@ -51,7 +51,8 @@ public class MyActivity extends Activity {
         String code = readCode();
         Log.e("HUJIA", code);
         mCanvas.setCode(code);
-
+        //mCanvas.setEGLContextClientVersion(2);
+        mCanvas.setPreserveEGLContextOnPause(true);
 
         setContentView(mCanvas);
 

@@ -55,11 +55,13 @@ class ObjectWrap
     }
 
     template <class T>
-    static inline T* Unwrap (v8::Handle<v8::Object> handle)
+    static inline T* Unwrap (Isolate *isolate, v8::Handle<v8::Object> handle)
     {
+        HandleScope handleScope(isolate);
         if(handle.IsEmpty())
         {
             THROW_EXCEPTION(handle->GetIsolate(), TError, "unwrap : Object is not exist!");
+            return NULL;
         }
         Handle<External> field = Handle<External>::Cast(handle->GetInternalField(0));
         void* ptr = field->Value();

@@ -455,7 +455,6 @@ void CALL Gl2d_Impl::Gfx_RenderQuad(const gl2dQuad *quad)
     _color_length += 16;
     _texcoord_length += 8;
     nPrim++;
-    LOGE("Gfx_RunderQuad nPrim is %d", nPrim);
 }
 
 void CALL Gl2d_Impl::Gfx_RenderQuadEx(float x1, float y1, float x2, float y2,
@@ -1138,10 +1137,8 @@ void CALL Gl2d_Impl::Texture_Free(HTEXTURE tex)
 void Gl2d_Impl::_render_batch(bool bEndScene)
 {
     if (!nPrim) {
-        LOGE("nPrim is 0");
         return;
     }
-    LOGE("Wow! nPrim is %d", nPrim);
     if (CurTexture != (HTEXTURE)NO_TEXTURE)
     {
         glActiveTexture(GL_TEXTURE0);

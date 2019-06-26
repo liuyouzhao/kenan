@@ -155,6 +155,8 @@ public class GLView extends GLSurfaceView
     public void onResume() {
         super.onResume();
     }
+
+
     private static class ContextFactory implements GLSurfaceView.EGLContextFactory
     {
         private static int EGL_CONTEXT_CLIENT_VERSION = 0x3098;
@@ -404,7 +406,7 @@ public class GLView extends GLSurfaceView
                 JNILIB.OnResume();
                 sReady = true;
             }
-            JNILIB.begin(480, 800, SCode);
+            JNILIB.begin((int)sWidth, (int)sHeight, SCode);
             JNILIB.OnFrame();
             if(JsFrameCallback.sMotionEventList.size() > 0 && JNILIB.hasInited) {
                 float rateWidth = sStandardWidth / sWidth;

@@ -97,7 +97,8 @@ v8::Handle<v8::Value> V8Orc2d::genSingleton(Isolate *isolate)
 
 void V8Orc2d::System_Initiate(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     if(args.Length() != 5)
     {
     	THROW_EXCEPTION(args.GetIsolate(), TError, "System_Initiate : number of args exception!");
@@ -116,13 +117,15 @@ void V8Orc2d::System_Initiate(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::System_Shutdown(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     impl->System_Shutdown();
 }
 
 void V8Orc2d::System_ChangeSize(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     //virtual void        CALL    System_ChangeSize(int x, int y, int width, int height);
 
     if(args.Length() != 4)
@@ -139,7 +142,8 @@ void V8Orc2d::System_ChangeSize(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::System_GetErrorMessage(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 	char* errMsg = impl->System_GetErrorMessage();
 	args.GetReturnValue().Set(v8::String::NewFromUtf8(args.GetIsolate(), errMsg));
 }
@@ -147,7 +151,8 @@ void V8Orc2d::System_GetErrorMessage(const v8::FunctionCallbackInfo<v8::Value>& 
 
 void V8Orc2d::Effect_Load(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     if(args.Length() != 1)
     {
     	THROW_EXCEPTION(args.GetIsolate(), TError, "Effect_Load : number of args exception!");
@@ -162,7 +167,8 @@ void V8Orc2d::Effect_Load(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Effect_Free(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 1)
     {
@@ -177,13 +183,15 @@ void V8Orc2d::Effect_Free(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Effect_Free_All(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     impl->Effect_Free_All();
 }
 
 void V8Orc2d::Effect_Active(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 2)
     {
@@ -198,7 +206,8 @@ void V8Orc2d::Effect_Active(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Effect_SetFloat(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 3)
     {
@@ -217,7 +226,8 @@ void V8Orc2d::Effect_SetFloat(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Effect_SetFloatv2(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 4)
     {
@@ -237,7 +247,8 @@ void V8Orc2d::Effect_SetFloatv2(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Effect_SetInt(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 3)
     {
@@ -256,7 +267,8 @@ void V8Orc2d::Effect_SetInt(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Gfx_SetClearColor(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 4)
     {
@@ -275,7 +287,8 @@ void V8Orc2d::Gfx_SetClearColor(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Gfx_SetLineWidth(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() < 1)
     {
@@ -289,13 +302,15 @@ void V8Orc2d::Gfx_SetLineWidth(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Gfx_Clear(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     impl->Gfx_Clear();
 }
 
 void V8Orc2d::Gfx_RenderLine(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 9)
     {
@@ -317,7 +332,8 @@ void V8Orc2d::Gfx_RenderLine(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Gfx_RenderTripleEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 12)
     {
@@ -349,7 +365,8 @@ void V8Orc2d::Gfx_RenderTripleEx(const v8::FunctionCallbackInfo<v8::Value>& args
 
 void V8Orc2d::Gfx_RenderQuadEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 14 && args.Length() != 16)
     {
@@ -407,7 +424,8 @@ void V8Orc2d::Gfx_RenderQuadEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Gfx_RenderRoundEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     if(args.Length() != 8)
     {
         THROW_EXCEPTION(args.GetIsolate(), TError, "Gfx_RenderRoundEx : number of args exception! argn must:8");
@@ -430,7 +448,8 @@ void V8Orc2d::Gfx_RenderRoundEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Gfx_RenderTorusEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 1)
     {
@@ -469,13 +488,15 @@ void V8Orc2d::Gfx_RenderTorusEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Gfx_SwapBuffer(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     impl->Gfx_SwapBuffer();
 }
 
 void V8Orc2d::Texture_Create(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 2)
     {
@@ -492,7 +513,8 @@ void V8Orc2d::Texture_Create(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Texture_Load(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 3)
     {
@@ -516,7 +538,8 @@ void V8Orc2d::Texture_Load(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Texture_Free(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() < 1)
     {
@@ -530,13 +553,15 @@ void V8Orc2d::Texture_Free(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Texture_SaveToFile(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     impl->Texture_SaveToFile();
 }
 
 void V8Orc2d::Transform_rotate(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() < 1)
     {
@@ -549,7 +574,8 @@ void V8Orc2d::Transform_rotate(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Transform_translate(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 2)
     {
@@ -564,7 +590,8 @@ void V8Orc2d::Transform_translate(const v8::FunctionCallbackInfo<v8::Value>& arg
 
 void V8Orc2d::Transform_scale(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 1)
     {
@@ -578,7 +605,8 @@ void V8Orc2d::Transform_scale(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 void V8Orc2d::Transform_scaleNonUniform(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.This());
+    HandleScope handleScope(args.GetIsolate());
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
 
     if(args.Length() != 2)
     {
@@ -615,6 +643,7 @@ void V8Orc2d::Factory_CreateSpirit(const v8::FunctionCallbackInfo<v8::Value>& ar
 
 void V8Orc2d::Factory_DestroySpirit(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
+    HandleScope handleScope(args.GetIsolate());
     if(args.Length() == 0)
     {
         return;
@@ -622,8 +651,7 @@ void V8Orc2d::Factory_DestroySpirit(const v8::FunctionCallbackInfo<v8::Value>& a
 
     Local<Object> argObject = args[0]->ToObject(args.GetIsolate());
 
-    Gl2dSprite *ptr = ObjectWrap::Unwrap<Gl2dSprite>(argObject);
-    __LOGI(__FUNCTION__, "ptr address is %p", ptr);
+    Gl2dSprite *ptr = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), argObject);
     if(ptr)
     {
         delete ptr;
