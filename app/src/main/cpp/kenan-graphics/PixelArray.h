@@ -4,7 +4,7 @@
 
 #include "ByteArray.h"
 
-namespace DCanvas
+namespace kenan_graphics
 {
 
 class PixelArray

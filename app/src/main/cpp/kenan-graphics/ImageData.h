@@ -5,7 +5,7 @@
 #include "PixelArray.h"
 #include <gl2d_impl.h>
 
-namespace DCanvas
+namespace kenan_graphics
 {
 
 class ImageData

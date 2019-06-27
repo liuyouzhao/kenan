@@ -11,8 +11,6 @@ import android.view.Menu;
 import com.kenan.platform.Sound;
 import com.kenan.ui.GLView;
 
-import org.kenan.main.R;
-
 import java.io.InputStream;
 
 public class MyActivity extends Activity {
@@ -21,7 +19,7 @@ public class MyActivity extends Activity {
     boolean mHasInited = false;
 
     public String readCode() {
-        String fileName = "test-renderer.js";
+        String fileName = "test-renderer-image.js";
         String res = "";
         try {
             InputStream in = getAssets().open(fileName);

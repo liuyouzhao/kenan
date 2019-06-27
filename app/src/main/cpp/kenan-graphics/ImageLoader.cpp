@@ -9,7 +9,7 @@
 #undef   LOG_TAG
 #define  LOG_TAG    "ImageLoader"
 
-namespace DCanvas
+namespace kenan_graphics
 {
 
 ImageLoader* ImageLoader::create()

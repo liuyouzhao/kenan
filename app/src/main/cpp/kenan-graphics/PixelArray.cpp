@@ -5,7 +5,7 @@
 #undef   LOG_TAG
 #define  LOG_TAG    "PixelArray"
 
-namespace DCanvas
+namespace kenan_graphics
 {
 PixelArray* PixelArray::create(unsigned length)
 {

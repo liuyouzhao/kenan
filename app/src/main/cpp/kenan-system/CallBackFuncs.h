@@ -4,7 +4,7 @@
 #include <list>
 #include <pthread.h>
 
-namespace DCanvas
+namespace kenan_system
 {
 
 typedef void* (*FUNCCALL)(void*);

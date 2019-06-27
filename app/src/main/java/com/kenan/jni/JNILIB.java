@@ -15,16 +15,16 @@ public class JNILIB {
             hasInited = false;
     }
 
-    public static void begin(int width, int height, String s){
+    public static void begin(int width, int height, String s, String dataDir){
             if(!hasInited){
                     Log.e("begin","**********************begin ********************");
                     //SetBasePath("/sdcard/");
-                    init(width, height , s);
+                    init(width, height , s, dataDir);
             }
             hasInited = true;
     }
 
-    public static native void init(int width, int height, String s);
+    public static native void init(int width, int height, String s, String dataDir);
     public static native void deinit();
     public static native void OnFrame();
     public static native String ShutDown();

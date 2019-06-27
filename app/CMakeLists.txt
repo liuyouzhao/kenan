@@ -24,6 +24,10 @@ file(GLOB kenan_system_cpp
     "src/main/cpp/kenan-system/*.h"
     "src/main/cpp/kenan-system/*.cpp")
 
+file(GLOB kenan_platform_cpp
+    "src/main/cpp/kenan-platform/*.h"
+    "src/main/cpp/kenan-platform/*.cpp")
+
 file(GLOB kenan_v8bindings_cpp
     "src/main/cpp/kenan-v8bindings/ObjectWrap.h"
     "src/main/cpp/kenan-v8bindings/ObjectWrap.cpp"
@@ -34,7 +38,11 @@ file(GLOB kenan_v8bindings_cpp
     "src/main/cpp/kenan-v8bindings/V8Orc2d.cpp"
     "src/main/cpp/kenan-v8bindings/V8Orc2d.h"
     "src/main/cpp/kenan-v8bindings/V8Sprite.cpp"
-    "src/main/cpp/kenan-v8bindings/V8Sprite.h")
+    "src/main/cpp/kenan-v8bindings/V8Sprite.h"
+    "src/main/cpp/kenan-v8bindings/V8Image.cpp"
+    "src/main/cpp/kenan-v8bindings/V8Image.h"
+    "src/main/cpp/kenan-v8bindings/V8EventService.cpp"
+    "src/main/cpp/kenan-v8bindings/V8EventService.h")
 
 file(GLOB thirdparty_png_c
 	src/main/cpp/thirdparty/libpng/png.c
@@ -64,9 +72,10 @@ add_library( ${APP_NAME} SHARED                              ${main_cpp}
                                                              ${kenan_system_cpp}
                                                              ${kenan_graphics_cpp}
                                                              ${kenan_v8bindings_cpp}
-                                                             ${thirdparty_png_c})
+                                                             ${thirdparty_png_c}
+                                                             ${kenan_platform_cpp})
 
-add_definitions( -DIN_ANDROID=1 )
+add_definitions( -DIN_ANDROID=1 -DUSE_SKIA_ANDROID=0)
 
 target_include_directories( ${APP_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/libs/include/v8
                                                 ${CMAKE_SOURCE_DIR}/libs/include/libpng

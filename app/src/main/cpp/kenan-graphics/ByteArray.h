@@ -3,7 +3,7 @@
 
 #include <new>
 
-namespace DCanvas
+namespace kenan_graphics
 {
 
 class ByteArray

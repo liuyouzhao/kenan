@@ -5,7 +5,7 @@
 #include <string>
 #include "CloudxResourceLoader.h"
 
-namespace DCanvas
+namespace kenan_graphics
 {
 
 class resultData

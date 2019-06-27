@@ -139,6 +139,27 @@ void V8Sprite::SetUV(const v8::FunctionCallbackInfo<v8::Value>& args)
 	s->SetUV(tu1, tv1, tu2, tv2);
 }
 
+void V8Sprite::Resize(const v8::FunctionCallbackInfo<v8::Value>& args)
+{
+    HandleScope handleScope(args.GetIsolate());
+    Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
+    CHECK_INTERNAL(s, args)
+    if(args.Length() == 0) {
+        return;
+    }
+    else if(args.Length() == 1) {
+        float w = args[0]->NumberValue();
+        s->SetWidth(w);
+        return;
+    }
+
+    float w = args[0]->NumberValue();
+    float h = args[1]->NumberValue();
+
+    s->SetWidth((int)w);
+    s->SetHeight((int)h);
+}
+
 static v8::Persistent<v8::FunctionTemplate> functionTemplate_t;
 static v8::Persistent<v8::Template> proto_t;
 static v8::Persistent<v8::ObjectTemplate> instance_t;
@@ -159,6 +180,7 @@ Handle<Object> V8Sprite::Create(Isolate *isolate, const v8::FunctionCallbackInfo
         proto_t.Get(isolate)->Set(isolate, "SetBlendMode", v8::FunctionTemplate::New(isolate, V8Sprite::SetBlendMode));
         proto_t.Get(isolate)->Set(isolate, "SetTexture", v8::FunctionTemplate::New(isolate, V8Sprite::SetTexture));
         proto_t.Get(isolate)->Set(isolate, "SetUV", v8::FunctionTemplate::New(isolate, V8Sprite::SetUV));
+        proto_t.Get(isolate)->Set(isolate, "Resize", v8::FunctionTemplate::New(isolate, V8Sprite::Resize));
 
         instance_t.Reset(isolate, functionTemplate_t.Get(isolate)->InstanceTemplate());
         instance_t.Get(isolate)->SetInternalFieldCount(1);

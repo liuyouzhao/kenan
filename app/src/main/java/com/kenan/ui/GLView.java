@@ -35,6 +35,7 @@ package com.kenan.ui;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -100,10 +101,13 @@ public class GLView extends GLSurfaceView
     public static boolean sReady = true;
     public static int sMaxEventSize = 500;
 
+    public static Context sContext;
+
     private TouchListenerConn touchL = new TouchListenerConn();
     public GLView(Context context) {
         super(context);
         init(true, 0, 0);
+        sContext = context;
     }
 
     public void setCode(String code) {
@@ -113,6 +117,7 @@ public class GLView extends GLSurfaceView
     public GLView(Context context, boolean translucent, int depth, int stencil) {
         super(context);
         init(translucent, depth, stencil);
+        sContext = context;
     }
     private void init(boolean translucent, int depth, int stencil) {
 
@@ -406,7 +411,8 @@ public class GLView extends GLSurfaceView
                 JNILIB.OnResume();
                 sReady = true;
             }
-            JNILIB.begin((int)sWidth, (int)sHeight, SCode);
+
+            JNILIB.begin((int)sWidth, (int)sHeight, SCode,  sContext.getFilesDir().getPath());
             JNILIB.OnFrame();
             if(JsFrameCallback.sMotionEventList.size() > 0 && JNILIB.hasInited) {
                 float rateWidth = sStandardWidth / sWidth;

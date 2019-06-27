@@ -19,7 +19,9 @@
 #undef LOG_TAG
 #define  LOG_TAG    "Image"
 
-namespace DCanvas
+using namespace kenan_system;
+
+namespace kenan_graphics
 {
 static void*  onloadFunc(void* p)
 {
@@ -37,7 +39,8 @@ Image::Image()
     m_hTex = NO_TEXTURE;
     m_width = 0;
     m_height = 0;
-    m_onLoadSeted = false;
+    m_isOnloadFuncExist = false;
+    onLoadCallback = NULL;
 }
 
 Image::~Image()
@@ -77,6 +80,7 @@ void Image::updata(int length)
 {
     bool flg = false;
     int i = 0 , j = 0;
+    LOGD("updata in: %s", m_src);
     char *basedata = (char*)"data:*;base64,";
     do
     {
@@ -121,6 +125,7 @@ void Image::updata(int length)
     }
     else
     {
+        LOGD("http request process entered");
         flg = 0;
         std::string path(this->m_src);
         std::string head("http://");
@@ -183,10 +188,13 @@ void Image::setTexture(HTEXTURE ht , Gl2d_Impl* gc, int canvasId)
 
 void Image::onLoad()
 {
-    if (!m_onLoadSeted)
+    LOGE("Image::onLoad() check hook exist %d", m_isOnloadFuncExist);
+    if (!m_isOnloadFuncExist)
         return ;
 
-    onLoadCallback();
+    LOGE("Image::onLoad() really tiggered callback hook %p", onLoadCallback);
+    if(onLoadCallback != NULL)
+        onLoadCallback(this);
 }
 
 void Image::setSrc(std::string src)

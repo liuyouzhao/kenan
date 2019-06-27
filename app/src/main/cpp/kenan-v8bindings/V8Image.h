@@ -4,49 +4,45 @@
 #include <v8.h>
 #include "ObjectWrap.h"
 
-class Image;
+
 using namespace v8;
 
-namespace DCanvas
+namespace kenan_v8bindings
 {
 
-class V8Image : ObjectWrap
+class V8Image
 {
 
 public:
 	V8Image();
     ~V8Image();
 
-    static v8::Handle<v8::Value> GetSrc(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info);
-    static void SetSrc(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<Value>& info);
-    static v8::Handle<v8::Value> GetWidth(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info);
-    static v8::Handle<v8::Value> GetHeight(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info);
-    static void SetWidth(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<Value>& info);
+    static void GetSrc(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info);
+    static void SetSrc(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<void>& info);
+    static void GetWidth(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info);
+    static void GetHeight(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info);
     static void SetHeight(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<Value>& info);
 
-    static v8::Handle<v8::Value> GetOnLoad(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info);
-    static void SetOnLoad(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<Value>& info);
+    static void GetOnLoad(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info);
+    static void SetOnLoad(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<void>& info);
 
-    static v8::Handle<v8::Value> getImageData(const v8::FunctionCallbackInfo<v8::Value>& args);
-    //    Handle<Value> Create(const v8::FunctionCallbackInfo<v8::Value>& args);
-    static void ImageCreate(const v8::FunctionCallbackInfo<v8::Value>& args);
-    static void ImageDestroy(Persistent<Object> self, Image* parameter);
-    static v8::Persistent<FunctionTemplate> CreateImage();
+    static void getImageData(const v8::FunctionCallbackInfo<v8::Value>& args);
+    static v8::Handle<Object> Create(Isolate* isolate, const v8::FunctionCallbackInfo<v8::Value>& args);
 
-    static bool HasInstance(v8::Handle<v8::Value>);
+    static v8::Local<v8::Context> context;
 
-protected:
-    static Isolate* GetIsolate() {  return isolate_; }
+
 private:
     //function
     static v8::Persistent<v8::ObjectTemplate>               s_classProto;
     //property
     static v8::Persistent<v8::ObjectTemplate>               s_objectTemplate;
     static Persistent<FunctionTemplate>                     s_functionTemplate;
+    static Persistent<Template>                             s_proto;
 
-    static Isolate* isolate_;
+    static bool s_templateReady;
 };
 
-} // namepace DCanvas
+} // namepace kenan_v8bindings
 
 #endif  // V8IMAGE_H

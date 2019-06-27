@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "DMath.h"
 #include "png.h"
+#include "PlatformConfig.h"
 
 #if USE_SKIA_ANDROID
 #include "SkImageDecoder.h"
@@ -160,6 +161,7 @@ unsigned int* read_png_file(char* file_name, int& width, int& height) {
 	return pixelInt32;
 }
 
+
 unsigned int* dataFromstream(const char* data, int &w, int& h, int length) {
 #if USE_SKIA_ANDROID
 	SkBitmap bitmap;
@@ -250,10 +252,12 @@ unsigned int* dataFromstream(const char* data, int &w, int& h, int length) {
 	//// to stream
 	LOGE("-------------- 1");
 	char path[256] = {0};
-	sprintf(path, "/sdcard/x_cache_%d", g_counter_cache ++);
+	sprintf(path, "%s/x_cache_%d", PlatformConfig::instance()->getDataDir(), g_counter_cache ++);
 	FILE* fp = fopen(path, "wb");
-	if (!fp)
-		LOGE("file open error");
+	if (!fp) {
+		LOGE("file open error: %s", path);
+		return NULL;
+	}
 	LOGE("-------------- 2");
 	fwrite(data, length, 1, fp);
 	fflush(fp);

@@ -1,6 +1,7 @@
 #include "V8Image.h"
 #include "Image.h"
 #include "defines.h"
+#include "V8EventService.h"
 
 #include <string>
 #include <stdio.h>
@@ -8,12 +9,16 @@
 #undef LOG_TAG
 #define  LOG_TAG    "V8Image"
 
-namespace DCanvas
+using namespace kenan_graphics;
+namespace kenan_v8bindings
 {
 
 v8::Persistent<v8::ObjectTemplate>              V8Image::s_classProto;
 v8::Persistent<v8::ObjectTemplate>              V8Image::s_objectTemplate;
 Persistent<FunctionTemplate>                    V8Image::s_functionTemplate;
+Persistent<Template>                            V8Image::s_proto;
+
+bool    V8Image::s_templateReady = false;
 
 V8Image::V8Image()
 {
@@ -23,11 +28,10 @@ V8Image::~V8Image()
 {
 }
 
-void V8Image::SetSrc(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<Value>& info)
+void V8Image::SetSrc(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<void>& info)
 {
-    HandleScope scope(GetIsolate());
+    HandleScope scope(info.GetIsolate());
     CASTTOCLASS(Image, info);
-
     //copy value to srcfile;
     v8::String::Utf8Value  utfValue(value);
     //char *srcfile = *(utfValue);
@@ -40,17 +44,22 @@ void V8Image::SetSrc(v8::Local<v8::String> property, v8::Local<v8::Value> value,
 //    class_impl->updata(utfValue.length());
 }
 
-v8::Handle<v8::Value> V8Image::GetSrc(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info)
+void V8Image::GetSrc(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info)
 {
-    HandleScope scope(GetIsolate());
+    HandleScope scope(info.GetIsolate());
     CASTTOCLASS(Image, info);
 
-    return v8::String::NewFromUtf8(info.GetIsolate(), class_impl->getSrc().c_str());
+    info.GetReturnValue().Set(v8::String::NewFromUtf8(info.GetIsolate(), class_impl->getSrc().c_str()));
 }
 
-void V8Image::SetOnLoad(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<Value>& info)
+void onloadCallback(void *image)
 {
-    HandleScope scope(GetIsolate());
+    V8EventService::instance()->hookOnFinishResourceLoading(image);
+}
+
+void V8Image::SetOnLoad(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<void>& info)
+{
+    HandleScope scope(info.GetIsolate());
     CASTTOCLASS(Image, info);
 
     if (value->IsFunction())
@@ -61,128 +70,85 @@ void V8Image::SetOnLoad(v8::Local<v8::String> property, v8::Local<v8::Value> val
         LOGE("onload function error!");
         return;
     }
-    LOGD("onload setted");
-    class_impl->m_onLoadSeted = true;
 }
 
-v8::Handle<v8::Value>  V8Image::GetOnLoad(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info)
-{
-    HandleScope scope(GetIsolate());
-    return v8::Undefined(GetIsolate());
-}
-
-void V8Image::SetWidth(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<Value>& info)
+void  V8Image::GetOnLoad(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info)
 {
 }
 
-v8::Handle<v8::Value>  V8Image::GetWidth(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info)
+
+void  V8Image::GetWidth(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info)
 {
-    HandleScope scope(GetIsolate());
+    HandleScope scope(info.GetIsolate());
     CASTTOCLASS(Image, info);
 
-    return v8::Integer::New(GetIsolate(), class_impl->getWidth());
+    info.GetReturnValue().Set(v8::Integer::New(info.GetIsolate(), class_impl->getWidth()));
 }
 
 void V8Image::SetHeight(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<Value>& info)
 {
 }
 
-v8::Handle<v8::Value>  V8Image::GetHeight(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info)
+void  V8Image::GetHeight(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info)
 {
-    HandleScope scope(GetIsolate());
+    HandleScope scope(info.GetIsolate());
     CASTTOCLASS(Image, info);
 
-    return v8::Integer::New(GetIsolate(), class_impl->getHeight());
+    info.GetReturnValue().Set(v8::Integer::New(info.GetIsolate(), class_impl->getHeight()));
 }
 
-void V8Image::ImageCreate(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Image::getImageData(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
+	HandleScope scope(args.GetIsolate());
 
-    // throw if called without `new'
-    if (!args.IsConstructCall())
-        return GetIsolate()->ThrowException(v8::String::NewFromUtf8(GetIsolate(), "Cannot call constructor as function"));
+	Image *img = ObjectWrap::Unwrap<Image>(args.GetIsolate(), args.This());
 
-    // throw if we didn't get 0 args
-    if (args.Length() != 0)
-        return GetIsolate()->ThrowException(v8::String::NewFromUtf8(GetIsolate(), "Expected no arguments"));
 
-    // (just an example of a handy utility function)
-    // whether or not it was called as "new Point()" or just "Point()"
-    printf("Is constructor call: %s\n", args.IsConstructCall()?"yes":"no");
+	unsigned int* intArr = img->getImageData();
 
-    // create your c++ object that will follow the javascript object around
-    // make sure not to make it on the stack or it won't be around later when you need it
-    Image * t = new Image();
+	int w = img->getWidth();
+	int h = img->getHeight();
 
-    // another handy helper function example
-    // see how the internal field count is what it was set to earlier
-    //   in the InstanceTemplate
-    printf("Internal field count: %d\n", args.This()->InternalFieldCount()); // this prints the value '1'
-
-    // put the new Point object into the internal field
-    args.This()->SetInternalField(0, External::New(args.GetIsolate(), t));
-
-    // return the new object back to the javascript caller
-    args.GetReturnValue().Set(args.This());
+	v8::Local<v8::Array> pixels = v8::Array::New(args.GetIsolate(), w * h);
+	for (unsigned int i = 0; i < w * h; i++) {
+	    pixels->Set(v8::Int32::New(args.GetIsolate(), i), v8::Uint32::New(args.GetIsolate(), intArr[i]));
+	}
+	args.GetReturnValue().Set(pixels);
 }
 
-/**
- * Called when the T object is being garbage collected
- * delete the C++ object and ClearWeak on the Persistent handle.
- */
-void V8Image::ImageDestroy(Persistent<Object> self, Image* parameter)
+v8::Handle<v8::Object> V8Image::Create(Isolate* isolate, const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    //  v8 will call destructor so no need to delete more we have own img memory manager so no need this one
-    LOGD("image destroy");
-    SAGE_DELETE(parameter);
-    self.ClearWeak();
-    self.Dispose();
-    self.Clear();
-    LOGD("image destroy end!");
-}
+    EscapableHandleScope handleScope(isolate);
 
-v8::Handle<v8::Value> V8Image::getImageData(const v8::FunctionCallbackInfo<v8::Value>& args)
-{
-	 HandleScope scope(args.GetIsolate());
-
-	 Image *img = ObjectWrap::Unwrap<Image>(args.This());
-
-	 unsigned int* intArr = img->getImageData();
-	 int w = img->getWidth();
-	 int h = img->getHeight();
-	 v8::Local<v8::Array> pixels = v8::Array::New(w * h);
-	 for (unsigned int i = 0; i < w * h; i++) {
-		 pixels->Set(v8::Int32::New(i), v8::Uint32::New(intArr[i]));
-	 }
-
-	 return pixels;
-}
-
-v8::Persistent<v8::FunctionTemplate> V8Image::CreateImage(Isolate* isolate)
-{
-    isolate_ = isolate;
-    s_functionTemplate = FunctionTemplate::New(isolate_, V8Image::ImageCreate);
-    s_functionTemplate->SetClassName(v8::String::NewFromUtf8(GetIsolate(), "Image"));
-    s_classProto = s_functionTemplate->PrototypeTemplate();
-
-    s_objectTemplate = s_functionTemplate->InstanceTemplate();
-    s_objectTemplate ->SetInternalFieldCount(1);
-    s_objectTemplate ->SetAccessor(v8::String::NewFromUtf8(GetIsolate(), "src"),    V8Image::GetSrc,    V8Image::SetSrc);
-    s_objectTemplate ->SetAccessor(v8::String::NewFromUtf8(GetIsolate(), "width"),  V8Image::GetWidth,  V8Image::SetWidth);
-    s_objectTemplate ->SetAccessor(v8::String::NewFromUtf8(GetIsolate(), "height"), V8Image::GetHeight, V8Image::SetHeight);
-    s_objectTemplate ->SetAccessor(v8::String::NewFromUtf8(GetIsolate(), "onload"), V8Image::GetOnLoad, V8Image::SetOnLoad);
-    s_objectTemplate ->Set(v8::String::NewFromUtf8(GetIsolate(), "getImageData"),FunctionTemplate::New(V8Image::getImageData));
-    return s_functionTemplate;
-}
-
-bool V8Image::HasInstance(v8::Handle<v8::Value> arg)
-{
-    if (s_functionTemplate.IsEmpty())
+    if(!s_templateReady)
     {
-        LOGE("Image::HasInstance is Null");
-        return false;
-    }
-    return s_functionTemplate->HasInstance(arg);
-}
+        s_functionTemplate.Reset(isolate, FunctionTemplate::New(isolate));
+        s_classProto.Reset(isolate, s_functionTemplate.Get(isolate)->PrototypeTemplate());
 
+        s_objectTemplate.Reset(isolate, s_functionTemplate.Get(isolate)->InstanceTemplate());
+        s_objectTemplate.Get(isolate)->SetInternalFieldCount(1);
+        s_objectTemplate.Get(isolate)->SetAccessor(v8::String::NewFromUtf8(isolate, "src"),    V8Image::GetSrc,    V8Image::SetSrc);
+        s_objectTemplate.Get(isolate)->SetAccessor(v8::String::NewFromUtf8(isolate, "width"),  V8Image::GetWidth);
+        s_objectTemplate.Get(isolate)->SetAccessor(v8::String::NewFromUtf8(isolate, "height"), V8Image::GetHeight);
+        //s_objectTemplate.Get(isolate)->SetAccessor(v8::String::NewFromUtf8(isolate, "onload"), V8Image::GetOnLoad, V8Image::SetOnLoad);
+
+        s_proto.Reset(isolate, s_functionTemplate.Get(isolate)->PrototypeTemplate());
+        s_proto.Get(isolate)->Set(isolate, "getImageData", FunctionTemplate::New(isolate, V8Image::getImageData));
+    }
+
+
+    Image *image = new Image();
+
+    v8::Local<v8::Object> instance = s_objectTemplate.Get(isolate)->NewInstance();
+    instance->SetInternalField(0, External::New(isolate, image));
+
+    char name[TEXT_BUFFER_LENGTH] = {0};
+    Local<String> mark = args[0]->ToString();
+    mark->WriteUtf8(name);
+
+    V8EventService::instance()->bind(image, std::string(name));
+    image->setOnLoadCallback(onloadCallback);
+    image->setOnLoadFuncExist(true);
+    return handleScope.Escape(instance);
+}
 } // namespace DCanvas

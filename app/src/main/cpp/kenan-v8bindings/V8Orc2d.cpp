@@ -9,9 +9,11 @@
 #include "V8Orc2d.h"
 #include "V8Log.h"
 #include "V8Sprite.h"
+#include "V8Image.h"
 #include "gl2d_impl.h"
 #include "ObjectWrap.h"
 #include "fs.h"
+#include <stdlib.h>
 
 #undef LOG_TAG
 #define LOG_TAG    "V8Orc2d"
@@ -611,6 +613,7 @@ void V8Orc2d::Transform_scaleNonUniform(const v8::FunctionCallbackInfo<v8::Value
     if(args.Length() != 2)
     {
         THROW_EXCEPTION(args.GetIsolate(), TError, "Transform_scaleNonUniform : number of args exception! argn must:2");
+        return;
     }
     float sx = args[0]->NumberValue();
     float sy = args[1]->NumberValue();
@@ -620,6 +623,14 @@ void V8Orc2d::Transform_scaleNonUniform(const v8::FunctionCallbackInfo<v8::Value
 
 void V8Orc2d::Resource_CreateImage(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
+    HandleScope handleScope(args.GetIsolate());
+    if(args.Length() < 1)
+    {
+        THROW_EXCEPTION(args.GetIsolate(), TError, "Resource_CreateImage : number of args exception! argn must:1");
+        exit(-1);
+    }
+    Local<Object> instance = V8Image::Create(args.GetIsolate(), args);
+    args.GetReturnValue().Set(instance);
 }
 
 void V8Orc2d::Resource_DestroyImage(const v8::FunctionCallbackInfo<v8::Value>& args)

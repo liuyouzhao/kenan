@@ -4,7 +4,7 @@
 #undef LOG_TAG
 #define  LOG_TAG    "CallBackFuncs"
 
-namespace DCanvas
+namespace kenan_system
 {
 
 CallBackFuncs* CallBackFuncs::s_self = NULL;

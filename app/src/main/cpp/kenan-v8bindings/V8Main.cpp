@@ -6,7 +6,9 @@
 #include "V8Log.h"
 #include "V8Orc2d.h"
 #include "V8Sprite.h"
+#include "V8EventService.h"
 #include "Log.h"
+#include <unistd.h>
 
 using namespace kenan_system;
 
@@ -74,7 +76,8 @@ void V8Main::firstRunJavascript(std::string javascript)
         v8::String::Utf8Value smessage(message->Get());
         __LOGE(__FUNCTION__, "Uncaught Exception:");
         __LOGE(__FUNCTION__, "line %d ", message->GetLineNumber());
-        codeState = COMPILED;
+        sleep(1);
+        exit(-1);
         return;
     }
     persistentContext.Reset(isolate, context);
@@ -131,6 +134,8 @@ void V8Main::onFrameUpdateCallback()
         function->Call(tmpContext->Global(), 0, NULL);
     }
 
+    V8EventService::instance()->callAllReadyHooks(isolate, tmpContext);
+
     if (try_catch.HasCaught())
     {
         v8::String::Utf8Value exception(try_catch.Exception());
@@ -139,7 +144,8 @@ void V8Main::onFrameUpdateCallback()
         __LOGE(TAG_SYS, "Uncaught Exception:");
         __LOGE(TAG_SYS, "%s", (char*)*smessage);
         __LOGE(TAG_SYS, "line %d ", message->GetLineNumber());
-        return;
+        sleep(1);
+        exit(-1);
     }
     codeState = RUNNING;
 }

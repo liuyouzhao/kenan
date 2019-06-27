@@ -80,6 +80,9 @@ public:
     float       GetWidth() const { return width; }
     float       GetHeight() const { return height; }
 
+    void        SetWidth(int w) { nwidth = w; }
+    void        SetHeight(int h) { nheight = h; }
+
 protected:
     Gl2dSprite();
     Gl2d_Impl   *gl2d;

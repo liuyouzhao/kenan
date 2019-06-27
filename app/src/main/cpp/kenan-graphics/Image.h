@@ -4,12 +4,11 @@
 #include <gl2d_impl.h>
 #include <string>
 
-namespace DCanvas
+namespace kenan_graphics
 {
 
 class Image
 {
-friend class V8Image;
 public:
     Image();
     ~Image();
@@ -28,8 +27,9 @@ public:
     void freeTexture();
     unsigned int* getImageData() { return m_data; }
 
-    inline void setOnLoadCallback(void (*cb)()) {  onLoadCallback = cb;    }
-
+    inline void setOnLoadCallback(void (*cb)(void*)) {  onLoadCallback = cb;    }
+    inline bool hasOnLoadFunc() {    return m_isOnloadFuncExist; }
+    inline void setOnLoadFuncExist(bool yesOrNo) {   m_isOnloadFuncExist = yesOrNo;  }
 private:
     HTEXTURE                m_hTex;
     unsigned int *          m_data;
@@ -37,10 +37,10 @@ private:
     int                     m_width;
     int                     m_height;
     Gl2d_Impl *             m_context;
-    bool                    m_onLoadSeted;
+    bool                    m_isOnloadFuncExist;
     int                     m_canvasId;
 
-    void (*onLoadCallback)();
+    void (*onLoadCallback)(void *key);
 };
 
 } // namepace DCanvas

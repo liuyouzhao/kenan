@@ -11,6 +11,7 @@
 #define RADIAL_VERTEX_NUMBER 72
 #define TEXT_BUFFER_LENGTH 512
 
+#define APP_ROOT "com.kenan.main"
 
 /*
 ** Safe delete&release

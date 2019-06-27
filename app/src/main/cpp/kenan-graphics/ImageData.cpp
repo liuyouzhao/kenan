@@ -6,7 +6,7 @@
 #undef LOG_TAG
 #define  LOG_TAG    "ImageData"
 
-namespace DCanvas
+namespace kenan_graphics
 {
 ImageData::ImageData(int w, int h)
 {

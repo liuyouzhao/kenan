@@ -1,5 +1,5 @@
 #ifndef LOADER_H
-#define LOADER_h
+#define LOADER_H
 
 namespace DCanvas
 {
