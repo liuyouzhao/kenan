@@ -6,6 +6,11 @@
 #define KENAN_PLATFORMCONFIG_H
 
 #include <string>
+#if IN_ANDROID
+#include <jni.h>
+#elif IN_LINUX
+#elif IN_WINDOWS
+#endif
 
 class PlatformConfig {
 public:
@@ -29,11 +34,25 @@ public:
         return m_dataDir.c_str();
     }
 
+#if IN_ANDROID
+    void setPlatformEnv(JNIEnv *env)
+    {
+        this->m_env = env;
+    }
+    JNIEnv* env() { return m_env; }
+#elif IN_LINUX
+#elif IN_WINDOWS
+#endif
+
 private:
-
     static PlatformConfig *s_self;
-
     std::string m_dataDir;
+
+#if IN_ANDROID
+    JNIEnv* m_env;
+#elif IN_LINUX
+#elif IN_WINDOWS
+#endif
 };
 
 

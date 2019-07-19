@@ -4,6 +4,7 @@
 
 #include "HttpClient.h"
 #include "libnhr.h"
+#include <httplib.h>
 
 namespace kenan_system
 {
@@ -54,6 +55,19 @@ void HttpClient::doRequest(void *request)
 void HttpClient::setCallback(void* (cb)(char*, unsigned int, void* key))
 {
     this->onHttpCallback = cb;
+}
+
+
+void HttpClient::httpsGetRequest(std::string host, int port, std::string tails)
+{
+    httplib::Client cli(host, port);
+
+    auto res = cli.Get(tails, [&](const char *data, size_t len) {
+                                    body.append(data, len);
+                                  });
+    if (res && res->status == 200) {
+        std::cout << res->body << std::endl;
+    }
 }
 
 }

@@ -31,12 +31,13 @@
 
 #define CLOUDX_SCREEN_WIDTH     480
 #define CLOUDX_SCREEN_HEIGHT    800
+#define MAX_URL_LENGTH 512
 
 #define TAG_SYS "[kenan-sys]"
 #define TAG_JS  "[kenan-js]"
 #define TAG_ASSERT "[kenan-assert]"
 
-#ifdef __ANDROID__
+#if IN_ANDROID
 #undef LOG_TAG
 #undef LOGI
 #undef LOGE
@@ -49,5 +50,13 @@
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
 #endif
+
+#if IN_ANDROID
+#define RESOURCE_MANAGER_CLASS_NAME "com/kenan/plaform/ResourceManager"
+#define RESOURCE_CONTROLLER_CLASS_NAME "com/kenan/plaform/ResourceController"
+#elif IN_WINDOWS
+#elif IN_LINUX
+#endif
+
 
 #endif // DEFINES_H

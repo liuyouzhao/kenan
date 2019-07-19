@@ -1,8 +1,5 @@
 package com.kenan.platform;
 
-import java.io.IOException;
-import java.util.HashMap;
-
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
@@ -10,9 +7,12 @@ import android.media.SoundPool;
 import android.os.Message;
 import android.util.Log;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 public class SoundManager {
     private static SoundPool sSoundPool;
-    private static int sMaxPoolSize = Sound.MAX_SOUND_NUM;
+    private static int sMaxPoolSize = ResourceManager.MAX_SOUND_NUM;
     private static int sCurrentNum = 0;
 
     private static HashMap<String, Integer> sHashSounds = new HashMap<String, Integer>();
@@ -54,8 +54,8 @@ public class SoundManager {
                         sCurrentNum ++;
                         sHashReady.put(sampleId, true);
                         Log.e("SoundManager", "sampleId: " + sampleId);
-                        Message msg = Sound.resourceEventHandler.obtainMessage(Sound.MSG_ONLOAD_RESOURCE, sampleId, -1);
-                        Sound.resourceEventHandler.sendMessage(msg);
+                        Message msg = ResourceManager.resourceEventHandler.obtainMessage(ResourceManager.MSG_ONLOAD_RESOURCE, sampleId, -1);
+                        ResourceManager.resourceEventHandler.sendMessage(msg);
                     }
                     else {
                         Log.e("SoundManager", "Failed Loaded sound sampleId: " + sampleId);
@@ -88,8 +88,8 @@ public class SoundManager {
                     if(status == 0) {
                         sCurrentNum ++;
                         sHashReady.put(sampleId, true);
-                        Message msg = Sound.resourceEventHandler.obtainMessage(Sound.MSG_ONLOAD_RESOURCE, sampleId, -1);
-                        Sound.resourceEventHandler.sendMessage(msg);
+                        Message msg = ResourceManager.resourceEventHandler.obtainMessage(ResourceManager.MSG_ONLOAD_RESOURCE, sampleId, -1);
+                        ResourceManager.resourceEventHandler.sendMessage(msg);
                         Log.e("SoundManager", "sampleId: " + sampleId);
                     }
                     else {

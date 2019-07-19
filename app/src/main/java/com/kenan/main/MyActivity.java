@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 
-import com.kenan.platform.Sound;
+import com.kenan.platform.ResourceManager;
 import com.kenan.ui.GLView;
 
 import java.io.InputStream;
@@ -44,7 +44,7 @@ public class MyActivity extends Activity {
         if(mHasInited) {
             return;
         }
-        Sound.init(this);
+        ResourceManager.init(this);
         mCanvas = new GLView(getApplication());
         String code = readCode();
         Log.e("HUJIA", code);

@@ -22,13 +22,15 @@ file(GLOB kenan_graphics_cpp
 
 file(GLOB kenan_system_cpp
     "src/main/cpp/kenan-system/*.h"
-    "src/main/cpp/kenan-system/*.cpp"
-    "src/main/cpp/kenan-system/net/*.cpp"
-    "src/main/cpp/kenan-system/net/*.h")
+    "src/main/cpp/kenan-system/*.cpp")
 
 file(GLOB kenan_platform_cpp
     "src/main/cpp/kenan-platform/*.h"
-    "src/main/cpp/kenan-platform/*.cpp")
+    "src/main/cpp/kenan-platform/*.cpp"
+    "src/main/cpp/kenan-platform/loader/*.cpp"
+    "src/main/cpp/kenan-platform/loader/*.h"
+    "src/main/cpp/kenan-platform/controller/*.cpp"
+    "src/main/cpp/kenan-platform/controller/*.h")
 
 file(GLOB kenan_v8bindings_cpp
     "src/main/cpp/kenan-v8bindings/ObjectWrap.h"
@@ -44,7 +46,9 @@ file(GLOB kenan_v8bindings_cpp
     "src/main/cpp/kenan-v8bindings/V8Image.cpp"
     "src/main/cpp/kenan-v8bindings/V8Image.h"
     "src/main/cpp/kenan-v8bindings/V8EventService.cpp"
-    "src/main/cpp/kenan-v8bindings/V8EventService.h")
+    "src/main/cpp/kenan-v8bindings/V8EventService.h"
+    "src/main/cpp/kenan-v8bindings/V8ResourceManager.cpp"
+    "src/main/cpp/kenan-v8bindings/V8ResourceManager.h")
 
 file(GLOB thirdparty_png_c
 	src/main/cpp/thirdparty/libpng/png.c
@@ -66,7 +70,8 @@ file(GLOB thirdparty_png_c
 	src/main/cpp/thirdparty/libpng/pngwutil.c
 	"src/main/cpp/thirdparty/libpng/*.h"
 	"src/main/cpp/thirdparty/libnhr/*.c"
-	"src/main/cpp/thirdparty/libnhr/*.h")
+	"src/main/cpp/thirdparty/libnhr/*.h"
+	"src/main/cpp/thirdparty/httplib/*.h")
 
 file(GLOB main_cpp
     src/main/cpp/mainjni.cpp)
@@ -88,6 +93,8 @@ target_include_directories( ${APP_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/libs/include
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-system
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-graphics
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-platform
+                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-platform/loader
+                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-platform/controller
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-v8bindings
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/thirdparty)
 

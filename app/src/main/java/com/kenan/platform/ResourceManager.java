@@ -1,15 +1,15 @@
 package com.kenan.platform;
 
-import java.util.HashMap;
-import java.util.Vector;
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import java.util.HashMap;
+import java.util.Vector;
 
-public class Sound {
+
+public class ResourceManager {
     static class Resource {
         public int outId;
         public int inId;
