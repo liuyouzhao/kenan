@@ -28,6 +28,7 @@ public:
 
     static void getImageData(const v8::FunctionCallbackInfo<v8::Value>& args);
     static v8::Handle<Object> Create(Isolate* isolate, const v8::FunctionCallbackInfo<v8::Value>& args);
+    static void Destroy(Isolate* isolate, const v8::FunctionCallbackInfo<v8::Value>& args);
 
     static v8::Local<v8::Context> context;
 

@@ -151,4 +151,25 @@ v8::Handle<v8::Object> V8Image::Create(Isolate* isolate, const v8::FunctionCallb
     image->setOnLoadFuncExist(true);
     return handleScope.Escape(instance);
 }
+
+void V8Image::Destroy(Isolate* isolate, const v8::FunctionCallbackInfo<v8::Value>& args)
+{
+    HandleScope handleScope(args.GetIsolate());
+    if(args.Length() == 0)
+    {
+        return;
+    }
+
+    Local<Object> argObject = args[0]->ToObject(args.GetIsolate());
+
+    Image *image = ObjectWrap::Unwrap<Image>(args.GetIsolate(), argObject);
+    V8EventService::instance()->unbind(image);
+
+    if(image)
+    {
+        delete image;
+        image = NULL;
+    }
+}
+
 } // namespace DCanvas

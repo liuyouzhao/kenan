@@ -13,6 +13,7 @@
 #include "gl2d_impl.h"
 #include "ObjectWrap.h"
 #include "fs.h"
+#include "Image.h"
 #include <stdlib.h>
 
 #undef LOG_TAG
@@ -20,6 +21,7 @@
 #define MAX_TEXT_LENGTH 512
 
 using namespace v8;
+using namespace kenan_graphics;
 
 namespace kenan_v8bindings
 {
@@ -635,6 +637,13 @@ void V8Orc2d::Resource_CreateImage(const v8::FunctionCallbackInfo<v8::Value>& ar
 
 void V8Orc2d::Resource_DestroyImage(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
+    HandleScope handleScope(args.GetIsolate());
+    if(args.Length() < 1)
+    {
+        THROW_EXCEPTION(args.GetIsolate(), TError, "Resource_CreateImage : number of args exception! argn must:1");
+        exit(-1);
+    }
+    V8Image::Destroy(args.GetIsolate(), args);
 }
 
 void V8Orc2d::Resource_CreateSound(const v8::FunctionCallbackInfo<v8::Value>& args)

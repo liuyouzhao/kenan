@@ -17,7 +17,7 @@ namespace kenan_v8bindings
 {
 class V8EventService {
 public:
-
+    V8EventService();
     static V8EventService* instance()
     {
         if(s_self == NULL)
@@ -27,6 +27,7 @@ public:
 
     void hookOnFinishResourceLoading(void* ptr);
     void bind(void* ptr, std::string mark);
+    void unbind(void* ptr);
 
     void callAllReadyHooks(Isolate* isolate, Local<Context> context);
 
