@@ -32,16 +32,11 @@ void V8Image::SetSrc(v8::Local<v8::String> property, v8::Local<v8::Value> value,
 {
     HandleScope scope(info.GetIsolate());
     CASTTOCLASS(Image, info);
-    //copy value to srcfile;
+
     v8::String::Utf8Value  utfValue(value);
-    //char *srcfile = *(utfValue);
     std::string srcfile = *(utfValue);
 
     class_impl->setSrc(srcfile);
-//    class_impl->m_src = new char[utfValue.length() +1];
-//    strcpy(class_impl->m_src, srcfile);
-//    class_impl->m_src[utfValue.length()] = 0;
-//    class_impl->updata(utfValue.length());
 }
 
 void V8Image::GetSrc(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info)

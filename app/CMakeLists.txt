@@ -15,15 +15,16 @@ file(GLOB kenan_engine2_cpp
 
 file(GLOB kenan_graphics_cpp
     "src/main/cpp/kenan-graphics/*.h"
+    "src/main/cpp/kenan-graphics/ImageImpl.cpp"
     "src/main/cpp/kenan-graphics/*.cpp")
 
 file(GLOB kenan_system_cpp
     "src/main/cpp/kenan-system/*.h"
     "src/main/cpp/kenan-system/*.cpp")
 
-file(GLOB kenan_platform_cpp
-    "src/main/cpp/kenan-platform/*.h"
-    "src/main/cpp/kenan-platform/*.cpp")
+file(GLOB kenan_config_cpp
+    "src/main/cpp/kenan-config/*.h"
+    "src/main/cpp/kenan-config/*.cpp")
 
 file(GLOB v8bindings_cpp
     "src/main/cpp/v8bindings/ObjectWrap.h"
@@ -74,7 +75,7 @@ add_library( ${APP_NAME} SHARED                              ${main_cpp}
                                                              ${kenan_graphics_cpp}
                                                              ${v8bindings_cpp}
                                                              ${thirdparty_png_c}
-                                                             ${kenan_platform_cpp})
+                                                             ${kenan_config_cpp})
 
 add_definitions( -DIN_ANDROID=1 -DUSE_SKIA_ANDROID=0)
 
@@ -84,9 +85,7 @@ target_include_directories( ${APP_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/libs/include
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-engine2
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-system
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-graphics
-                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-platform
-                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-platform/loader
-                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-platform/controller
+                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-config
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/v8bindings
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/thirdparty)
 

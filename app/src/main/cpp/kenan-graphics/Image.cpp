@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "ImageImpl.h"
 #include "Image.h"
 #include "fs.h"
 #include <stdlib.h>
@@ -76,6 +77,36 @@ void Image::freeTexture()
     }
 }
 
+
+void Image::doLoadImageData() {
+
+    if(m_src == NULL) return;
+
+    int len = strlen(m_src);
+
+    if(len <= 0) return;
+
+    const int supportMimeTypesNum = 2;
+    const char *constBase64Headers[supportMimeTypesNum] = {
+        "data:*;base64,",
+        "data:image/png;base64,"
+    };
+
+    /// Is base64 image source
+    for(int i = 0; i < supportMimeTypesNum; i ++) {
+        const char *mimeTypeHeader = constBase64Headers[i];
+        if(!strncmp(mimeTypeHeader, m_src, strlen(mimeTypeHeader))) {
+            m_data = loadImageDataFromBase64String(m_src, m_width, m_height);
+            onLoad();
+            return;
+        }
+    }
+
+    /// Is native file
+    m_data = loadImageDataFromFile(m_src, m_width, m_height);
+    onLoad();
+}
+
 void Image::updata(int length)
 {
     bool flg = false;
@@ -131,23 +162,6 @@ void Image::updata(int length)
         std::string head("http://");
         std::string basepath(this->m_src);
 
-//        CloudX* cx = CloudX::create();
-//        if (0 == path.compare(0,head.length(),head))/*is http format*/
-//        {
-//            flg = false;
-//        }
-//        else /*native file format add base path*/
-//        {
-//            basepath = cx->getBasePath() + path;
-//            if (access(basepath.c_str(),0) == -1)
-//            {
-//                basepath = cx->getBaseUrl() + path;
-//                if (0 == basepath.compare(0, head.length(), head))/*should not reach here*/
-//                {
-//                    flg = false;
-//                }
-//            }
-//        }
         if (flg)/*native file format*/
         {
             this->m_data = dataFromFile(basepath.c_str(), m_width, m_height);
@@ -200,10 +214,6 @@ void Image::onLoad()
 void Image::setSrc(std::string src)
 {
 	const char* srcfile = src.c_str();
-//	if (m_src && 0 == strcmp(m_src, srcfile))
-//	{
-//		return;
-//	}
 	if (m_src)
 	{
 		delete m_src;
@@ -212,7 +222,8 @@ void Image::setSrc(std::string src)
 	m_src = new char[src.length() +1];
 	strcpy(m_src, srcfile);
 	m_src[src.length()] = 0;
-	updata(src.length());
+	//updata(src.length());
+	doLoadImageData();
 }
 
 } // namespace DCanvas

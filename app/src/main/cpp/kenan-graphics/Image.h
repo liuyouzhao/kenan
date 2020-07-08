@@ -13,6 +13,7 @@ public:
     Image();
     ~Image();
 
+    void doLoadImageData();
     void updata(int length);
     void onLoad();
     void setData(void* data, int size);

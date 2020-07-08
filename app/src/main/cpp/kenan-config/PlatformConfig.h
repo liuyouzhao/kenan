@@ -34,12 +34,21 @@ public:
         return m_dataDir.c_str();
     }
 
+    void setAssetsDir(std::string dir) {
+        m_assetsDir = dir;
+    }
+
+    const char *getAssetsDir() {
+        return m_assetsDir.c_str();
+    }
+
 #if IN_ANDROID
     void setPlatformEnv(JNIEnv *env)
     {
         this->m_env = env;
     }
     JNIEnv* env() { return m_env; }
+
 #elif IN_LINUX
 #elif IN_WINDOWS
 #endif
@@ -47,6 +56,7 @@ public:
 private:
     static PlatformConfig *s_self;
     std::string m_dataDir;
+    std::string m_assetsDir;
 
 #if IN_ANDROID
     JNIEnv* m_env;

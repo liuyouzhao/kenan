@@ -3,13 +3,12 @@
 
 #include <stdlib.h>
 
-//#ifndef UChar
-//#define UChar unsigned char
-//#endif
-
+/// Annotations
+#define __RETURN_ALLOCATED_HEAP__
 
 #define RADIAL_VERTEX_NUMBER 72
 #define TEXT_BUFFER_LENGTH 512
+#define PATH_MAX_LENGTH TEXT_BUFFER_LENGTH
 
 #define APP_ROOT "com.kenan.main"
 

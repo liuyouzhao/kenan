@@ -8,7 +8,9 @@
 ------------------------------------------------
  **Kenan** | **V8bindings** | Third-party Libs | V8 Lib
 ------------------------------------------------
-            System Adaptor Layer
+            System Adaptation Layer
+------------------------------------------------
+        System Impl(Android/Linux/Windows)
 ```
 
 ## Kenan modules
