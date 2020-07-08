@@ -13,9 +13,9 @@ namespace kenan_platform
 class ResourceLoader {
 public:
     /// load resource & release resource
-    static unsigned int loadImageResource(std::string filePath);
-    static unsigned int loadSoundResource(std::string filePath);
-    static unsigned int releaseResource(unsigned int id);
+    static std::string loadImageResource(std::string filePath);
+    static std::string loadSoundResource(std::string filePath);
+    static int releaseResource(std::string id);
 };
 
 }

@@ -9,9 +9,6 @@ set_target_properties( v8_base PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/
 add_library( v8_snapshot STATIC IMPORTED )
 set_target_properties( v8_snapshot PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/libs/${ANDROID_ABI}/libv8_snapshot.a )
 
-add_library( png STATIC IMPORTED )
-set_target_properties( png PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/libs/${ANDROID_ABI}/libpng.a )
-
 file(GLOB kenan_engine2_cpp
     "src/main/cpp/kenan-engine2/*.h"
     "src/main/cpp/kenan-engine2/*.cpp")
@@ -102,5 +99,4 @@ target_link_libraries( ${APP_NAME} v8_base v8_snapshot log
                                     z
                                     c
                                     EGL
-                                    GLESv2
-                                    png)
+                                    GLESv2)

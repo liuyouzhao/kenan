@@ -45,8 +45,8 @@ void V8ResourceManager::LoadImageResource(const v8::FunctionCallbackInfo<v8::Val
 	v8::Local<v8::String> jstr_tmp = args[0]->ToString();
 	int len = jstr_tmp->WriteUtf8(url);
 
-    unsigned int rt = ResourceLoader::loadImageResource(std::string(url));
-    args.GetReturnValue().Set(v8::Int32::New(args.GetIsolate(), rt));
+    std::string uuid = ResourceLoader::loadImageResource(std::string(url));
+    args.GetReturnValue().Set(v8::String::NewFromUtf8(args.GetIsolate(), uuid.c_str()));
 }
 
 void V8ResourceManager::LoadSoundResource(const v8::FunctionCallbackInfo<v8::Value>& args) {
@@ -57,15 +57,19 @@ void V8ResourceManager::LoadSoundResource(const v8::FunctionCallbackInfo<v8::Val
     v8::Local<v8::String> jstr_tmp = args[0]->ToString();
     int len = jstr_tmp->WriteUtf8(url);
 
-    unsigned int rt = ResourceLoader::loadSoundResource(std::string(url));
-    args.GetReturnValue().Set(v8::Int32::New(args.GetIsolate(), rt));
+    std::string uuid = ResourceLoader::loadImageResource(std::string(url));
+    args.GetReturnValue().Set(v8::String::NewFromUtf8(args.GetIsolate(), uuid.c_str()));
 }
 
 void V8ResourceManager::ReleaseResource(const v8::FunctionCallbackInfo<v8::Value>& args) {
 	if(args.Length() != 1)
         THROW_EXCEPTION(args.GetIsolate(), TError, "ReleaseResource : number of args exception! 1");
-	int id = args[0]->NumberValue();
-	ResourceLoader::releaseResource(id);
+
+    char url[MAX_URL_LENGTH] = {0};
+    v8::Local<v8::String> jstr_tmp = args[0]->ToString();
+    int len = jstr_tmp->WriteUtf8(url);
+
+	ResourceLoader::releaseResource(std::string(url));
 }
 
 

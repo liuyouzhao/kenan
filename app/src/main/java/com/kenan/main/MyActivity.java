@@ -44,7 +44,7 @@ public class MyActivity extends Activity {
         if(mHasInited) {
             return;
         }
-        ResourceManager.init(this);
+        ResourceManager.getInstance().init(this);
         mCanvas = new GLView(getApplication());
         String code = readCode();
         Log.e("HUJIA", code);

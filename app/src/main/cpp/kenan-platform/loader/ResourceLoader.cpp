@@ -8,40 +8,42 @@
 namespace kenan_platform
 {
 
-unsigned int ResourceLoader::loadImageResource(std::string filePath)
+std::string ResourceLoader::loadImageResource(std::string filePath)
 {
     JNIEnv *jniEnv = PlatformConfig::instance()->env();
     jclass JRMClass = jniEnv->FindClass(RESOURCE_MANAGER_CLASS_NAME);
-	jmethodID jmethod = jniEnv->GetStaticMethodID(JRMClass, "LoadImageResource","(Ljava/lang/String;)I");
+	jmethodID jmethod = jniEnv->GetStaticMethodID(JRMClass, "LoadImageResource","(Ljava/lang/String;)java/lang/String;");
 
     jstring j_config_name = jniEnv->NewString((const jchar*)filePath.c_str(), filePath.size());
-	jint result = (jint) jniEnv->CallStaticIntMethod(JRMClass, jmethod, j_config_name);
+	jstring result = (jstring) jniEnv->CallStaticIntMethod(JRMClass, jmethod, j_config_name);
 
-	return result;
+    const char *str = jniEnv->GetStringUTFChars(result, 0);
+    return std::string(str);
 }
 
-unsigned int ResourceLoader::loadSoundResource(std::string filePath)
+std::string ResourceLoader::loadSoundResource(std::string filePath)
 {
     JNIEnv *jniEnv = PlatformConfig::instance()->env();
 
     jclass JRMClass = jniEnv->FindClass(RESOURCE_MANAGER_CLASS_NAME);
-	jmethodID jmethod = jniEnv->GetStaticMethodID(JRMClass, "LoadSoundResource","(Ljava/lang/String;)I");
+	jmethodID jmethod = jniEnv->GetStaticMethodID(JRMClass, "LoadSoundResource","(Ljava/lang/String;)java/lang/String;");
 
     jstring j_config_name = jniEnv->NewString((const jchar*)filePath.c_str(), filePath.size());
-	jint result = (jint) jniEnv->CallStaticIntMethod(JRMClass, jmethod, j_config_name);
+	jstring result = (jstring) jniEnv->CallStaticIntMethod(JRMClass, jmethod, j_config_name);
 
-	return result;
+    const char *str = jniEnv->GetStringUTFChars(result, 0);
+	return std::string(str);
 }
 
-unsigned int ResourceLoader::releaseResource(unsigned int id)
+int ResourceLoader::releaseResource(std::string id)
 {
     JNIEnv *jniEnv = PlatformConfig::instance()->env();
 
     jclass JRMClass = jniEnv->FindClass(RESOURCE_MANAGER_CLASS_NAME);
-    jmethodID jmethod = jniEnv->GetStaticMethodID(JRMClass, "GetImageHeight","(I)I");
-    uintptr_t height = (uintptr_t) jniEnv->CallStaticIntMethod(JRMClass, jmethod, id);
-
-    return height;
+    jmethodID jmethod = jniEnv->GetStaticMethodID(JRMClass, "ReleaseResource","(java/lang/String;)I");
+    jstring j_id = jniEnv->NewString((const jchar*)id.c_str(), id.size());
+    jint rt = (jint) jniEnv->CallStaticIntMethod(JRMClass, jmethod, j_id);
+    return rt;
 }
 
 }
