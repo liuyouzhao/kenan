@@ -24,7 +24,7 @@
 #ifndef __NHR_REQUEST_H__
 #define __NHR_REQUEST_H__ 1
 
-#include "../libnhr.h"
+#include "libnhr.h"
 #include "nhr_common.h"
 #include "nhr_thread.h"
 #include "nhr_memory.h"

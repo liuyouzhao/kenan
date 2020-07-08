@@ -22,7 +22,7 @@
 
 
 #include "nhr_common.h"
-#include "../libnhr.h"
+#include "libnhr.h"
 
 const char * k_nhr_request_http_ver = "1.1";
 const char * k_nhr_content_type = "Content-Type";

@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "nhr_common.h"
-#include "../libnhr.h"
+#include "libnhr.h"
 
 // size > 0 => malloc
 NHR_API(void *) nhr_malloc(const size_t size);

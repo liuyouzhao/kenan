@@ -1,210 +1,183 @@
 #include "defines.h"
-#include "Script.h"
 #include "V8ResourceManager.h"
+#include "ResourceLoader.h"
+#include "ResourceController.h"
+#include "V8Log.h"
+#include "ObjectWrap.h"
 
-#include <android/log.h>
-
-#undef LOG_TAG
-#define  LOG_TAG    "V8ResourceManager"
-
-namespace DCanvas
+using namespace kenan_platform;
+namespace kenan_v8bindings
 {
 
-v8::Handle<v8::ObjectTemplate>              V8ResourceManager::s_classProto;
-v8::Handle<v8::ObjectTemplate>              V8ResourceManager::s_objectTemplate;
-Handle<FunctionTemplate>                    V8ResourceManager::s_functionTemplate;
-JNIEnv* V8ResourceManager::s_JNIEnv;
-static const char* CLASS_NAME = "com/alibaba/cloudx/platform/ResourceManager";
-static const int MAX_URL_LENGTH = 512;
-
-v8::Handle<v8::Object> V8ResourceManager::Wrap(JNIEnv* env)
+v8::Handle<v8::Value> V8ResourceManager::genSingleton(Isolate *isolate)
 {
-	s_JNIEnv = env;
-    s_functionTemplate = FunctionTemplate::New();
-    s_functionTemplate->SetClassName(v8::String::New("V8ResourceManager"));
-    s_classProto = s_functionTemplate ->PrototypeTemplate();
+    v8::Local<v8::FunctionTemplate> t = v8::FunctionTemplate::New(isolate);
+    t->Set(isolate, "func_property", v8::Number::New(isolate, 1));
+    v8::Local<v8::Template> proto_t = t->PrototypeTemplate();
 
-    s_objectTemplate = s_functionTemplate->InstanceTemplate();
-    s_objectTemplate ->SetInternalFieldCount(1);
-    s_objectTemplate->Set("LoadImageResource", FunctionTemplate::New(V8ResourceManager::LoadImageResource));
-    s_objectTemplate->Set("LoadSoundResource", FunctionTemplate::New(V8ResourceManager::LoadSoundResource));
-    s_objectTemplate->Set("ReleaseResource", FunctionTemplate::New(V8ResourceManager::ReleaseResource));
+    //all class functions
+    proto_t->Set(isolate, "LoadImageResource", FunctionTemplate::New(isolate, V8ResourceManager::LoadImageResource));
+    proto_t->Set(isolate, "LoadSoundResource", FunctionTemplate::New(isolate, V8ResourceManager::LoadSoundResource));
+    proto_t->Set(isolate, "ReleaseResource", FunctionTemplate::New(isolate, V8ResourceManager::ReleaseResource));
+    proto_t->Set(isolate, "GetImageData", FunctionTemplate::New(isolate, V8ResourceManager::GetImageData));
 
-    s_objectTemplate->Set("GetImageData", FunctionTemplate::New(V8ResourceManager::GetImageData));
-    s_objectTemplate->Set("GetImageWidth", FunctionTemplate::New(V8ResourceManager::GetImageWidth));
-    s_objectTemplate->Set("GetImageHeight", FunctionTemplate::New(V8ResourceManager::GetImageHeight));
+#if 0
+    s_objectTemplate->Set("GetImageWidth", FunctionTemplate::New(isolate, V8ResourceManager::GetImageWidth));
+    s_objectTemplate->Set("GetImageHeight", FunctionTemplate::New(isolate, V8ResourceManager::GetImageHeight));
 
-    s_objectTemplate->Set("PlaySound", FunctionTemplate::New(V8ResourceManager::PlaySound));
-    s_objectTemplate->Set("StopSound", FunctionTemplate::New(V8ResourceManager::StopSound));
-    s_objectTemplate->Set("PauseSound", FunctionTemplate::New(V8ResourceManager::PauseSound));
-    s_objectTemplate->Set("ResumeSound", FunctionTemplate::New(V8ResourceManager::ResumeSound));
-    s_objectTemplate->Set("SetSoundVolume", FunctionTemplate::New(V8ResourceManager::SetSoundVolume));
-
-    return s_objectTemplate->NewInstance();
+    s_objectTemplate->Set("PlaySound", FunctionTemplate::New(isolate, V8ResourceManager::PlaySound));
+    s_objectTemplate->Set("StopSound", FunctionTemplate::New(isolate, V8ResourceManager::StopSound));
+    s_objectTemplate->Set("PauseSound", FunctionTemplate::New(isolate, V8ResourceManager::PauseSound));
+    s_objectTemplate->Set("ResumeSound", FunctionTemplate::New(isolate, V8ResourceManager::ResumeSound));
+    s_objectTemplate->Set("SetSoundVolume", FunctionTemplate::New(isolate, V8ResourceManager::SetSoundVolume));
+#endif
+    v8::Local<v8::ObjectTemplate> instance_t = t->InstanceTemplate();
+    v8::Local<v8::Object> instance = instance_t->NewInstance();
+    return instance;
 }
 
 /// load resource & release resource
-v8::Handle<v8::Value> V8ResourceManager::LoadImageResource(const v8::FunctionCallbackInfo<v8::Value>& args) {
-	jclass JRMClass = s_JNIEnv->FindClass(CLASS_NAME);
-	jmethodID jmethod = s_JNIEnv->GetStaticMethodID(JRMClass, "LoadImageResource","(Ljava/lang/String;)I");
-
+void V8ResourceManager::LoadImageResource(const v8::FunctionCallbackInfo<v8::Value>& args) {
 	if(args.Length() != 1)
-	    	return THROW_EXCEPTION(TError, "LoadImageResource : number of args exception! 1");
+        THROW_EXCEPTION(args.GetIsolate(), TError, "LoadImageResource : number of args exception! 1");
 
 	char url[MAX_URL_LENGTH] = {0};
 	v8::Local<v8::String> jstr_tmp = args[0]->ToString();
 	int len = jstr_tmp->WriteUtf8(url);
 
-	jstring j_config_name = s_JNIEnv->NewString((const jchar*)url, len);
-	jint result = (jint) s_JNIEnv->CallStaticIntMethod(JRMClass, jmethod, j_config_name);
-
-	return v8::Int32::New((int)result);
+    std::string uuid = ResourceLoader::loadImageResource(std::string(url));
+    args.GetReturnValue().Set(v8::String::NewFromUtf8(args.GetIsolate(), uuid.c_str()));
 }
-v8::Handle<v8::Value> V8ResourceManager::LoadSoundResource(const v8::FunctionCallbackInfo<v8::Value>& args) {
-	jclass JRMClass = s_JNIEnv->FindClass(CLASS_NAME);
-	jmethodID jmethod = s_JNIEnv->GetStaticMethodID(JRMClass, "LoadSoundResource","(Ljava/lang/String;)I");
 
+void V8ResourceManager::LoadSoundResource(const v8::FunctionCallbackInfo<v8::Value>& args) {
+    if(args.Length() != 1)
+        THROW_EXCEPTION(args.GetIsolate(), TError, "LoadSoundResource : number of args exception! 1");
+
+    char url[MAX_URL_LENGTH] = {0};
+    v8::Local<v8::String> jstr_tmp = args[0]->ToString();
+    int len = jstr_tmp->WriteUtf8(url);
+
+    std::string uuid = ResourceLoader::loadImageResource(std::string(url));
+    args.GetReturnValue().Set(v8::String::NewFromUtf8(args.GetIsolate(), uuid.c_str()));
+}
+
+void V8ResourceManager::ReleaseResource(const v8::FunctionCallbackInfo<v8::Value>& args) {
 	if(args.Length() != 1)
-			return THROW_EXCEPTION(TError, "LoadSoundResource : number of args exception! 1");
+        THROW_EXCEPTION(args.GetIsolate(), TError, "ReleaseResource : number of args exception! 1");
 
-	char url[MAX_URL_LENGTH] = {0};
-	v8::Local<v8::String> jstr_tmp = args[0]->ToString();
-	int len = jstr_tmp->WriteAscii(url);
+    char url[MAX_URL_LENGTH] = {0};
+    v8::Local<v8::String> jstr_tmp = args[0]->ToString();
+    int len = jstr_tmp->WriteUtf8(url);
 
-
-	jstring javaString = s_JNIEnv->NewStringUTF(url);
-
-	jint result = s_JNIEnv->CallStaticIntMethod(JRMClass, jmethod, javaString);
-
-	LOGE("%d is the id in C++ LoadSoundResource", result);
-	return v8::Int32::New((int)result);
+	ResourceLoader::releaseResource(std::string(url));
 }
-v8::Handle<v8::Value> V8ResourceManager::ReleaseResource(const v8::FunctionCallbackInfo<v8::Value>& args) {
-	jclass JRMClass = s_JNIEnv->FindClass(CLASS_NAME);
-	jmethodID jmethod = s_JNIEnv->GetStaticMethodID(JRMClass, "ReleaseResource","(I)I");
 
-	if(args.Length() != 1)
-			return THROW_EXCEPTION(TError, "ReleaseResource : number of args exception! 1");
-
-	int id = args[0]->NumberValue();
-	jint result = (jint) s_JNIEnv->CallStaticIntMethod(JRMClass, jmethod, id);
-
-	return v8::Int32::New((int)result);
-}
 
 /// images
-v8::Handle<v8::Value> V8ResourceManager::GetImageData(const v8::FunctionCallbackInfo<v8::Value>& args) {
-	jclass JRMClass = s_JNIEnv->FindClass(CLASS_NAME);
-	jmethodID jmethod = s_JNIEnv->GetStaticMethodID(JRMClass, "GetImageData","(I)[I");
+void V8ResourceManager::GetImageData(const v8::FunctionCallbackInfo<v8::Value>& args) {
+
 	if(args.Length() != 1)
-			return THROW_EXCEPTION(TError, "GetImageData : number of args exception! 1");
+        THROW_EXCEPTION(args.GetIsolate(), TError, "GetImageData : number of args exception! 1");
 
 	int id = args[0]->NumberValue();
-	jintArray intArr = (jintArray) s_JNIEnv->CallStaticObjectMethod(JRMClass, jmethod, id);
-	jsize      arrLen    = s_JNIEnv->GetArrayLength(intArr);
-	jint      *jInt     = s_JNIEnv->GetIntArrayElements(intArr, JNI_FALSE);
+    unsigned int len = 0;
+	unsigned int* intArr = ResourceController::getImageData(id, len);
+	v8::Local<v8::Array> pixels;
+	pixels = v8::Array::New(args.GetIsolate(), len);
 
-	v8::Local<v8::Array> value;
-	value = v8::Array::New(arrLen);
-	for (unsigned i = 0; i < arrLen; i++)
-		value->Set(v8::Int32::New(i), v8::Boolean::New(jInt[i]));
-	return value;
+	for (unsigned i = 0; i < len; i++)
+		pixels->Set(v8::Int32::New(args.GetIsolate(), i), v8::Boolean::New(args.GetIsolate(), intArr[i]));
+
+	args.GetReturnValue().Set(pixels);
+
+	free(intArr);
 }
 
-v8::Handle<v8::Value> V8ResourceManager::GetImageWidth(const v8::FunctionCallbackInfo<v8::Value>& args) {
-	jclass JRMClass = s_JNIEnv->FindClass(CLASS_NAME);
-	jmethodID jmethod = s_JNIEnv->GetStaticMethodID(JRMClass, "GetImageWidth","(I)I");
+void V8ResourceManager::GetImageWidth(const v8::FunctionCallbackInfo<v8::Value>& args) {
+
 	if(args.Length() != 1)
-			return THROW_EXCEPTION(TError, "GetImageWidth : number of args exception! 1");
+		THROW_EXCEPTION(args.GetIsolate(), TError, "GetImageWidth : number of args exception! 1");
 
 	int id = args[0]->NumberValue();
-	uintptr_t width = (uintptr_t) s_JNIEnv->CallStaticObjectMethod(JRMClass, jmethod, id);
+	uintptr_t width = ResourceController::getImageWidth(id);
 
-	return v8::Int32::New(width);
+	args.GetReturnValue().Set(v8::Int32::New(args.GetIsolate(),width));
 }
 
-v8::Handle<v8::Value> V8ResourceManager::GetImageHeight(const v8::FunctionCallbackInfo<v8::Value>& args) {
-	jclass JRMClass = s_JNIEnv->FindClass(CLASS_NAME);
-	jmethodID jmethod = s_JNIEnv->GetStaticMethodID(JRMClass, "GetImageHeight","(I)I");
+void V8ResourceManager::GetImageHeight(const v8::FunctionCallbackInfo<v8::Value>& args) {
+    if(args.Length() != 1)
+        THROW_EXCEPTION(args.GetIsolate(), TError, "GetImageHeight : number of args exception! 1");
+
+    int id = args[0]->NumberValue();
+    uintptr_t height = ResourceController::getImageHeight(id);
+
+    args.GetReturnValue().Set(v8::Int32::New(args.GetIsolate(),height));
+}
+
+/// sounds
+void V8ResourceManager::PlaySound(const v8::FunctionCallbackInfo<v8::Value>& args) {
+
 	if(args.Length() != 1)
-			return THROW_EXCEPTION(TError, "GetImageHeight : number of args exception! 1");
+        THROW_EXCEPTION(args.GetIsolate(), TError, "PlaySound : number of args exception! 1");
 
 	int id = args[0]->NumberValue();
-	uintptr_t height = (uintptr_t) s_JNIEnv->CallStaticIntMethod(JRMClass, jmethod, id);
 
-	return v8::Int32::New(height);
+	int rt = ResourceController::playSound(id);
+
+	if(rt != 0)
+	    THROW_EXCEPTION(args.GetIsolate(), TError, "PlaySound : exception! ");
+
 }
 
-  /// sounds
-v8::Handle<v8::Value> V8ResourceManager::PlaySound(const v8::FunctionCallbackInfo<v8::Value>& args) {
-	jclass JRMClass = s_JNIEnv->FindClass(CLASS_NAME);
-	jmethodID jmethod = s_JNIEnv->GetStaticMethodID(JRMClass, "PlaySound","(I)I");
+void V8ResourceManager::StopSound(const v8::FunctionCallbackInfo<v8::Value>& args) {
 	if(args.Length() != 1)
-			return THROW_EXCEPTION(TError, "PlaySound : number of args exception! 1");
+            THROW_EXCEPTION(args.GetIsolate(), TError, "StopSound : number of args exception! 1");
 
-	int id = args[0]->NumberValue();
-	jint result = (jint) s_JNIEnv->CallStaticIntMethod(JRMClass, jmethod, id);
+    int id = args[0]->NumberValue();
 
-	return v8::Int32::New(result);
+    int rt = ResourceController::stopSound(id);
+
+    if(rt != 0)
+        THROW_EXCEPTION(args.GetIsolate(), TError, "StopSound : exception! ");
 }
 
-v8::Handle<v8::Value> V8ResourceManager::StopSound(const v8::FunctionCallbackInfo<v8::Value>& args) {
-	jclass JRMClass = s_JNIEnv->FindClass(CLASS_NAME);
-	jmethodID jmethod = s_JNIEnv->GetStaticMethodID(JRMClass, "StopSound","(I)I");
-	if(args.Length() != 1)
-			return THROW_EXCEPTION(TError, "StopSound : number of args exception! 1");
+void V8ResourceManager::PauseSound(const v8::FunctionCallbackInfo<v8::Value>& args) {
+    if(args.Length() != 1)
+        THROW_EXCEPTION(args.GetIsolate(), TError, "PauseSound : number of args exception! 1");
 
-	int id = args[0]->NumberValue();
-	jint result = (jint) s_JNIEnv->CallStaticIntMethod(JRMClass, jmethod, id);
+    int id = args[0]->NumberValue();
 
-	return v8::Int32::New(result);
+    int rt = ResourceController::pauseSound(id);
+
+    if(rt != 0)
+        THROW_EXCEPTION(args.GetIsolate(), TError, "PauseSound : exception! ");
 }
 
-v8::Handle<v8::Value> V8ResourceManager::PauseSound(const v8::FunctionCallbackInfo<v8::Value>& args) {
-	jclass JRMClass = s_JNIEnv->FindClass(CLASS_NAME);
-	jmethodID jmethod = s_JNIEnv->GetStaticMethodID(JRMClass, "PauseSound","(I)I");
-	if(args.Length() != 1)
-			return THROW_EXCEPTION(TError, "PauseSound : number of args exception! 1");
+void V8ResourceManager::ResumeSound(const v8::FunctionCallbackInfo<v8::Value>& args) {
+    if(args.Length() != 1)
+        THROW_EXCEPTION(args.GetIsolate(), TError, "ResumeSound : number of args exception! 1");
 
-	int id = args[0]->NumberValue();
-	jint result = (jint) s_JNIEnv->CallStaticIntMethod(JRMClass, jmethod, id);
+    int id = args[0]->NumberValue();
 
-	return v8::Int32::New(result);
+    int rt = ResourceController::resumeSound(id);
+
+    if(rt != 0)
+        THROW_EXCEPTION(args.GetIsolate(), TError, "ResumeSound : exception! ");
 }
 
-v8::Handle<v8::Value> V8ResourceManager::ResumeSound(const v8::FunctionCallbackInfo<v8::Value>& args) {
-	jclass JRMClass = s_JNIEnv->FindClass(CLASS_NAME);
-	jmethodID jmethod = s_JNIEnv->GetStaticMethodID(JRMClass, "ResumeSound","(I)I");
-	if(args.Length() != 1)
-			return THROW_EXCEPTION(TError, "ResumeSound : number of args exception! 1");
+void V8ResourceManager::SetSoundVolume(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
-	int id = args[0]->NumberValue();
-	jint result = (jint) s_JNIEnv->CallStaticIntMethod(JRMClass, jmethod, id);
-
-	return v8::Int32::New(result);
-}
-
-v8::Handle<v8::Value> V8ResourceManager::SetSoundVolume(const v8::FunctionCallbackInfo<v8::Value>& args) {
-	jclass JRMClass = s_JNIEnv->FindClass(CLASS_NAME);
-	jmethodID jmethod = s_JNIEnv->GetStaticMethodID(JRMClass, "SetSoundVolume","(IFF)I");
 	if(args.Length() != 3)
-			return THROW_EXCEPTION(TError, "SetSoundVolume : number of args exception! 1");
+        THROW_EXCEPTION(args.GetIsolate(), TError, "SetSoundVolume : number of args exception! 1");
 
 	int id = args[0]->NumberValue();
 	float left = args[1]->NumberValue();
 	float right = args[2]->NumberValue();
-	jint result = (jint) s_JNIEnv->CallStaticIntMethod(JRMClass, jmethod, id, left, right);
 
-	return v8::Int32::New(result);
+    int rt = ResourceController::setSoundVolume(id, left, right);
+
+    if(rt != 0)
+        THROW_EXCEPTION(args.GetIsolate(), TError, "SetSoundVolume : exception! ");
 }
 
-bool V8ResourceManager::HasInstance(v8::Handle<v8::Value> arg)
-{
-    if (s_functionTemplate.IsEmpty())
-    {
-        LOGE("V8ResourceManager::HasInstance is Null");
-        return false;
-    }
-    return s_functionTemplate->HasInstance(arg);
-}
 }

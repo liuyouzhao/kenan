@@ -23,29 +23,25 @@ file(GLOB kenan_system_cpp
 
 file(GLOB kenan_platform_cpp
     "src/main/cpp/kenan-platform/*.h"
-    "src/main/cpp/kenan-platform/*.cpp"
-    "src/main/cpp/kenan-platform/loader/*.cpp"
-    "src/main/cpp/kenan-platform/loader/*.h"
-    "src/main/cpp/kenan-platform/controller/*.cpp"
-    "src/main/cpp/kenan-platform/controller/*.h")
+    "src/main/cpp/kenan-platform/*.cpp")
 
-file(GLOB kenan_v8bindings_cpp
-    "src/main/cpp/kenan-v8bindings/ObjectWrap.h"
-    "src/main/cpp/kenan-v8bindings/ObjectWrap.cpp"
-    "src/main/cpp/kenan-v8bindings/V8Main.h"
-    "src/main/cpp/kenan-v8bindings/V8Main.cpp"
-    "src/main/cpp/kenan-v8bindings/V8Log.h"
-    "src/main/cpp/kenan-v8bindings/V8Log.cpp"
-    "src/main/cpp/kenan-v8bindings/V8Orc2d.cpp"
-    "src/main/cpp/kenan-v8bindings/V8Orc2d.h"
-    "src/main/cpp/kenan-v8bindings/V8Sprite.cpp"
-    "src/main/cpp/kenan-v8bindings/V8Sprite.h"
-    "src/main/cpp/kenan-v8bindings/V8Image.cpp"
-    "src/main/cpp/kenan-v8bindings/V8Image.h"
-    "src/main/cpp/kenan-v8bindings/V8EventService.cpp"
-    "src/main/cpp/kenan-v8bindings/V8EventService.h"
-    "src/main/cpp/kenan-v8bindings/V8ResourceManager.cpp"
-    "src/main/cpp/kenan-v8bindings/V8ResourceManager.h")
+file(GLOB v8bindings_cpp
+    "src/main/cpp/v8bindings/ObjectWrap.h"
+    "src/main/cpp/v8bindings/ObjectWrap.cpp"
+    "src/main/cpp/v8bindings/V8Main.h"
+    "src/main/cpp/v8bindings/V8Main.cpp"
+    "src/main/cpp/v8bindings/V8Log.h"
+    "src/main/cpp/v8bindings/V8Log.cpp"
+    "src/main/cpp/v8bindings/V8Orc2d.cpp"
+    "src/main/cpp/v8bindings/V8Orc2d.h"
+    "src/main/cpp/v8bindings/V8Sprite.cpp"
+    "src/main/cpp/v8bindings/V8Sprite.h"
+    "src/main/cpp/v8bindings/V8Image.cpp"
+    "src/main/cpp/v8bindings/V8Image.h"
+    "src/main/cpp/v8bindings/V8EventService.cpp"
+    "src/main/cpp/v8bindings/V8EventService.h"
+    "src/main/cpp/v8bindings/V8ResourceManager.cpp"
+    "src/main/cpp/v8bindings/V8ResourceManager.h")
 
 file(GLOB thirdparty_png_c
 	src/main/cpp/thirdparty/libpng/png.c
@@ -67,8 +63,7 @@ file(GLOB thirdparty_png_c
 	src/main/cpp/thirdparty/libpng/pngwutil.c
 	"src/main/cpp/thirdparty/libpng/*.h"
 	"src/main/cpp/thirdparty/libnhr/*.c"
-	"src/main/cpp/thirdparty/libnhr/*.h"
-	"src/main/cpp/thirdparty/httplib/*.h")
+	"src/main/cpp/thirdparty/libnhr/*.h")
 
 file(GLOB main_cpp
     src/main/cpp/mainjni.cpp)
@@ -77,7 +72,7 @@ add_library( ${APP_NAME} SHARED                              ${main_cpp}
                                                              ${kenan_engine2_cpp}
                                                              ${kenan_system_cpp}
                                                              ${kenan_graphics_cpp}
-                                                             ${kenan_v8bindings_cpp}
+                                                             ${v8bindings_cpp}
                                                              ${thirdparty_png_c}
                                                              ${kenan_platform_cpp})
 
@@ -92,7 +87,7 @@ target_include_directories( ${APP_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/libs/include
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-platform
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-platform/loader
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-platform/controller
-                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-v8bindings
+                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/v8bindings
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/thirdparty)
 
 target_link_libraries( ${APP_NAME} v8_base v8_snapshot log

@@ -24,7 +24,7 @@
 #ifndef __NHR_GZ_H__
 #define __NHR_GZ_H__ 1
 
-#include "../libnhr.h"
+#include "libnhr.h"
 #include "nhr_common.h"
 
 #if defined(NHR_GZIP)

@@ -24,7 +24,7 @@
 #ifndef __NHR_RESPONSE_H__
 #define __NHR_RESPONSE_H__ 1
 
-#include "../libnhr.h"
+#include "libnhr.h"
 #include "nhr_common.h"
 
 struct nhr_response_struct {

@@ -21,7 +21,7 @@
  */
 
 
-#include "../libnhr.h"
+#include "libnhr.h"
 #include "nhr_thread.h"
 #include "nhr_memory.h"
 #include "nhr_common.h"
