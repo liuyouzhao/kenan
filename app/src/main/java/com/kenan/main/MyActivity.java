@@ -55,6 +55,8 @@ public class MyActivity extends Activity {
         setContentView(mCanvas);
 
         mHasInited = true;
+
+
         //SoundPoolTest.go(this);
     }
 

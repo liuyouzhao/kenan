@@ -1,39 +1,82 @@
 //
 // Created by hujia on 08/07/20.
 //
+#include "defines.h"
+#include "SALImageOperation.h"
+#include "Log.h"
+
+#include "SAL.h"
+
+/// Common implementations
+#include "PlatformConfig.h"
+#include "png.h"
+#include "Base64.h"
+
+using namespace kenan_system;
+
+#define LOG_TAG "SALImageOperation"
 
 namespace kenan_sal {
-
 static unsigned int* doLoadPNGFromFile(const char* file_name, int& width, int& height);
 static unsigned int *solidifyAndRead(const char *data, int length, int &outWidth, int &outHeight);
+static void pixelsCharArr2UInt32Arr(png_bytep *row_pointers, int width, int height, unsigned int *pixelInt32);
+static void pixelsCharArr2UInt32Arr(unsigned char *row_pointers, int width, int height, unsigned int *pixelInt32);
 
 /**
  * @Function: Decode base64 and save to file, then load from temp-file and delete the file
 */
-unsigned int *loadImageDataFromBase64String(const char* base64, int &outWidth, int &outHeight) {
-    std::string strBase64 = std::string(base64);
-    return loadImageDataFromBase64String(strBase64, outWidth, outHeight);
-}
+unsigned int *SAL_loadImageDataFromBase64(const char* base64, int &outWidth, int &outHeight) {
 
-unsigned int *loadImageDataFromBase64String(std::string strBase64, int &outWidth, int &outHeight) {
+    unsigned char *buf = NULL;
+    if(si_imageOp.SI_loadBase64ImageRGBA) {
+        buf = si_imageOp.SI_loadBase64ImageRGBA(base64, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadBase64ImageBGRA) {
+        buf = si_imageOp.SI_loadBase64ImageBGRA(base64, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadBase64ImageARGB) {
+        buf = si_imageOp.SI_loadBase64ImageARGB(base64, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadBase64ImageABGR) {
+        buf = si_imageOp.SI_loadBase64ImageABGR(base64, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadBase64ImageRGBA_Int32) {
+        return si_imageOp.SI_loadBase64ImageRGBA_Int32(base64, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadBase64ImageBGRA_Int32) {
+            return si_imageOp.SI_loadBase64ImageBGRA_Int32(base64, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadBase64ImageARGB_Int32) {
+            return si_imageOp.SI_loadBase64ImageARGB_Int32(base64, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadBase64ImageABGR_Int32) {
+            return si_imageOp.SI_loadBase64ImageABGR_Int32(base64, outWidth, outHeight);
+    }
+    else {
+        const char *base64Split = "base64,";
+        int len = strlen(base64);
+        int position = std::string(base64).find(base64Split) + strlen(base64Split);
+        if(position == std::string::npos) {
+            return NULL;
+        }
 
-    const char *base64Split = "base64,";
-    char *base64 = (char*)strBase64.c_str();
-    int len = strBase64.length();
-    int position = strBase64.find(base64Split) + strlen(base64Split);
-    if(position == std::string::npos) {
+        std::vector<char> v;
+        if (!DCanvas::base64Decode(base64 + position, len - position, v))
+        {
+            LOGE("base64Decode faile!");
+            return NULL;
+        }
+
+        int width = 0, height = 0;
+        return solidifyAndRead(&v[0], v.size(), outWidth, outHeight);
+    }
+    if(buf == NULL) {
         return NULL;
     }
+    unsigned int *int32Pixels = new unsigned int[outWidth * outHeight];
+    pixelsCharArr2UInt32Arr(buf, outWidth, outHeight, int32Pixels);
+    return int32Pixels;
 
-    std::vector<char> v;
-    if (!base64Decode(base64 + position, len - position, v))
-    {
-        LOGE("base64Decode faile!");
-        return NULL;
-    }
-
-    int width = 0, height = 0;
-    return solidifyAndRead(&v[0], v.size(), outWidth, outHeight);
 }
 
 /**
@@ -45,19 +88,42 @@ unsigned int *loadImageDataFromBase64String(std::string strBase64, int &outWidth
 * you must give images/a.png or /images/character.png
 *
 */
-unsigned int *loadImageDataFromFile(const char *filePath, int &outWidth, int &outHeight) {
-    int width = 0, height = 0;
-
-    char fullPath[PATH_MAX_LENGTH] = {0};
-    sprintf(fullPath, "%s/%s", PlatformConfig::instance()->getAssetsDir(), filePath);
-
-    return doLoadPNGFromFile(fullPath, outWidth, outHeight);
+unsigned int *SAL_loadImageDataFromFile(const char *filePath, int &outWidth, int &outHeight) {
+    unsigned char *buf = NULL;
+    if(si_imageOp.SI_loadImageFileRGBA) {
+        buf = si_imageOp.SI_loadImageFileRGBA(filePath, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadImageFileBGRA) {
+        buf = si_imageOp.SI_loadImageFileBGRA(filePath, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadImageFileARGB) {
+        buf = si_imageOp.SI_loadImageFileARGB(filePath, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadImageFileABGR) {
+        buf = si_imageOp.SI_loadImageFileABGR(filePath, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadImageFileRGBA_Int32) {
+        return si_imageOp.SI_loadImageFileRGBA_Int32(filePath, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadImageFileBGRA_Int32) {
+        return si_imageOp.SI_loadImageFileBGRA_Int32(filePath, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadImageFileARGB_Int32) {
+        return si_imageOp.SI_loadImageFileARGB_Int32(filePath, outWidth, outHeight);
+    }
+    else if(si_imageOp.SI_loadImageFileABGR_Int32) {
+        return si_imageOp.SI_loadImageFileABGR_Int32(filePath, outWidth, outHeight);
+    }
+    else {
+        LOGE("si_imageOp SI_loadImageFileXXXX not implemented");
+    }
+    if(buf == NULL) {
+        return NULL;
+    }
+    unsigned int *int32Pixels = new unsigned int[outWidth * outHeight];
+    pixelsCharArr2UInt32Arr(buf, outWidth, outHeight, int32Pixels);
+    return int32Pixels;
 }
-
-unsigned int *loadImageDataFromFile(std::string filePath, int &outWidth, int &outHeight) {
-    return loadImageDataFromFile(filePath.c_str(), outWidth, outHeight);
-}
-
 
 /**
  * @Function: temporarily create a native file in default storage for further load.
@@ -99,6 +165,28 @@ static void pixelsCharArr2UInt32Arr(png_bytep *row_pointers, int width, int heig
             const char green = row_pointers[rowIdx][colIdx*4 + 1];
             const char blue = row_pointers[rowIdx][colIdx*4 + 2];
             const char alpha = row_pointers[rowIdx][colIdx*4 + 3];
+
+            r = 0x000000ff & (unsigned int) red;
+            g = (0x000000ff & (unsigned int) green);
+            b = (0x000000ff & (unsigned int) blue);
+            a = (0x000000ff & (unsigned int) alpha);
+
+            pixelInt32[rowIdx * width + colIdx] = r | (g << 8) | (b << 16)
+                    | (a << 24);
+        }
+    }
+}
+
+static void pixelsCharArr2UInt32Arr(unsigned char *row_pointers, int width, int height, unsigned int *pixelInt32) {
+    unsigned int r = 0, g = 0, b = 0, a = 0;
+
+    for (int rowIdx = 0; rowIdx < height; ++rowIdx) {
+        int byteIndex = 0;
+        for (int colIdx = 0; colIdx < width; ++colIdx) {
+            const char red = row_pointers[rowIdx*width + colIdx*4];
+            const char green = row_pointers[rowIdx*width + colIdx*4 + 1];
+            const char blue = row_pointers[rowIdx*width + colIdx*4 + 2];
+            const char alpha = row_pointers[rowIdx*width + colIdx*4 + 3];
 
             r = 0x000000ff & (unsigned int) red;
             g = (0x000000ff & (unsigned int) green);

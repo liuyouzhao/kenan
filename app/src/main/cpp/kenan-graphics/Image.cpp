@@ -97,14 +97,18 @@ void Image::doLoadImageData() {
         const char *mimeTypeHeader = constBase64Headers[i];
         if(!strncmp(mimeTypeHeader, m_src, strlen(mimeTypeHeader))) {
             m_data = loadImageDataFromBase64String(m_src, m_width, m_height);
-            onLoad();
+
+            LOGD("image-wh %d %d", m_width, m_height);
+            if(m_data)
+                onLoad();
             return;
         }
     }
 
     /// Is native file
     m_data = loadImageDataFromFile(m_src, m_width, m_height);
-    onLoad();
+    if(m_data)
+        onLoad();
 }
 
 void Image::updata(int length)

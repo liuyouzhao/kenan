@@ -14,6 +14,8 @@
 using namespace kenan_v8bindings;
 using namespace kenan_system;
 
+JNIEnv *javaEnvironment;
+
 extern "C"
 {
     JNIEXPORT void JNICALL Java_com_kenan_jni_JNILIB_init(JNIEnv* env, jobject obj, jint width, jint height, jstring jsCode, jstring dataDir);
@@ -28,6 +30,7 @@ extern "C"
 
 JNIEXPORT void JNICALL Java_com_kenan_jni_JNILIB_init(JNIEnv *env, jobject obj, jint _width, jint _height, jstring code, jstring dataDir) {
 
+    javaEnvironment = env;
     /**
     (1) Init graphics
     */

@@ -35,14 +35,14 @@ package com.kenan.ui;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
-import android.os.Environment;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.kenan.jni.JsFrameCallback;
+import com.kenan.jni.AndroidSystemImpls;
 import com.kenan.jni.JNILIB;
+import com.kenan.jni.JsFrameCallback;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -108,6 +108,7 @@ public class GLView extends GLSurfaceView
         super(context);
         init(true, 0, 0);
         sContext = context;
+        AndroidSystemImpls.init(sContext);
     }
 
     public void setCode(String code) {
@@ -118,6 +119,7 @@ public class GLView extends GLSurfaceView
         super(context);
         init(translucent, depth, stencil);
         sContext = context;
+        AndroidSystemImpls.init(sContext);
     }
     private void init(boolean translucent, int depth, int stencil) {
 
@@ -126,6 +128,7 @@ public class GLView extends GLSurfaceView
          * format here, using PixelFormat.TRANSLUCENT for GL Surfaces
          * is interpreted as any 32-bit surface with alpha by SurfaceFlinger.
          */
+
         if (translucent) {
             this.getHolder().setFormat(PixelFormat.TRANSLUCENT);
         }
