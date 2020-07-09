@@ -24,7 +24,13 @@ public class AndroidSystemImpls {
      */
     public static int[] Android_JavaIMPL_base64ToPixel(String base64image) {
         try {
-            String cleanImage = base64image.replace("data:image/png;base64,", "").replace("data:image/jpeg;base64,","");
+            String spliter = "base64,";
+            int index = base64image.indexOf(spliter);
+            if(index < 0) {
+                Log.e(AndroidSystemImpls.class.toString(), "Base64 Format not valid: " + base64image);
+                return null;
+            }
+            String cleanImage = base64image.substring(index + spliter.length());
             byte[] encodeByte = Base64.decode(cleanImage.getBytes(), Base64.DEFAULT);
             BitmapFactory.Options options = new BitmapFactory.Options();
             Bitmap image = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length, options);
