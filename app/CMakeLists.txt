@@ -60,7 +60,9 @@ file(GLOB kenan_runtime_v8bindings_cpp
     "src/main/cpp/kenan-runtime/v8bindings/V8EventService.cpp"
     "src/main/cpp/kenan-runtime/v8bindings/V8EventService.h"
     "src/main/cpp/kenan-runtime/v8bindings/V8ResourceManager.cpp"
-    "src/main/cpp/kenan-runtime/v8bindings/V8ResourceManager.h")
+    "src/main/cpp/kenan-runtime/v8bindings/V8ResourceManager.h"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Script.h"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Script.cpp")
 
 file(GLOB thirdparty_png_c
 	src/main/cpp/thirdparty/libpng/png.c

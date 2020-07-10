@@ -8,6 +8,7 @@
 
 #define RADIAL_VERTEX_NUMBER 72
 #define TEXT_BUFFER_LENGTH 512
+#define TEXT_SCRIPT_BUFFER_LENGTH 1024 * 10
 #define PATH_MAX_LENGTH TEXT_BUFFER_LENGTH
 
 #define APP_ROOT "com.kenan.main"
@@ -45,9 +46,11 @@
 #define  __LOGI(tag,...)  __android_log_print(ANDROID_LOG_INFO, tag, __VA_ARGS__)
 #define  __LOGE(tag,...)  __android_log_print(ANDROID_LOG_ERROR, tag, __VA_ARGS__)
 #define  __LOGD(tag,...)  __android_log_print(ANDROID_LOG_DEBUG, tag, __VA_ARGS__)
+#define  __LOGW(tag,...)  __android_log_print(ANDROID_LOG_WARN, tag, __VA_ARGS__)
 #define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
+#define  LOGW(...)  __android_log_print(ANDROID_LOG_WARN,LOG_TAG,__VA_ARGS__)
 #endif
 
 #if IN_ANDROID

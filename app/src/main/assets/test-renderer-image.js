@@ -1,3 +1,5 @@
+kenan_api_script.include("test-render.js");
+
 var i = 0;
 var EN_EFFECT_STATE =
 {
@@ -71,6 +73,13 @@ resourceManager["img_sword"] = img;
 resourceManager["img_volcano"] = img2;
 img.src = pic2;
 img2.src = pic1;
+
+
+var test = 0;
+
+kenan_api_script.run("test = 1;");
+
+log.info("kenan_api_script result: " + (test == 1));
 
 this.onload = function(mark) {
     log.info("onload triggered " + mark);

@@ -7,6 +7,7 @@
 #include "V8Orc2d.h"
 #include "V8Sprite.h"
 #include "V8EventService.h"
+#include "V8Script.h"
 #include "Log.h"
 #include <unistd.h>
 
@@ -29,6 +30,7 @@ void V8Main::setupJavascriptGlobalObjects(Isolate *isolate, Local<Context> conte
 {
     context->Global()->Set(String::NewFromUtf8(isolate, "log"), V8Log::genSingleton(isolate));
     context->Global()->Set(String::NewFromUtf8(isolate, "orc2d"), V8Orc2d::genSingleton(isolate));
+    context->Global()->Set(String::NewFromUtf8(isolate, "kenan_api_script"), V8Script::genSingleton(isolate, context));
     codeState = NOT_READY;
 }
 

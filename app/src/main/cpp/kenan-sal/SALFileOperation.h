@@ -7,6 +7,7 @@
 
 namespace kenan_sal {
 
+
 }
 
 #endif //KENAN_SALFILEOPERATION_H
