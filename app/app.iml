@@ -39,8 +39,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/kenan-system" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/kenan-graphics" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/kenan-sal" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/kenan-runtime" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/kenan-runtime/v8bindings" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/system-impl/android" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/v8bindings" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/kenan-config" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/debug" isTestSource="false" generated="true" />

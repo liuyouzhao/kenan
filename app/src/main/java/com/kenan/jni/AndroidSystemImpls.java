@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 
@@ -34,15 +33,6 @@ public class AndroidSystemImpls {
             byte[] encodeByte = Base64.decode(cleanImage.getBytes(), Base64.DEFAULT);
             BitmapFactory.Options options = new BitmapFactory.Options();
             Bitmap image = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length, options);
-
-
-            String savedImageURL = MediaStore.Images.Media.insertImage(
-                    sContext.getContentResolver(),
-                    image,
-                    "Bird",
-                    "Image of bird"
-            );
-
             return convertReturnValue(image);
         }
         catch(Exception ex) {

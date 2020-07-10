@@ -29,7 +29,6 @@ public class MyActivity extends Activity {
             in.read(buffer);
             in.close();
             res = new String(buffer);
-            Log.e("HUJIA", "Code: " + res);
             return res;
 
         } catch (Exception e) {

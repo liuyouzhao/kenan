@@ -34,7 +34,7 @@ public:
     }
 
     void initV8Environment();
-    void firstRunJavascript(std::string javascript);
+    int firstRunJavascript(std::string javascript);
     void runJavascript(std::string javascript);
 
     void onFrameUpdateCallback();

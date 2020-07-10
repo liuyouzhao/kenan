@@ -40,23 +40,27 @@ file(GLOB kenan_config_cpp
     "src/main/cpp/kenan-config/*.h"
     "src/main/cpp/kenan-config/*.cpp")
 
-file(GLOB v8bindings_cpp
-    "src/main/cpp/v8bindings/ObjectWrap.h"
-    "src/main/cpp/v8bindings/ObjectWrap.cpp"
-    "src/main/cpp/v8bindings/V8Main.h"
-    "src/main/cpp/v8bindings/V8Main.cpp"
-    "src/main/cpp/v8bindings/V8Log.h"
-    "src/main/cpp/v8bindings/V8Log.cpp"
-    "src/main/cpp/v8bindings/V8Orc2d.cpp"
-    "src/main/cpp/v8bindings/V8Orc2d.h"
-    "src/main/cpp/v8bindings/V8Sprite.cpp"
-    "src/main/cpp/v8bindings/V8Sprite.h"
-    "src/main/cpp/v8bindings/V8Image.cpp"
-    "src/main/cpp/v8bindings/V8Image.h"
-    "src/main/cpp/v8bindings/V8EventService.cpp"
-    "src/main/cpp/v8bindings/V8EventService.h"
-    "src/main/cpp/v8bindings/V8ResourceManager.cpp"
-    "src/main/cpp/v8bindings/V8ResourceManager.h")
+file(GLOB kenan_runtime_cpp
+    "src/main/cpp/kenan-runtime/*.h"
+    "src/main/cpp/kenan-runtime/*.cpp")
+
+file(GLOB kenan_runtime_v8bindings_cpp
+    "src/main/cpp/kenan-runtime/v8bindings/ObjectWrap.h"
+    "src/main/cpp/kenan-runtime/v8bindings/ObjectWrap.cpp"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Main.h"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Main.cpp"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Log.h"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Log.cpp"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Orc2d.cpp"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Orc2d.h"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Sprite.cpp"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Sprite.h"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Image.cpp"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Image.h"
+    "src/main/cpp/kenan-runtime/v8bindings/V8EventService.cpp"
+    "src/main/cpp/kenan-runtime/v8bindings/V8EventService.h"
+    "src/main/cpp/kenan-runtime/v8bindings/V8ResourceManager.cpp"
+    "src/main/cpp/kenan-runtime/v8bindings/V8ResourceManager.h")
 
 file(GLOB thirdparty_png_c
 	src/main/cpp/thirdparty/libpng/png.c
@@ -84,8 +88,9 @@ add_library( ${APP_NAME} SHARED                              ${kenan_engine2_cpp
                                                              ${kenan_system_cpp}
                                                              ${kenan_graphics_cpp}
                                                              ${kenan_sal_cpp}
+                                                             ${kenan_runtime_cpp}
+                                                             ${kenan_runtime_v8bindings_cpp}
                                                              ${system_impl_android_cpp}
-                                                             ${v8bindings_cpp}
                                                              ${thirdparty_png_c}
                                                              ${kenan_config_cpp})
 
@@ -97,7 +102,8 @@ target_include_directories( ${APP_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/libs/include
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-graphics
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-sal
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-config
-                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/v8bindings
+                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-runtime
+                                                ${CMAKE_SOURCE_DIR}/src/main/cpp/kenan-runtime/v8bindings
                                                 ${CMAKE_SOURCE_DIR}/src/main/cpp/thirdparty)
 
 target_link_libraries( ${APP_NAME} v8_base v8_snapshot log

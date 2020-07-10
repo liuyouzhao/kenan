@@ -10,6 +10,9 @@
 #include "Log.h"
 #include <unistd.h>
 
+#undef LOG_TAG
+#define  LOG_TAG    "V8Main"
+
 using namespace kenan_system;
 
 namespace kenan_v8bindings {
@@ -47,7 +50,7 @@ void V8Main::initV8Environment()
     isolate = v8::Isolate::New(create_params);
 }
 
-void V8Main::firstRunJavascript(std::string javascript)
+int V8Main::firstRunJavascript(std::string javascript)
 {
     v8::Isolate::Scope isolate_scope(isolate);
     v8::HandleScope handle_scope(isolate);
@@ -63,8 +66,9 @@ void V8Main::firstRunJavascript(std::string javascript)
     v8::Local<v8::Script> script = v8::Script::Compile(context, source).ToLocalChecked();
     if (script.IsEmpty())
     {
+        LOGE("first run script something was wrong while compiling! %s", javascript.c_str());
         __LOGE(__FUNCTION__, "first run script something was wrong while compiling! %s", javascript.c_str());
-        return;
+        return -1;
     }
     codeState = COMPILED;
     v8::Local<v8::Value> result = script->Run(context).ToLocalChecked();
@@ -74,14 +78,18 @@ void V8Main::firstRunJavascript(std::string javascript)
         v8::String::Utf8Value exception(try_catch.Exception());
         v8::Local<v8::Message> message = try_catch.Message();
         v8::String::Utf8Value smessage(message->Get());
+        LOGE("Uncaught Exception:");
+        LOGE("line %d ", message->GetLineNumber());
         __LOGE(__FUNCTION__, "Uncaught Exception:");
         __LOGE(__FUNCTION__, "line %d ", message->GetLineNumber());
         sleep(1);
         exit(-1);
-        return;
+        return -1;
     }
     persistentContext.Reset(isolate, context);
     codeState = RUN_FIRST;
+
+    return 0;
 }
 
 
