@@ -8,6 +8,9 @@
 
 using namespace kenan_system;
 
+#undef LOG_TAG
+#define  LOG_TAG    "V8Log"
+
 namespace kenan_v8bindings {
 
 Persistent<ObjectTemplate> V8Log::logTemplate;

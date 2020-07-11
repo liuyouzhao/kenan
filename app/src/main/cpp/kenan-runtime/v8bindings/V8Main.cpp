@@ -66,26 +66,24 @@ int V8Main::firstRunJavascript(std::string javascript)
 
     v8::Local<v8::String> source = v8::String::NewFromUtf8(isolate, javascript.c_str(), v8::NewStringType::kNormal).ToLocalChecked();
     v8::Local<v8::Script> script = v8::Script::Compile(context, source).ToLocalChecked();
+
     if (script.IsEmpty())
     {
-        LOGE("first run script something was wrong while compiling! %s", javascript.c_str());
         __LOGE(__FUNCTION__, "first run script something was wrong while compiling! %s", javascript.c_str());
         return -1;
     }
     codeState = COMPILED;
-    v8::Local<v8::Value> result = script->Run(context).ToLocalChecked();
-
+    //v8::Local<v8::Value> result = script->Run(context).ToLocalChecked();
+    script->Run(context);
     if (try_catch.HasCaught())
     {
         v8::String::Utf8Value exception(try_catch.Exception());
         v8::Local<v8::Message> message = try_catch.Message();
         v8::String::Utf8Value smessage(message->Get());
-        LOGE("Uncaught Exception:");
-        LOGE("line %d ", message->GetLineNumber());
+        //v8::Local<v8::StackTrace> stackTrace(message->GetStackTrace());
         __LOGE(__FUNCTION__, "Uncaught Exception:");
         __LOGE(__FUNCTION__, "line %d ", message->GetLineNumber());
-        sleep(1);
-        exit(-1);
+        __LOGE(__FUNCTION__, "Uncaught Exception:\n%s", (char*)*smessage);
         return -1;
     }
     persistentContext.Reset(isolate, context);

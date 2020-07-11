@@ -32,5 +32,15 @@ struct SI_ImageOp {
     int (*SI_saveBase64Image)(const char *filePath, const char* base64);
     int (*SI_saveBufferImage)(const char *filePath, unsigned char* buffer, int width, int height);
 };
-extern SI_ImageOp si_imageOp;
+
+struct SI_FileOp {
+    int (*SI_readFileFromRWLocation)(const char *filename, char *buf, int &len, int max);
+    int (*SI_readFileFromROLocation)(const char *filename, char *buf, int &len, int max);
+    int (*SI_writeFileToRWLocation_UpdateNew)(const char *filename, char *buf, int len);
+    int (*SI_writeFileToRWLocation_AppendNew)(const char *filename, char *buf, int len);
+};
+
+extern SI_ImageOp   si_imageOp;
+extern SI_FileOp    si_fileOp;
+
 #endif //KENAN_SAL_H

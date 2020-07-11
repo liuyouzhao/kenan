@@ -7,6 +7,9 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -54,6 +57,101 @@ public class AndroidSystemImpls {
         Bitmap image = getBitmapFromAsset(sContext, fileName);
         return convertReturnValue(image);
     }
+
+    /**
+     * Read assets file
+     * @param fileName
+     * @return
+     */
+    public static JavaToCppDto Android_JavaIMPL_readFileAssets(String fileName) {
+        JavaToCppDto javaToCppDto = new JavaToCppDto();
+        try {
+            InputStream in = sContext.getAssets().open(fileName);
+            int len = in.available();
+            byte[] buffer = new byte[len];
+
+            in.read(buffer);
+            in.close();
+
+            javaToCppDto.int0 = len;
+            javaToCppDto.byteArray0 = buffer;
+
+            Log.d("Android_JavaIMPL", new String(buffer) + " len:" + len);
+
+            return javaToCppDto;
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Read storage file
+     * @param fileName
+     * @return
+     */
+    public static JavaToCppDto Android_JavaIMPL_readFileStorage(String fileName) {
+        JavaToCppDto javaToCppDto = new JavaToCppDto();
+        try {
+            File file = new File(sContext.getFilesDir().getParent(), fileName);
+            InputStream in = new FileInputStream(file);
+            int len = in.available();
+            byte[] buffer = new byte[len];
+
+            in.read(buffer);
+            in.close();
+
+            javaToCppDto.int0 = len;
+            javaToCppDto.byteArray0 = buffer;
+            return javaToCppDto;
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     *
+     * @param fileName
+     * @param content
+     * @return
+     */
+    public static int Android_JavaIMPL_writeFileStorage_UpdateNew(String fileName, String content) {
+        try {
+            File file = new File(sContext.getFilesDir().getParent(), fileName);
+            FileWriter writer = new FileWriter(file);
+            writer.write(content);
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return 0;
+    }
+
+    /**
+     *
+     * @param fileName
+     * @param content
+     * @return
+     */
+    public static int Android_JavaIMPL_writeFileStorage_AppendNew(String fileName, String content) {
+        try {
+            File file = new File(sContext.getFilesDir().getParent(), fileName);
+            FileWriter writer = new FileWriter(file, true);
+            writer.append(content);
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return 0;
+    }
+
 
     private static int[] convertReturnValue(Bitmap image) {
 
