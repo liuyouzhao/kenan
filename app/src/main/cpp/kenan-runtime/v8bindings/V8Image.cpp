@@ -129,6 +129,8 @@ v8::Handle<v8::Object> V8Image::Create(Isolate* isolate, const v8::FunctionCallb
 
         s_proto.Reset(isolate, s_functionTemplate.Get(isolate)->PrototypeTemplate());
         s_proto.Get(isolate)->Set(isolate, "getImageData", FunctionTemplate::New(isolate, V8Image::getImageData));
+
+        s_templateReady = true;
     }
 
 

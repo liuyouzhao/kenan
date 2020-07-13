@@ -25,12 +25,13 @@ file(GLOB kenan_engine2_cpp
 
 file(GLOB kenan_graphics_cpp
     "src/main/cpp/kenan-graphics/*.h"
-    "src/main/cpp/kenan-graphics/ImageImpl.cpp"
     "src/main/cpp/kenan-graphics/*.cpp")
 
 file(GLOB kenan_system_cpp
     "src/main/cpp/kenan-system/*.h"
-    "src/main/cpp/kenan-system/*.cpp")
+    "src/main/cpp/kenan-system/*.cpp"
+    "src/main/cpp/kenan-system/Entity*.cpp"
+    "src/main/cpp/kenan-system/Entity*.h")
 
 file(GLOB kenan_sal_cpp
     "src/main/cpp/kenan-sal/*.h"

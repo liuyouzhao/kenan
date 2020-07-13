@@ -18,19 +18,16 @@
 kenan-engine2: 2d graphic speed engine based on openGLES
 kenan-graphics: Image(pixel) operations
 kenan-system: Log, Timer, IO, Network
-kenan-media: Audio, Video, Sound
+kenan-runtime: v8bindings and runtime apis
 ```
 
-## v8bindings
-
-
 # C++ layer Modules list(TODO)
-## Script
+## Script             [OK, Lack of HTTP]
 ## ResourcePool
 ## Timer
 ## Sound
 ## Animation
-## ImageFileLoader
+## ImageFileLoader    [OK, Lack of HTTP]
 
 # Refactor(TODO)
 ## V8Orc2d
