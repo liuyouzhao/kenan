@@ -26,14 +26,26 @@ public:
     unsigned int get(std::string key);
 
     template<class T>
-    void set(const char *key, T *ptr);
-    template<class T>
-    void set(std::string key, T *ptr);
+    void set(const char *key, T *ptr) {
+        set(key, (unsigned int)ptr);
+    }
 
     template<class T>
-    T* get(const char *key);
+    void set(std::string key, T *ptr) {
+        set(key, (unsigned int)ptr);
+    }
+
     template<class T>
-    T* get(std::string key);
+    T* get(const char *key) {
+        T* t = (T*)((int*)get(key));
+        return t;
+    }
+
+    template<class T>
+    T* get(std::string key) {
+        T* t = static_cast<T*>(get(std::string(key)));
+        return t;
+    }
 
     unsigned int del(const char *key, bool soft = false);
     unsigned int del(std::string key, bool soft = false);

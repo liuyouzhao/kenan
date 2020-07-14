@@ -33,6 +33,9 @@ void EntityPool::set(const char *key, unsigned int ptr) {
 }
 
 void EntityPool::set(std::string key, unsigned int ptr) {
+    if(entityMap.find(key) != entityMap.end()) {
+        del(key);
+    }
     keySet.push_back(key);
     keyIndex[key] = keySet.size() - 1;
     entityMap[key] = ptr;
@@ -118,28 +121,6 @@ void EntityPool::clean() {
     }
     keySet.clear();
     keyIndex.clear();
-}
-
-template<class T>
-void EntityPool::set(const char *key, T *ptr) {
-    set(key, (unsigned int) ptr);
-}
-
-template<class T>
-void EntityPool::set(std::string key, T *ptr) {
-    set(key, (unsigned int) ptr);
-}
-
-template<class T>
-T* EntityPool::get(const char *key) {
-    T* t = static_cast<T*>(get(key));
-    return t;
-}
-
-template<class T>
-T* EntityPool::get(std::string key) {
-    T* t = static_cast<T*>(get(std::string(key)));
-    return t;
 }
 
 }

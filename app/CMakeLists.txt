@@ -52,8 +52,8 @@ file(GLOB kenan_runtime_v8bindings_cpp
     "src/main/cpp/kenan-runtime/v8bindings/V8Main.cpp"
     "src/main/cpp/kenan-runtime/v8bindings/V8Log.h"
     "src/main/cpp/kenan-runtime/v8bindings/V8Log.cpp"
-    "src/main/cpp/kenan-runtime/v8bindings/V8Orc2d.cpp"
-    "src/main/cpp/kenan-runtime/v8bindings/V8Orc2d.h"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Kenan2d.cpp"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Kenan2d.h"
     "src/main/cpp/kenan-runtime/v8bindings/V8Sprite.cpp"
     "src/main/cpp/kenan-runtime/v8bindings/V8Sprite.h"
     "src/main/cpp/kenan-runtime/v8bindings/V8Image.cpp"
@@ -62,6 +62,8 @@ file(GLOB kenan_runtime_v8bindings_cpp
     "src/main/cpp/kenan-runtime/v8bindings/V8EventService.h"
     "src/main/cpp/kenan-runtime/v8bindings/V8ResourceManager.cpp"
     "src/main/cpp/kenan-runtime/v8bindings/V8ResourceManager.h"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Graphics.cpp"
+    "src/main/cpp/kenan-runtime/v8bindings/V8Graphics.h"
     "src/main/cpp/kenan-runtime/v8bindings/V8Script.h"
     "src/main/cpp/kenan-runtime/v8bindings/V8Script.cpp")
 

@@ -6,7 +6,7 @@
  *
  * ********************************/
 #include "defines.h"
-#include "V8Orc2d.h"
+#include "V8Kenan2d.h"
 #include "V8Log.h"
 #include "V8Sprite.h"
 #include "V8Image.h"
@@ -17,7 +17,7 @@
 #include <stdlib.h>
 
 #undef LOG_TAG
-#define LOG_TAG    "V8Orc2d"
+#define LOG_TAG    "V8Kenan2d"
 #define MAX_TEXT_LENGTH 512
 
 using namespace v8;
@@ -26,65 +26,65 @@ using namespace kenan_graphics;
 namespace kenan_v8bindings
 {
 
-V8Orc2d::V8Orc2d()
+V8Kenan2d::V8Kenan2d()
 {
 }
 
-V8Orc2d::~V8Orc2d()
+V8Kenan2d::~V8Kenan2d()
 {
 }
 
 /**
 * for GraphicsContext can be used by js
 **/
-v8::Handle<v8::Value> V8Orc2d::genSingleton(Isolate *isolate)
+v8::Handle<v8::Value> V8Kenan2d::genSingleton(Isolate *isolate)
 {
     v8::Local<v8::FunctionTemplate> t = v8::FunctionTemplate::New(isolate);
     t->Set(isolate, "func_property", v8::Number::New(isolate, 1));
     v8::Local<v8::Template> proto_t = t->PrototypeTemplate();
 
     //all class functions
-    proto_t->Set(isolate, "System_Initiate", FunctionTemplate::New(isolate, V8Orc2d::System_Initiate));
-    proto_t->Set(isolate, "System_Shutdown", FunctionTemplate::New(isolate, V8Orc2d::System_Shutdown));
-    proto_t->Set(isolate, "System_ChangeSize", FunctionTemplate::New(isolate, V8Orc2d::System_ChangeSize));
-    proto_t->Set(isolate, "System_GetErrorMessage", FunctionTemplate::New(isolate, V8Orc2d::System_GetErrorMessage));
+    proto_t->Set(isolate, "System_Initiate", FunctionTemplate::New(isolate, V8Kenan2d::System_Initiate));
+    proto_t->Set(isolate, "System_Shutdown", FunctionTemplate::New(isolate, V8Kenan2d::System_Shutdown));
+    proto_t->Set(isolate, "System_ChangeSize", FunctionTemplate::New(isolate, V8Kenan2d::System_ChangeSize));
+    proto_t->Set(isolate, "System_GetErrorMessage", FunctionTemplate::New(isolate, V8Kenan2d::System_GetErrorMessage));
 
-    proto_t->Set(isolate, "Effect_Load", FunctionTemplate::New(isolate, V8Orc2d::Effect_Load));
-    proto_t->Set(isolate, "Effect_Free", FunctionTemplate::New(isolate, V8Orc2d::Effect_Free));
-    proto_t->Set(isolate, "Effect_Free_All", FunctionTemplate::New(isolate, V8Orc2d::Effect_Free_All));
-    proto_t->Set(isolate, "Effect_Active", FunctionTemplate::New(isolate, V8Orc2d::Effect_Active));
-    proto_t->Set(isolate, "Effect_SetFloat", FunctionTemplate::New(isolate, V8Orc2d::Effect_SetFloat));
-    proto_t->Set(isolate, "Effect_SetFloatv2", FunctionTemplate::New(isolate, V8Orc2d::Effect_SetFloatv2));
+    proto_t->Set(isolate, "Effect_Load", FunctionTemplate::New(isolate, V8Kenan2d::Effect_Load));
+    proto_t->Set(isolate, "Effect_Free", FunctionTemplate::New(isolate, V8Kenan2d::Effect_Free));
+    proto_t->Set(isolate, "Effect_Free_All", FunctionTemplate::New(isolate, V8Kenan2d::Effect_Free_All));
+    proto_t->Set(isolate, "Effect_Active", FunctionTemplate::New(isolate, V8Kenan2d::Effect_Active));
+    proto_t->Set(isolate, "Effect_SetFloat", FunctionTemplate::New(isolate, V8Kenan2d::Effect_SetFloat));
+    proto_t->Set(isolate, "Effect_SetFloatv2", FunctionTemplate::New(isolate, V8Kenan2d::Effect_SetFloatv2));
 
-    proto_t->Set(isolate, "Gfx_SetClearColor", FunctionTemplate::New(isolate, V8Orc2d::Gfx_SetClearColor));
-    proto_t->Set(isolate, "Gfx_SetLineWidth", FunctionTemplate::New(isolate, V8Orc2d::Gfx_SetLineWidth));
-    proto_t->Set(isolate, "Gfx_Clear", FunctionTemplate::New(isolate, V8Orc2d::Gfx_Clear));
+    proto_t->Set(isolate, "Gfx_SetClearColor", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_SetClearColor));
+    proto_t->Set(isolate, "Gfx_SetLineWidth", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_SetLineWidth));
+    proto_t->Set(isolate, "Gfx_Clear", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_Clear));
 
-    proto_t->Set(isolate, "Gfx_RenderLine", FunctionTemplate::New(isolate, V8Orc2d::Gfx_RenderLine));
-    proto_t->Set(isolate, "Gfx_RenderTripleEx", FunctionTemplate::New(isolate, V8Orc2d::Gfx_RenderTripleEx));
-    proto_t->Set(isolate, "Gfx_RenderQuadEx", FunctionTemplate::New(isolate, V8Orc2d::Gfx_RenderQuadEx));
-    proto_t->Set(isolate, "Gfx_RenderRoundEx", FunctionTemplate::New(isolate, V8Orc2d::Gfx_RenderRoundEx));
-    proto_t->Set(isolate, "Gfx_RenderTorusEx", FunctionTemplate::New(isolate, V8Orc2d::Gfx_RenderTorusEx));
+    proto_t->Set(isolate, "Gfx_RenderLine", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_RenderLine));
+    proto_t->Set(isolate, "Gfx_RenderTripleEx", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_RenderTripleEx));
+    proto_t->Set(isolate, "Gfx_RenderQuadEx", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_RenderQuadEx));
+    proto_t->Set(isolate, "Gfx_RenderRoundEx", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_RenderRoundEx));
+    proto_t->Set(isolate, "Gfx_RenderTorusEx", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_RenderTorusEx));
 
-    proto_t->Set(isolate, "Gfx_SwapBuffer", FunctionTemplate::New(isolate, V8Orc2d::Gfx_SwapBuffer));
+    proto_t->Set(isolate, "Gfx_SwapBuffer", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_SwapBuffer));
 
-    proto_t->Set(isolate, "Texture_Create", FunctionTemplate::New(isolate, V8Orc2d::Texture_Create));
-    proto_t->Set(isolate, "Texture_Load", FunctionTemplate::New(isolate, V8Orc2d::Texture_Load));
-    proto_t->Set(isolate, "Texture_Free", FunctionTemplate::New(isolate, V8Orc2d::Texture_Free));
-    proto_t->Set(isolate, "Texture_SaveToFile", FunctionTemplate::New(isolate, V8Orc2d::Texture_SaveToFile));
+    proto_t->Set(isolate, "Texture_Create", FunctionTemplate::New(isolate, V8Kenan2d::Texture_Create));
+    proto_t->Set(isolate, "Texture_Load", FunctionTemplate::New(isolate, V8Kenan2d::Texture_Load));
+    proto_t->Set(isolate, "Texture_Free", FunctionTemplate::New(isolate, V8Kenan2d::Texture_Free));
+    proto_t->Set(isolate, "Texture_SaveToFile", FunctionTemplate::New(isolate, V8Kenan2d::Texture_SaveToFile));
 
-    proto_t->Set(isolate, "Transform_rotate", FunctionTemplate::New(isolate, V8Orc2d::Transform_rotate));
-    proto_t->Set(isolate, "Transform_translate", FunctionTemplate::New(isolate, V8Orc2d::Transform_translate));
-    proto_t->Set(isolate, "Transform_scale", FunctionTemplate::New(isolate, V8Orc2d::Transform_scale));
-    proto_t->Set(isolate, "Transform_scaleNonUniform", FunctionTemplate::New(isolate, V8Orc2d::Transform_scaleNonUniform));
+    proto_t->Set(isolate, "Transform_rotate", FunctionTemplate::New(isolate, V8Kenan2d::Transform_rotate));
+    proto_t->Set(isolate, "Transform_translate", FunctionTemplate::New(isolate, V8Kenan2d::Transform_translate));
+    proto_t->Set(isolate, "Transform_scale", FunctionTemplate::New(isolate, V8Kenan2d::Transform_scale));
+    proto_t->Set(isolate, "Transform_scaleNonUniform", FunctionTemplate::New(isolate, V8Kenan2d::Transform_scaleNonUniform));
 
-    proto_t->Set(isolate, "Resource_CreateImage", FunctionTemplate::New(isolate, V8Orc2d::Resource_CreateImage));
-    proto_t->Set(isolate, "Resource_DestroyImage", FunctionTemplate::New(isolate, V8Orc2d::Resource_DestroyImage));
-    proto_t->Set(isolate, "Resource_CreateSound", FunctionTemplate::New(isolate, V8Orc2d::Resource_CreateSound));
-    proto_t->Set(isolate, "Resource_DestroySound", FunctionTemplate::New(isolate, V8Orc2d::Resource_DestroySound));
+    proto_t->Set(isolate, "Resource_CreateImage", FunctionTemplate::New(isolate, V8Kenan2d::Resource_CreateImage));
+    proto_t->Set(isolate, "Resource_DestroyImage", FunctionTemplate::New(isolate, V8Kenan2d::Resource_DestroyImage));
+    proto_t->Set(isolate, "Resource_CreateSound", FunctionTemplate::New(isolate, V8Kenan2d::Resource_CreateSound));
+    proto_t->Set(isolate, "Resource_DestroySound", FunctionTemplate::New(isolate, V8Kenan2d::Resource_DestroySound));
 
-    proto_t->Set(isolate, "Factory_CreateSpirit", FunctionTemplate::New(isolate, V8Orc2d::Factory_CreateSpirit));
-    proto_t->Set(isolate, "Factory_DestroySpirit", FunctionTemplate::New(isolate, V8Orc2d::Factory_DestroySpirit));
+    proto_t->Set(isolate, "Factory_CreateSpirit", FunctionTemplate::New(isolate, V8Kenan2d::Factory_CreateSpirit));
+    proto_t->Set(isolate, "Factory_DestroySpirit", FunctionTemplate::New(isolate, V8Kenan2d::Factory_DestroySpirit));
 
     v8::Local<v8::ObjectTemplate> instance_t = t->InstanceTemplate();
 
@@ -92,14 +92,14 @@ v8::Handle<v8::Value> V8Orc2d::genSingleton(Isolate *isolate)
     v8::Local<v8::Object> instance = instance_t->NewInstance();
 
     instance->SetInternalField(0, External::New(isolate, Gl2d_Impl::instance()));
-    LOGE("Orc2D wrap end");
+    LOGE("Kenan2d wrap end");
     return instance;
 }
 
 /************************** javascript call functions *****************************/
 /*------------------------------ for functions -----------------------------------*/
 
-void V8Orc2d::System_Initiate(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::System_Initiate(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -119,14 +119,14 @@ void V8Orc2d::System_Initiate(const v8::FunctionCallbackInfo<v8::Value>& args)
     return;
 }
 
-void V8Orc2d::System_Shutdown(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::System_Shutdown(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     impl->System_Shutdown();
 }
 
-void V8Orc2d::System_ChangeSize(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::System_ChangeSize(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -144,7 +144,7 @@ void V8Orc2d::System_ChangeSize(const v8::FunctionCallbackInfo<v8::Value>& args)
 	impl->System_ChangeSize(x, y, width, height);
 }
 
-void V8Orc2d::System_GetErrorMessage(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::System_GetErrorMessage(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -153,7 +153,7 @@ void V8Orc2d::System_GetErrorMessage(const v8::FunctionCallbackInfo<v8::Value>& 
 }
 
 
-void V8Orc2d::Effect_Load(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Effect_Load(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -169,7 +169,7 @@ void V8Orc2d::Effect_Load(const v8::FunctionCallbackInfo<v8::Value>& args)
     args.GetReturnValue().Set(v8::Int32::New(args.GetIsolate(), hEff));
 }
 
-void V8Orc2d::Effect_Free(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Effect_Free(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -185,14 +185,14 @@ void V8Orc2d::Effect_Free(const v8::FunctionCallbackInfo<v8::Value>& args)
     impl->Effect_Free(hEff);
 }
 
-void V8Orc2d::Effect_Free_All(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Effect_Free_All(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     impl->Effect_Free_All();
 }
 
-void V8Orc2d::Effect_Active(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Effect_Active(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -208,7 +208,7 @@ void V8Orc2d::Effect_Active(const v8::FunctionCallbackInfo<v8::Value>& args)
     impl->Effect_Active(eff, hasTex);
 }
 
-void V8Orc2d::Effect_SetFloat(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Effect_SetFloat(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -228,7 +228,7 @@ void V8Orc2d::Effect_SetFloat(const v8::FunctionCallbackInfo<v8::Value>& args)
     impl->Effect_SetFloat(eff, value, name);
 }
 
-void V8Orc2d::Effect_SetFloatv2(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Effect_SetFloatv2(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -249,7 +249,7 @@ void V8Orc2d::Effect_SetFloatv2(const v8::FunctionCallbackInfo<v8::Value>& args)
     impl->Effect_SetFloatv2(eff, x, y, name);
 }
 
-void V8Orc2d::Effect_SetInt(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Effect_SetInt(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -269,7 +269,7 @@ void V8Orc2d::Effect_SetInt(const v8::FunctionCallbackInfo<v8::Value>& args)
     impl->Effect_SetInt(eff, value, name);
 }
 
-void V8Orc2d::Gfx_SetClearColor(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Gfx_SetClearColor(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -289,7 +289,7 @@ void V8Orc2d::Gfx_SetClearColor(const v8::FunctionCallbackInfo<v8::Value>& args)
     impl->Gfx_SetClearColor(r, g, b, a);
 }
 
-void V8Orc2d::Gfx_SetLineWidth(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Gfx_SetLineWidth(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -304,14 +304,14 @@ void V8Orc2d::Gfx_SetLineWidth(const v8::FunctionCallbackInfo<v8::Value>& args)
     impl->Gfx_SetLineWidth(width);
 }
 
-void V8Orc2d::Gfx_Clear(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Gfx_Clear(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     impl->Gfx_Clear();
 }
 
-void V8Orc2d::Gfx_RenderLine(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Gfx_RenderLine(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -334,7 +334,7 @@ void V8Orc2d::Gfx_RenderLine(const v8::FunctionCallbackInfo<v8::Value>& args)
     impl->Gfx_RenderLine(x1, y1, x1, y2, r, g, b, a, z);
 }
 
-void V8Orc2d::Gfx_RenderTripleEx(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Gfx_RenderTripleEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -367,7 +367,7 @@ void V8Orc2d::Gfx_RenderTripleEx(const v8::FunctionCallbackInfo<v8::Value>& args
     impl->Gfx_RenderTripleEx(x1, y1, x2, y2, x3, y3, r, g, b, a, blend, htex);
 }
 
-void V8Orc2d::Gfx_RenderQuadEx(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Gfx_RenderQuadEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -426,7 +426,7 @@ void V8Orc2d::Gfx_RenderQuadEx(const v8::FunctionCallbackInfo<v8::Value>& args)
     }
 }
 
-void V8Orc2d::Gfx_RenderRoundEx(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Gfx_RenderRoundEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -450,7 +450,7 @@ void V8Orc2d::Gfx_RenderRoundEx(const v8::FunctionCallbackInfo<v8::Value>& args)
     impl->Gfx_RenderRoundEx(x0, y0, r0, r, g, b, a, blend);
 }
 
-void V8Orc2d::Gfx_RenderTorusEx(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Gfx_RenderTorusEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -490,14 +490,14 @@ void V8Orc2d::Gfx_RenderTorusEx(const v8::FunctionCallbackInfo<v8::Value>& args)
     return;
 }
 
-void V8Orc2d::Gfx_SwapBuffer(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Gfx_SwapBuffer(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     impl->Gfx_SwapBuffer();
 }
 
-void V8Orc2d::Texture_Create(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Texture_Create(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -515,7 +515,7 @@ void V8Orc2d::Texture_Create(const v8::FunctionCallbackInfo<v8::Value>& args)
     args.GetReturnValue().Set(v8::Int32::New(args.GetIsolate(), hTex));
 }
 
-void V8Orc2d::Texture_Load(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Texture_Load(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -540,7 +540,7 @@ void V8Orc2d::Texture_Load(const v8::FunctionCallbackInfo<v8::Value>& args)
     args.GetReturnValue().Set(v8::Int32::New(args.GetIsolate(), hTex));
 }
 
-void V8Orc2d::Texture_Free(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Texture_Free(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -555,14 +555,14 @@ void V8Orc2d::Texture_Free(const v8::FunctionCallbackInfo<v8::Value>& args)
     args.GetReturnValue().Set(v8::Int32::New(args.GetIsolate(), hTex));
 }
 
-void V8Orc2d::Texture_SaveToFile(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Texture_SaveToFile(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
     impl->Texture_SaveToFile();
 }
 
-void V8Orc2d::Transform_rotate(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Transform_rotate(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -576,7 +576,7 @@ void V8Orc2d::Transform_rotate(const v8::FunctionCallbackInfo<v8::Value>& args)
     impl->Transform_rotate(d);
 }
 
-void V8Orc2d::Transform_translate(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Transform_translate(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -592,7 +592,7 @@ void V8Orc2d::Transform_translate(const v8::FunctionCallbackInfo<v8::Value>& arg
     impl->Transform_translate(tx, ty);
 }
 
-void V8Orc2d::Transform_scale(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Transform_scale(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -607,7 +607,7 @@ void V8Orc2d::Transform_scale(const v8::FunctionCallbackInfo<v8::Value>& args)
     impl->Transform_scale(s);
 }
 
-void V8Orc2d::Transform_scaleNonUniform(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Transform_scaleNonUniform(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
@@ -623,7 +623,7 @@ void V8Orc2d::Transform_scaleNonUniform(const v8::FunctionCallbackInfo<v8::Value
     impl->Transform_scaleNonUniform(sx, sy);
 }
 
-void V8Orc2d::Resource_CreateImage(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Resource_CreateImage(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     if(args.Length() < 1)
@@ -635,7 +635,7 @@ void V8Orc2d::Resource_CreateImage(const v8::FunctionCallbackInfo<v8::Value>& ar
     args.GetReturnValue().Set(instance);
 }
 
-void V8Orc2d::Resource_DestroyImage(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Resource_DestroyImage(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     if(args.Length() < 1)
@@ -646,22 +646,22 @@ void V8Orc2d::Resource_DestroyImage(const v8::FunctionCallbackInfo<v8::Value>& a
     V8Image::Destroy(args.GetIsolate(), args);
 }
 
-void V8Orc2d::Resource_CreateSound(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Resource_CreateSound(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
 }
 
-void V8Orc2d::Resource_DestroySound(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Resource_DestroySound(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
 }
 
-void V8Orc2d::Factory_CreateSpirit(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Factory_CreateSpirit(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Local<Object> instance = V8Sprite::Create(args.GetIsolate(), args);
     args.GetReturnValue().Set(instance);
 }
 
-void V8Orc2d::Factory_DestroySpirit(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Kenan2d::Factory_DestroySpirit(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     if(args.Length() == 0)

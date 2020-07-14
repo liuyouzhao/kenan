@@ -13,6 +13,15 @@
 
 #define APP_ROOT "com.kenan.main"
 
+#ifndef IF_FAILED_EXIT
+#define IF_FAILED_EXIT(a, m) \
+        if(!a) {\
+            char msg[128] = {0}; \
+            sprintf(msg, "%s error: %s", __FUNCTION__, m); \
+            LOGE(m); exit(-1); }
+
+#endif
+
 /*
 ** Safe delete&release
 */

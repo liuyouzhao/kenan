@@ -11,11 +11,11 @@
 namespace kenan_v8bindings
 {
 
-class V8Orc2d
+class V8Kenan2d
 {
 public:
-	V8Orc2d();
-    virtual ~V8Orc2d();
+	V8Kenan2d();
+    virtual ~V8Kenan2d();
 
     static v8::Handle<v8::Value> genSingleton(v8::Isolate *isolate);
 

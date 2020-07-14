@@ -14,6 +14,56 @@ using namespace v8;
 
 namespace kenan_v8bindings
 {
+#ifndef CHECK_V8_ARGNUM
+#define CHECK_V8_ARGNUM(a,n) \
+    if(a.Length() < n) {\
+        char __msg[128] = {0}; \
+        sprintf(__msg, "%s args number not correct.", __FUNCTION__); \
+        THROW_EXCEPTION(a.GetIsolate(), TError, __msg); \
+        return; \
+    }
+#endif
+
+#ifndef CHECK_V8_ARGS1
+#define CHECK_V8_ARGS1(a,T) \
+    if(!a[0]->Is##T()) { \
+        char __msg[128] = {0}; \
+        sprintf(__msg, "%s called in wrong argument type.", __FUNCTION__); \
+        THROW_EXCEPTION(a.GetIsolate(), TError, __msg); \
+        return; \
+    }
+#endif
+
+#ifndef CHECK_V8_ARGS2
+#define CHECK_V8_ARGS2(a,T1,T2) \
+    if(!a[0]->Is##T1() || !a[1]->Is##T2()) { \
+       char __msg[128] = {0}; \
+       sprintf(__msg, "%s called in wrong argument type.", __FUNCTION__); \
+       THROW_EXCEPTION(a.GetIsolate(), TError, __msg); \
+       return; \
+    }
+#endif
+
+#ifndef CHECK_V8_ARGS3
+#define CHECK_V8_ARGS3(a,T1,T2,T3) \
+    if(!a[0]->Is##T1() || !a[1]->Is##T2() || !a[2]->Is##T3()) { \
+        char __msg[128] = {0}; \
+        sprintf(__msg, "%s called in wrong argument type.", __FUNCTION__); \
+        THROW_EXCEPTION(a.GetIsolate(), TError, __msg); \
+        return; \
+    }
+#endif
+
+#ifndef CHECK_V8_ARGS4
+#define CHECK_V8_ARGS4(a,T1,T2,T3,T4) \
+    if(!a[0]->Is##T1() || !a[1]->Is##T2() || !a[2]->Is##T3() || !a[3]->Is##T4()) { \
+        char __msg[128] = {0}; \
+        sprintf(__msg, "%s called in wrong argument type.", __FUNCTION__); \
+        THROW_EXCEPTION(a.GetIsolate(), TError, __msg); \
+        return; \
+    }
+#endif
+
 #ifndef CASTTOCLASS
 #define CASTTOCLASS(CLASSNAME, INFO)	\
 	Local<Object> self = INFO.Holder();	\

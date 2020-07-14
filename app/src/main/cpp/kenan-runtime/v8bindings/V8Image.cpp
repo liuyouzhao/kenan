@@ -149,6 +149,10 @@ v8::Handle<v8::Object> V8Image::Create(Isolate* isolate, const v8::FunctionCallb
     return handleScope.Escape(instance);
 }
 
+void GetTexture(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info) {
+
+}
+
 void V8Image::Destroy(Isolate* isolate, const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());

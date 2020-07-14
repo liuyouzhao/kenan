@@ -30,7 +30,7 @@ kenan-runtime: v8bindings and runtime apis
 ## ImageFileLoader    [OK, Lack of HTTP]
 
 # Refactor(TODO)
-## V8Orc2d
+## V8Kenan2d
 ## Image
 ## V8Image
 ## V8EventService

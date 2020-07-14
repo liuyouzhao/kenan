@@ -4,7 +4,7 @@
 #include "defines.h"
 #include "V8Main.h"
 #include "V8Log.h"
-#include "V8Orc2d.h"
+#include "V8Kenan2d.h"
 #include "V8Sprite.h"
 #include "V8EventService.h"
 #include "V8Script.h"
@@ -29,7 +29,7 @@ void Print(const v8::FunctionCallbackInfo<v8::Value>& args)
 void V8Main::setupJavascriptGlobalObjects(Isolate *isolate, Local<Context> context)
 {
     context->Global()->Set(String::NewFromUtf8(isolate, "log"), V8Log::genSingleton(isolate));
-    context->Global()->Set(String::NewFromUtf8(isolate, "orc2d"), V8Orc2d::genSingleton(isolate));
+    context->Global()->Set(String::NewFromUtf8(isolate, "orc2d"), V8Kenan2d::genSingleton(isolate));
     context->Global()->Set(String::NewFromUtf8(isolate, "kenan_api_script"), V8Script::genSingleton(isolate, context));
     codeState = NOT_READY;
 }

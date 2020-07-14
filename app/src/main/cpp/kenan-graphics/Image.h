@@ -14,9 +14,9 @@ public:
     ~Image();
 
     void doLoadImageData();
-    void updata(int length);
     void onLoad();
     void setData(void* data, int size);
+    void setPixels(int *pixels, int w, int h);
     void setSrc(std::string src);
     std::string getSrc()	{	return std::string(m_src); }
     int getWidth() { return m_width; }
@@ -32,6 +32,7 @@ public:
     inline bool hasOnLoadFunc() {    return m_isOnloadFuncExist; }
     inline void setOnLoadFuncExist(bool yesOrNo) {   m_isOnloadFuncExist = yesOrNo;  }
 private:
+    void convertTexture();
     HTEXTURE                m_hTex;
     unsigned int *          m_data;
     char *                  m_src;

@@ -26,7 +26,10 @@ public:
     static void GetOnLoad(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info);
     static void SetOnLoad(v8::Local<v8::String> property, v8::Local<v8::Value> value, const PropertyCallbackInfo<void>& info);
 
+    static void GetTexture(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info);
+
     static void getImageData(const v8::FunctionCallbackInfo<v8::Value>& args);
+
     static v8::Handle<Object> Create(Isolate* isolate, const v8::FunctionCallbackInfo<v8::Value>& args);
     static void Destroy(Isolate* isolate, const v8::FunctionCallbackInfo<v8::Value>& args);
 

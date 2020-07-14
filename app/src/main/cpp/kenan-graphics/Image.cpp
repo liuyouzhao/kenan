@@ -9,7 +9,6 @@
 
 #include <pthread.h>
 
-#include "ImageLoader.h"
 #include "CallBackFuncs.h"
 #include "ThreadPool.h"
 
@@ -111,76 +110,6 @@ void Image::doLoadImageData() {
         onLoad();
 }
 
-void Image::updata(int length)
-{
-    bool flg = false;
-    int i = 0 , j = 0;
-    LOGD("updata in: %s", m_src);
-    char *basedata = (char*)"data:*;base64,";
-    do
-    {
-        if (j == 13)
-        {
-            if (m_src[i] == basedata[j])
-                flg = true;
-            break;
-        }
-        else if (m_src[i] != basedata[j])
-        {
-            if (basedata[j] != '*')
-                break;
-
-            if (m_src[i] == ';')
-            {
-                ++j;
-            }
-            else
-            {
-                ++i;
-            }
-        }
-        else
-        {
-            ++j;
-            ++i;
-        }
-    } while (i < length);
-
-    if (flg)
-    {
-        //is base64 data format
-        std::vector<char> v;
-        if (!base64Decode(&this->m_src[i+1], length-i-1, v))
-        {
-            LOGD("base64Decode faile!");
-            return ;
-        }
-        this->m_data = dataFromstream(&v[0], m_width, m_height, v.size());
-        onLoad();
-    }
-    else
-    {
-        LOGD("http request process entered");
-        flg = 0;
-        std::string path(this->m_src);
-        std::string head("http://");
-        std::string basepath(this->m_src);
-
-        if (flg)/*native file format*/
-        {
-            this->m_data = dataFromFile(basepath.c_str(), m_width, m_height);
-            onLoad();
-        }
-        else /*http async format*/
-        {
-            ImageLoader* loader = ImageLoader::create();
-            LOGD("ImageLoader");
-            loader->load((char*)basepath.c_str(), basepath.length(), this);
-            LOGD("load end");
-        }
-    }
-}
-
 void Image::setData(void* data, int size)
 {
     this->m_data = dataFromstream((const char*)data, m_width, m_height, size);
@@ -190,6 +119,13 @@ void Image::setData(void* data, int size)
     fd->param = this;
     LOGD("setData parameter 11 %p", this);
     CallBackFuncs::getFuncQueue()->AddFunc(fd);
+}
+
+void Image::setPixels(int *pixels, int w, int h) {
+    memcpy(m_data, pixels, w * h * sizeof(int));
+    m_width = w;
+    m_height = h;
+    convertTexture();
 }
 
 HTEXTURE Image::getTexture()
@@ -204,11 +140,23 @@ void Image::setTexture(HTEXTURE ht , Gl2d_Impl* gc, int canvasId)
     m_canvasId = canvasId;
 }
 
+void Image::convertTexture() {
+    if(m_hTex != NO_TEXTURE) {
+        m_context->Texture_Free(m_hTex);
+    }
+    m_hTex = m_context->Texture_Load(m_data, m_width, m_height);
+}
+
 void Image::onLoad()
 {
+    /*
+    * convert to texture
+    */
+    convertTexture();
+
     LOGE("Image::onLoad() check hook exist %d", m_isOnloadFuncExist);
     if (!m_isOnloadFuncExist)
-        return ;
+        return;
 
     LOGE("Image::onLoad() really tiggered callback hook %p", onLoadCallback);
     if(onLoadCallback != NULL)
