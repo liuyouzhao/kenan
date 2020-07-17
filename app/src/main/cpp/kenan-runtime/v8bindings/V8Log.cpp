@@ -24,6 +24,7 @@ void V8Log::info(const v8::FunctionCallbackInfo<v8::Value>& args)
         v8::Local<v8::String> jsString = args[i]->ToString();
         jsString->WriteUtf8(name);
         stringBuffer = stringBuffer + std::string(name);
+        stringBuffer = stringBuffer + " ";
     }
     Log::info("[javascript]", stringBuffer.c_str());
 }

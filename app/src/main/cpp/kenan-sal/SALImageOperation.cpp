@@ -125,6 +125,18 @@ unsigned int *SAL_loadImageDataFromFile(const char *filePath, int &outWidth, int
     return int32Pixels;
 }
 
+void SAL_unloadImageBuffer(unsigned char **buf) {
+    if(si_imageOp.SI_unloadImageBuffer) {
+        si_imageOp.SI_unloadImageBuffer(buf);
+    }
+}
+
+void SAL_unloadImageBuffer_Int32(unsigned int **buf) {
+    if(si_imageOp.SI_unloadImageBuffer_Int32) {
+        si_imageOp.SI_unloadImageBuffer_Int32(buf);
+    }
+}
+
 /**
  * @Function: temporarily create a native file in default storage for further load.
 */

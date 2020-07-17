@@ -19,7 +19,7 @@ public class MyActivity extends Activity {
     boolean mHasInited = false;
 
     public String readCode() {
-        String fileName = "test-renderer-image.js";
+        String fileName = "src/tutorials/test-renderer-image.js";
         String res = "";
         try {
             InputStream in = getAssets().open(fileName);

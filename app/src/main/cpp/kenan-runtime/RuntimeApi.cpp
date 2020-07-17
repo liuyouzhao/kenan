@@ -13,6 +13,7 @@
 
 #include "RuntimeApi.h"
 #include "RuntimeOptions.h"
+#include "RuntimeLoop.h"
 
 #undef LOG_TAG
 #define  LOG_TAG    "kenan_runtime::RuntimeApi"
@@ -55,6 +56,8 @@ int RuntimeApi::init(RuntimeOptions &opts) {
         LOGE("RuntimeApi::init failed, no code here, call either setDefaultScriptPath or setEntryScriptCode in opts");
         ret = -1;
     }
+
+    RuntimeLoop::instance()->start(opts.mainThreadsNumber);
 
     if(!ret) mRunning = true;
     else mRunning = false;

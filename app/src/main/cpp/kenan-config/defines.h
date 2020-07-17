@@ -11,14 +11,15 @@
 #define TEXT_SCRIPT_BUFFER_LENGTH 1024 * 1024 * 2
 #define PATH_MAX_LENGTH TEXT_BUFFER_LENGTH
 
+#define GLOBAL_MAX_THREADS_NUM 11
+
 #define APP_ROOT "com.kenan.main"
 
 #ifndef IF_FAILED_EXIT
 #define IF_FAILED_EXIT(a, m) \
-        if(!a) {\
-            char msg[128] = {0}; \
-            sprintf(msg, "%s error: %s", __FUNCTION__, m); \
-            LOGE(m); exit(-1); }
+        if(a) {\
+            __android_log_print(ANDROID_LOG_ERROR, "IF_FAILED_EXIT", "%s %d %s %d", __FUNCTION__, __LINE__, m, a); \
+            exit(-1); }
 
 #endif
 

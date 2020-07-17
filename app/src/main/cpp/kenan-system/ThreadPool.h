@@ -10,21 +10,23 @@ namespace kenan_system
 class Thread {
 friend class ThreadPool;
 public:
-    Thread(int id) {
+    Thread(int id, pthread_mutex_t mutex) {
         this->id = id;
         running = true;
+        m_mutex = mutex;
     }
 
-    bool isRunning() {  return running; }
+    bool isRunning();
 private:
     int id;
     bool running;
+    pthread_mutex_t             m_mutex;
 };
 
 class ThreadPool
 {
 public:
-    static ThreadPool* getThreadPool();
+    static ThreadPool* instance();
     void start(int num, void* (*func)(void*));
     void stop();
 private:

@@ -154,7 +154,9 @@ public class AndroidSystemImpls {
 
 
     private static int[] convertReturnValue(Bitmap image) {
-
+        if(image == null) {
+            return null;
+        }
         int[] pixels = new int[image.getWidth() * image.getHeight()];
         int[] rt = new int[image.getWidth() * image.getHeight() + 2];
 
@@ -178,6 +180,7 @@ public class AndroidSystemImpls {
             bitmap = BitmapFactory.decodeStream(istr);
         } catch (IOException e) {
             // handle exception
+            e.printStackTrace();
         }
         return bitmap;
     }

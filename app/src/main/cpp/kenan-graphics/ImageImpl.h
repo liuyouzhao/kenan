@@ -15,6 +15,8 @@ unsigned int *loadImageDataFromBase64String(std::string base64, int &outWidth, i
 unsigned int *loadImageDataFromFile(const char *filePath, int &outWidth, int &outHeight);
 unsigned int *loadImageDataFromFile(std::string filePath, int &outWidth, int &outHeight);
 
+void unloadImageBuffer(unsigned char **buf);
+void unloadImageBuffer_Int32(unsigned int **buf);
 }
 
 

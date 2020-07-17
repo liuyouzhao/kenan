@@ -41,6 +41,7 @@ Image::Image()
     m_height = 0;
     m_isOnloadFuncExist = false;
     onLoadCallback = NULL;
+    m_context = Gl2d_Impl::instance();
 }
 
 Image::~Image()
@@ -100,14 +101,19 @@ void Image::doLoadImageData() {
             LOGD("image-wh %d %d", m_width, m_height);
             if(m_data)
                 onLoad();
+            else
+                LOGE("[ERROR] %s %d", __FUNCTION__, __LINE__);
+
             return;
         }
     }
 
     /// Is native file
     m_data = loadImageDataFromFile(m_src, m_width, m_height);
-    if(m_data)
+    if(m_data) {
+        LOGD("image inner load OK");
         onLoad();
+    }
 }
 
 void Image::setData(void* data, int size)
@@ -178,4 +184,48 @@ void Image::setSrc(std::string src)
 	doLoadImageData();
 }
 
-} // namespace DCanvas
+ReturnStatus Image::load(std::string src)
+{
+    static const int supportMimeTypesNum = 2;
+    static const char *constBase64Headers[supportMimeTypesNum] = {
+        "data:*;base64,",
+        "data:image/png;base64,"
+    };
+
+	const char* srcfile = src.c_str();
+	if (m_src)
+	{
+		delete m_src;
+		m_src = NULL;
+	}
+	m_src = new char[src.length() +1];
+	strcpy(m_src, srcfile);
+	m_src[src.length()] = 0;
+
+    if(src.length() <= 0) return ReturnStatus(-1, std::string("bad argument"), std::string("image src string len=0"));
+
+    if(m_data) {
+        unloadImageBuffer_Int32(&m_data);
+    }
+
+    /// Is base64 image source
+    for(int i = 0; i < supportMimeTypesNum; i ++) {
+        const char *mimeTypeHeader = constBase64Headers[i];
+        if(!strncmp(mimeTypeHeader, m_src, strlen(mimeTypeHeader))) {
+            m_data = loadImageDataFromBase64String(m_src, m_width, m_height);
+            break;
+        }
+    }
+
+    if(!m_data) {
+        m_data = loadImageDataFromFile(m_src, m_width, m_height);
+    }
+
+    if(m_width <= 0 || m_height <= 0 || !m_data) {
+        return ReturnStatus(-1, std::string("load failed"), std::string("load image error"));
+    }
+    convertTexture();
+    return ReturnStatus(0, std::string("ok"));
+}
+
+} // namespace kenan_graphics

@@ -5,13 +5,41 @@
 #include "SAL.h"
 #include <jni.h>
 #include <string.h>
+#include <pthread.h>
 #include "defines.h"
 
+//static JNIEnv *javaEnvironment = NULL;
 extern JNIEnv *javaEnvironment;
+extern JavaVM *jvm;
 
 #define LOG_TAG "IMPL_AndroidNDK"
 
+
+class __THREAD_ATTACHER {
+public:
+    __THREAD_ATTACHER() {
+#if 0
+        const jint stats = jvm->GetEnv((void**)&javaEnvironment, JNI_VERSION_1_6);
+        if(stats == JNI_EDETACHED) {
+            int ret = jvm->AttachCurrentThread(&javaEnvironment, NULL);
+            if(ret != 0) {
+                LOGE("[ERROR] __THREAD_ATTACHER AttachCurrentThread failed %d", ret);
+                exit(-1);
+            }
+            else {
+                LOGD("Thread-%d got attached", pthread_self());
+            }
+        }
+#endif
+    }
+
+    ~__THREAD_ATTACHER() {
+    }
+};
+
+
 static unsigned int *android_loadBase64ImageRGBA(const char* base64, int &outWidth, int &outHeight) {
+    __THREAD_ATTACHER __ta;
 
     jstring jstrBase64 = javaEnvironment->NewStringUTF(base64);
     jclass clazz = javaEnvironment->FindClass("com/kenan/jni/AndroidSystemImpls");
@@ -46,6 +74,8 @@ static unsigned int *android_loadBase64ImageRGBA(const char* base64, int &outWid
 }
 
 static unsigned int *android_loadImageFile(const char* fileName, int &outWidth, int &outHeight) {
+    __THREAD_ATTACHER __ta;
+
     jstring jstrFilename = javaEnvironment->NewStringUTF(fileName);
     jclass clazz = javaEnvironment->FindClass("com/kenan/jni/AndroidSystemImpls");
     jmethodID method_Android_JavaIMPL_base64ToPixel = javaEnvironment->GetStaticMethodID(clazz, "Android_JavaIMPL_loadImage", "(Ljava/lang/String;)[I");
@@ -119,10 +149,12 @@ static int readFileImpl(const char *filename, char *buf, int &len, int max, cons
 }
 
 static int android_readFileFromROLocation(const char *filename, char *buf, int &len, int max) {
+    __THREAD_ATTACHER __ta;
     return readFileImpl(filename, buf, len, max, "Android_JavaIMPL_readFileAssets");
 }
 
 static int android_readFileFromRWLocation(const char *filename, char *buf, int &len, int max) {
+    __THREAD_ATTACHER __ta;
     return readFileImpl(filename, buf, len, max, "Android_JavaIMPL_readFileStorage");
 }
 

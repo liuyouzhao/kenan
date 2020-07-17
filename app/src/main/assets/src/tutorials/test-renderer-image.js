@@ -1,4 +1,4 @@
-kenan_api_script.include("test-renderer.js");
+kenan_api_script.include("src/tutorials/test-renderer.js");
 
 this.onEvent = function(title, arg0, arg1, arg2, arg3) {
     log.info("onEvent " + title, arg0, arg1, arg2, arg3);
@@ -19,25 +19,25 @@ this.onEvent = function(title, arg0, arg1, arg2, arg3) {
     }
 }
 
+var x = 0;
+var y = 0;
 this.update = function() {
 
     orc2d.Gfx_SetClearColor(0.2, 0.2, 0.2, 1.0);
     orc2d.Gfx_Clear();
     orc2d.Effect_Active(eff, true);
 
-    spr.RenderEx(x, y, 1.47, 1.0);
+    spr.RenderEx(x + 100, y, 1.47, 1.0);
+    spr.RenderEx(x + 200, y, 1.47, 1.0);
+    spr.RenderEx(x + 300, y, 1.47, 1.0);
 
-    spr2.RenderEx(x, y + 200, 0, 1.0);
+    spr2.RenderEx(x + 100, y + 200, 0, 1.0);
+    spr2.RenderEx(x + 200, y + 200, 0, 1.0);
+    spr2.RenderEx(x + 300, y + 200, 0, 1.0);
 
-
-    spr2.RenderEx(400, 200, 1.47, 1.0);
-
-    spr2.RenderEx(100, 400, 1.47, 1.0);
     x ++;
-    if(x >= 500)
-    {
+    if(x >= 500) {
         x = 0;
     }
-
     orc2d.Gfx_SwapBuffer();
 }

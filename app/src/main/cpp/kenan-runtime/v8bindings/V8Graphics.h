@@ -13,6 +13,7 @@ namespace kenan_v8bindings
 {
 
 class V8Graphics {
+public:
     V8Graphics();
     virtual ~V8Graphics();
     static v8::Handle<v8::Value> genSingleton(v8::Isolate *isolate);
@@ -25,6 +26,7 @@ class V8Graphics {
     static void Graphics_Image_GetHeight(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void Graphics_Image_SetImageData(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void Graphics_Image_GetImageData(const v8::FunctionCallbackInfo<v8::Value>& args);
+    static void Graphics_Image_GetTexture(const v8::FunctionCallbackInfo<v8::Value>& args);
 };
 
 }

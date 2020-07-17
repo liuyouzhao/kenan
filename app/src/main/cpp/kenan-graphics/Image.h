@@ -3,6 +3,7 @@
 
 #include <gl2d_impl.h>
 #include <string>
+#include "ReturnStatus.h"
 
 namespace kenan_graphics
 {
@@ -12,8 +13,7 @@ class Image
 public:
     Image();
     ~Image();
-
-    void doLoadImageData();
+    ReturnStatus load(std::string src);
     void onLoad();
     void setData(void* data, int size);
     void setPixels(int *pixels, int w, int h);
@@ -32,6 +32,7 @@ public:
     inline bool hasOnLoadFunc() {    return m_isOnloadFuncExist; }
     inline void setOnLoadFuncExist(bool yesOrNo) {   m_isOnloadFuncExist = yesOrNo;  }
 private:
+    void doLoadImageData();
     void convertTexture();
     HTEXTURE                m_hTex;
     unsigned int *          m_data;

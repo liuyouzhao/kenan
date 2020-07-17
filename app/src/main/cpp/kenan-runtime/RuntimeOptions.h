@@ -16,6 +16,7 @@ public:
     void setDefaultScriptPath(const char *path);
     void setScreenSize(int screenWidth, int screenHeight);
     void setEntryScriptCode(std::string code);
+    void setMainThreadsNumber(const int num) { mainThreadsNumber = num; }
 
     const char* getWorkingDirectory() { return workingDirectory.c_str();    }
     const char* getDefaultScriptPath() {    return defaultScriptPath.c_str();   }
@@ -27,6 +28,7 @@ private:
 
     int screenWidth;
     int screenHeight;
+    int mainThreadsNumber;
 };
 
 }

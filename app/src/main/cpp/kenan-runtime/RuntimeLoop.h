@@ -22,7 +22,7 @@ public:
     }
     RuntimeLoop();
 
-    void start();
+    void start(int threads);
     void stop();
     void sendMessage(RuntimeMessage &runtimeMessage);
     std::queue<RuntimeMessage> messageQueue;

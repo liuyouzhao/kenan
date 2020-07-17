@@ -44,4 +44,12 @@ unsigned int *loadImageDataFromFile(std::string filePath, int &outWidth, int &ou
     return loadImageDataFromFile(filePath.c_str(), outWidth, outHeight);
 }
 
+void unloadImageBuffer(unsigned char **buf) {
+    return SAL_unloadImageBuffer(buf);
+}
+
+void unloadImageBuffer_Int32(unsigned int **buf) {
+    return SAL_unloadImageBuffer_Int32(buf);
+}
+
 }

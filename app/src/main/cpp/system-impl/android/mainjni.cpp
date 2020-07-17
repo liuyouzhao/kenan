@@ -11,6 +11,7 @@
 using namespace kenan_runtime;
 
 JNIEnv *javaEnvironment;
+JavaVM *jvm = NULL;
 
 extern "C"
 {
@@ -27,6 +28,7 @@ extern "C"
 JNIEXPORT void JNICALL Java_com_kenan_jni_JNILIB_init(JNIEnv *env, jobject obj, jint _width, jint _height, jstring code, jstring dataDir) {
 
     javaEnvironment = env;
+    env->GetJavaVM(&jvm);
     const char *dataDirectory = NULL;
     const char *javascriptCode = NULL;
     dataDirectory = (const char*)env->GetStringUTFChars(dataDir, 0);

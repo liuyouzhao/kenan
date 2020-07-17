@@ -49,6 +49,7 @@ void V8Image::GetSrc(v8::Local<v8::String> property, const PropertyCallbackInfo<
 
 void onloadCallback(void *image)
 {
+    LOGD("onloadCallback");
     V8EventService::instance()->hookOnFinishResourceLoading(image);
 }
 
@@ -98,12 +99,9 @@ void V8Image::getImageData(const v8::FunctionCallbackInfo<v8::Value>& args)
 
 	Image *img = ObjectWrap::Unwrap<Image>(args.GetIsolate(), args.This());
 
-
 	unsigned int* intArr = img->getImageData();
-
 	int w = img->getWidth();
 	int h = img->getHeight();
-
 	v8::Local<v8::Array> pixels = v8::Array::New(args.GetIsolate(), w * h);
 	for (unsigned int i = 0; i < w * h; i++) {
 	    pixels->Set(v8::Int32::New(args.GetIsolate(), i), v8::Uint32::New(args.GetIsolate(), intArr[i]));
@@ -129,6 +127,7 @@ v8::Handle<v8::Object> V8Image::Create(Isolate* isolate, const v8::FunctionCallb
 
         s_proto.Reset(isolate, s_functionTemplate.Get(isolate)->PrototypeTemplate());
         s_proto.Get(isolate)->Set(isolate, "getImageData", FunctionTemplate::New(isolate, V8Image::getImageData));
+        s_proto.Get(isolate)->Set(isolate, "getTexture", FunctionTemplate::New(isolate, V8Image::GetTexture));
 
         s_templateReady = true;
     }
@@ -149,8 +148,13 @@ v8::Handle<v8::Object> V8Image::Create(Isolate* isolate, const v8::FunctionCallb
     return handleScope.Escape(instance);
 }
 
-void GetTexture(v8::Local<v8::String> property, const PropertyCallbackInfo<Value>& info) {
+void V8Image::GetTexture(const v8::FunctionCallbackInfo<v8::Value>& args) {
+    HandleScope handleScope(args.GetIsolate());
 
+    Image *img = ObjectWrap::Unwrap<Image>(args.GetIsolate(), args.This());
+
+    unsigned long hTex = img->getTexture();
+    args.GetReturnValue().Set(v8::Integer::New(args.GetIsolate(), hTex));
 }
 
 void V8Image::Destroy(Isolate* isolate, const v8::FunctionCallbackInfo<v8::Value>& args)
