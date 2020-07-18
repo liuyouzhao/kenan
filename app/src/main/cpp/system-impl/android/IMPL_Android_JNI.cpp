@@ -124,3 +124,15 @@ static void onframe(JNIEnv* env, jobject obj) {
 static void onresume(JNIEnv* env, jobject obj) {
 
 }
+
+static int taskStartScript(JNIEnv* env, jobject obj, jstring taskId, jstring script) {
+
+}
+
+static int taskStart(JNIEnv* env, jobject obj, jstring taskId, jstring file) {
+
+}
+
+static int taskPoll(JNIEnv *env, jobject obj, jstring taskId) {
+
+}

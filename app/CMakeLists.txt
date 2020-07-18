@@ -51,8 +51,6 @@ file(GLOB kenan_runtime_v8bindings_cpp
     "src/main/cpp/kenan-runtime/v8bindings/ObjectWrap.cpp"
     "src/main/cpp/kenan-runtime/v8bindings/V8Main.h"
     "src/main/cpp/kenan-runtime/v8bindings/V8Main.cpp"
-    "src/main/cpp/kenan-runtime/v8bindings/V8MainEngine.h"
-    "src/main/cpp/kenan-runtime/v8bindings/V8MainEngine.cpp"
     "src/main/cpp/kenan-runtime/v8bindings/V8Log.h"
     "src/main/cpp/kenan-runtime/v8bindings/V8Log.cpp"
     "src/main/cpp/kenan-runtime/v8bindings/V8Kenan2d.cpp"

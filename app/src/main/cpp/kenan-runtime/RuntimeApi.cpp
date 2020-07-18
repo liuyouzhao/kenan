@@ -6,7 +6,6 @@
 
 /** kenan components */
 #include "defines.h"
-#include "V8MainEngine.h"
 #include "PlatformConfig.h"
 #include "CallBackFuncs.h"
 #include "gl2d_impl.h"
@@ -14,6 +13,7 @@
 #include "RuntimeApi.h"
 #include "RuntimeOptions.h"
 #include "RuntimeMessageLoop.h"
+#include "RuntimeTask.h"
 
 #undef LOG_TAG
 #define  LOG_TAG    "kenan_runtime::RuntimeApi"
@@ -48,44 +48,38 @@ int RuntimeApi::init(RuntimeOptions &opts) {
     */
     if(opts.entryScriptCode.length() > 0) {
         LOGD("Run entryScriptCode");
-        ret = runCodeOnce(opts.entryScriptCode);
-    }
-    else if(opts.defaultScriptPath.length() > 0) {
-        LOGD("Run defaultScriptPath");
+        engineTask = RuntimeTask::create(S("kenan-engine-task"));
+        if(engineTask->setupScript(opts.entryScriptCode)) {
+            LOGE("RuntimeApi::init failed, code setup failed");
+            return -1;
+        }
     }
     else {
         LOGE("RuntimeApi::init failed, no code here, call either setDefaultScriptPath or setEntryScriptCode in opts");
         ret = -1;
     }
 
-    RuntimeMessageLoop *graphicsLoop = new RuntimeMessageLoop();
-    threadsLoopMap[std::string(MAIN_GRAPHICS_ID)] = graphicsLoop;
-    threadsV8Map[std::string(MAIN_GRAPHICS_ID)] = V8MainEngine::instance();
-
     if(!ret) mRunning = true;
     else mRunning = false;
     return ret;
 }
 
-int RuntimeApi::runCodeOnce(std::string code) {
-    V8MainEngine::instance()->initV8Environment();
-    if(V8MainEngine::instance()->firstRunJavascript(code)) {
-        LOGE("RuntimeApi::runCodeOnce failed");
-        return -1;
-    }
-    return 0;
-}
-
 int RuntimeApi::onFrame() {
     if(!mRunning)
         return -1;
-    V8MainEngine::instance()->onFrameUpdateCallback();
+
+    LOGD("------------------1");
+    if(engineTask->frame()) {
+        LOGE("%s error", __FUNCTION__);
+        exit(-1);
+    }
+    LOGD("------------------2");
     CallBackFuncs::getFuncQueue()->CallAllFunc();
     return 0;
 }
 
 int RuntimeApi::deinit() {
-    V8MainEngine::instance()->destroyV8Environment();
+    RuntimeTask::destroy(engineTask);
 }
 
 }

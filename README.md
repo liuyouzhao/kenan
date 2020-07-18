@@ -20,11 +20,11 @@
 |-----------------------------------------   |
                                              |
 |  JS Context-1-N                            |
-|  Customer Threads(Creatable)               | <<==>> Structure Sharing Interface
+|  Runtime Threads(Creatable)               | <<==>> Structure Sharing Interface
 |-----------------------------------------   |
                                              |
 |  JS Context-0                              |
-|  Graphics Thread(Main)                     |
+|  Engine Thread(Main)                     |
 |-----------------------------------------   |
 
 ```

@@ -40,6 +40,13 @@ struct SI_FileOp {
     int (*SI_writeFileToRWLocation_AppendNew)(const char *filename, char *buf, int len);
 };
 
+struct SI_TaskOp {
+    int SI_taskStart(const char *taskId, const char *file);
+    int SI_taskStart_Script(const char *taskId, const char *script);
+    int SI_taskPause();
+    int SI_taskDestroy(const char *taskId);
+};
+
 extern SI_ImageOp   si_imageOp;
 extern SI_FileOp    si_fileOp;
 

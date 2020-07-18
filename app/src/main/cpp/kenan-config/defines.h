@@ -23,6 +23,15 @@
 
 #endif
 
+
+/*
+** String rapid
+*/
+#ifndef S
+#define S(a) \
+        std::string(a)
+#endif
+
 /*
 ** Safe delete&release
 */

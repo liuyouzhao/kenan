@@ -126,10 +126,9 @@ void V8Main::runJavascript(std::string javascript)
     }
 }
 
-void V8Main::onFrameUpdateCallback()
-{
+int V8Main::onMessageCallback(unsigned long id, std::string title, std::string target, std::string data) {
     if(codeState != RUN_FIRST && codeState != RUNNING)
-        return;
+        return -1;
 
     v8::Isolate::Scope isolate_scope(isolate);
     v8::HandleScope handle_scope(isolate);
@@ -140,6 +139,45 @@ void V8Main::onFrameUpdateCallback()
     v8::Context::Scope context_scope(tmpContext);
 
     v8::Local<v8::Value> functionValue = tmpContext->Global()->Get(v8::String::NewFromUtf8(isolate, "onMessage"));
+    v8::Local<v8::Function> function = Local<Function>::Cast(functionValue);
+    if (function->IsFunction()) {
+        Local<Value> args[] = {
+            Uint32::NewFromUnsigned(isolate, id),
+            String::NewFromUtf8(isolate, title.c_str()),
+            String::NewFromUtf8(isolate, target.c_str()),
+            String::NewFromUtf8(isolate, data.c_str())
+        };
+        function->Call(tmpContext->Global(), 4, args);
+    }
+
+    if (try_catch.HasCaught())
+    {
+        v8::String::Utf8Value exception(try_catch.Exception());
+        v8::Local<v8::Message> message = try_catch.Message();
+        v8::String::Utf8Value smessage(message->Get());
+        __LOGE(TAG_SYS, "Uncaught Exception:");
+        __LOGE(TAG_SYS, "%s", (char*)*smessage);
+        __LOGE(TAG_SYS, "line %d ", message->GetLineNumber());
+        return -1;
+    }
+    codeState = RUNNING;
+    return 0;
+}
+
+int V8Main::onFrameCallback()
+{
+    if(codeState != RUN_FIRST && codeState != RUNNING)
+        return -1;
+
+    v8::Isolate::Scope isolate_scope(isolate);
+    v8::HandleScope handle_scope(isolate);
+    v8::Local<v8::Context> tmpContext = v8::Local<v8::Context>::New(isolate, persistentContext);
+
+    v8::TryCatch try_catch(isolate);
+
+    v8::Context::Scope context_scope(tmpContext);
+
+    v8::Local<v8::Value> functionValue = tmpContext->Global()->Get(v8::String::NewFromUtf8(isolate, "onFrame"));
     v8::Local<v8::Function> function = Local<Function>::Cast(functionValue);
     if (function->IsFunction()) {
         function->Call(tmpContext->Global(), 0, NULL);
@@ -155,10 +193,10 @@ void V8Main::onFrameUpdateCallback()
         __LOGE(TAG_SYS, "Uncaught Exception:");
         __LOGE(TAG_SYS, "%s", (char*)*smessage);
         __LOGE(TAG_SYS, "line %d ", message->GetLineNumber());
-        sleep(1);
-        exit(-1);
+        return -1;
     }
     codeState = RUNNING;
+    return 0;
 }
 
 void V8Main::destroyV8Environment()

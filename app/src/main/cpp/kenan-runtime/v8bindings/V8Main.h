@@ -30,7 +30,8 @@ public:
     int firstRunJavascript(std::string javascript);
 
     void runJavascript(std::string javascript);
-    void onFrameUpdateCallback();
+    int onMessageCallback(unsigned long id, std::string title, std::string target, std::string data);
+    int onFrameCallback();
 
     void destroyV8Environment();
 protected:

@@ -14,10 +14,11 @@ using namespace kenan_v8bindings;
 
 namespace kenan_runtime {
 
+class RuntimeTask;
 class RuntimeOptions;
 class RuntimeMessageLoop;
-class RuntimeApi {
 
+class RuntimeApi {
 public:
     static RuntimeApi *instance() {
         if(sThis == NULL)
@@ -29,14 +30,15 @@ public:
     int onFrame();
     bool isRunning() {  return mRunning; }
 
+
 private:
     RuntimeApi();
     int runCodeOnce(std::string code);
     static RuntimeApi *sThis;
     bool mRunning;
 
-    std::map<std::string, V8Main*> threadsV8Map;
-    std::map<std::string, RuntimeMessageLoop*> threadsLoopMap;
+    std::map<std::string, RuntimeTask*> taskMap;
+    RuntimeTask *engineTask;
 };
 
 }
