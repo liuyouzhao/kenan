@@ -18,19 +18,20 @@
 using namespace kenan_system;
 
 namespace kenan_v8bindings {
-
-V8Main* V8Main::m_instance = NULL;
+V8Main::V8Main() {}
+V8Main::~V8Main() {
+    this->destroyV8Environment();
+}
 
 void Print(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
 }
 
-
-
 void V8Main::setupJavascriptGlobalObjects(Isolate *isolate, Local<Context> context)
 {
     context->Global()->Set(String::NewFromUtf8(isolate, "log"), V8Log::genSingleton(isolate));
     context->Global()->Set(String::NewFromUtf8(isolate, "orc2d"), V8Kenan2d::genSingleton(isolate));
+    context->Global()->Set(String::NewFromUtf8(isolate, "kenan_api_script"), V8Script::genSingleton(isolate, context));
     context->Global()->Set(String::NewFromUtf8(isolate, "kenan_api_script"), V8Script::genSingleton(isolate, context));
     context->Global()->Set(String::NewFromUtf8(isolate, "kenan_api_graphics"), V8Graphics::genSingleton(isolate));
     codeState = NOT_READY;
@@ -138,7 +139,7 @@ void V8Main::onFrameUpdateCallback()
 
     v8::Context::Scope context_scope(tmpContext);
 
-    v8::Local<v8::Value> functionValue = tmpContext->Global()->Get(v8::String::NewFromUtf8(isolate, "update"));
+    v8::Local<v8::Value> functionValue = tmpContext->Global()->Get(v8::String::NewFromUtf8(isolate, "onMessage"));
     v8::Local<v8::Function> function = Local<Function>::Cast(functionValue);
     if (function->IsFunction()) {
         function->Call(tmpContext->Global(), 0, NULL);

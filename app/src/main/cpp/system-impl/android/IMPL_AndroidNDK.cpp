@@ -18,7 +18,6 @@ extern JavaVM *jvm;
 class __THREAD_ATTACHER {
 public:
     __THREAD_ATTACHER() {
-#if 0
         const jint stats = jvm->GetEnv((void**)&javaEnvironment, JNI_VERSION_1_6);
         if(stats == JNI_EDETACHED) {
             int ret = jvm->AttachCurrentThread(&javaEnvironment, NULL);
@@ -30,7 +29,6 @@ public:
                 LOGD("Thread-%d got attached", pthread_self());
             }
         }
-#endif
     }
 
     ~__THREAD_ATTACHER() {

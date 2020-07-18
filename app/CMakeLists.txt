@@ -14,7 +14,8 @@ if(${PLATFORM} MATCHES "android")
 
     file(GLOB system_impl_android_cpp
         "src/main/cpp/system-impl/android/*.h"
-        "src/main/cpp/system-impl/android/*.cpp")
+        "src/main/cpp/system-impl/android/IMPL_AndroidNDK.cpp"
+        "src/main/cpp/system-impl/android/IMPL_Android_JNI.cpp")
 
 endif()
 
@@ -50,6 +51,8 @@ file(GLOB kenan_runtime_v8bindings_cpp
     "src/main/cpp/kenan-runtime/v8bindings/ObjectWrap.cpp"
     "src/main/cpp/kenan-runtime/v8bindings/V8Main.h"
     "src/main/cpp/kenan-runtime/v8bindings/V8Main.cpp"
+    "src/main/cpp/kenan-runtime/v8bindings/V8MainEngine.h"
+    "src/main/cpp/kenan-runtime/v8bindings/V8MainEngine.cpp"
     "src/main/cpp/kenan-runtime/v8bindings/V8Log.h"
     "src/main/cpp/kenan-runtime/v8bindings/V8Log.cpp"
     "src/main/cpp/kenan-runtime/v8bindings/V8Kenan2d.cpp"

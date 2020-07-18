@@ -6,14 +6,14 @@
 
 /** kenan components */
 #include "defines.h"
-#include "V8Main.h"
+#include "V8MainEngine.h"
 #include "PlatformConfig.h"
 #include "CallBackFuncs.h"
 #include "gl2d_impl.h"
 
 #include "RuntimeApi.h"
 #include "RuntimeOptions.h"
-#include "RuntimeLoop.h"
+#include "RuntimeMessageLoop.h"
 
 #undef LOG_TAG
 #define  LOG_TAG    "kenan_runtime::RuntimeApi"
@@ -21,6 +21,7 @@
 using namespace kenan_v8bindings;
 using namespace kenan_system;
 
+#define MAIN_GRAPHICS_ID "main_graphics"
 
 namespace kenan_runtime {
 RuntimeApi *RuntimeApi::sThis = NULL;
@@ -57,7 +58,9 @@ int RuntimeApi::init(RuntimeOptions &opts) {
         ret = -1;
     }
 
-    RuntimeLoop::instance()->start(opts.mainThreadsNumber);
+    RuntimeMessageLoop *graphicsLoop = new RuntimeMessageLoop();
+    threadsLoopMap[std::string(MAIN_GRAPHICS_ID)] = graphicsLoop;
+    threadsV8Map[std::string(MAIN_GRAPHICS_ID)] = V8MainEngine::instance();
 
     if(!ret) mRunning = true;
     else mRunning = false;
@@ -65,8 +68,8 @@ int RuntimeApi::init(RuntimeOptions &opts) {
 }
 
 int RuntimeApi::runCodeOnce(std::string code) {
-    V8Main::instance()->initV8Environment();
-    if(V8Main::instance()->firstRunJavascript(code)) {
+    V8MainEngine::instance()->initV8Environment();
+    if(V8MainEngine::instance()->firstRunJavascript(code)) {
         LOGE("RuntimeApi::runCodeOnce failed");
         return -1;
     }
@@ -76,13 +79,13 @@ int RuntimeApi::runCodeOnce(std::string code) {
 int RuntimeApi::onFrame() {
     if(!mRunning)
         return -1;
-    V8Main::instance()->onFrameUpdateCallback();
+    V8MainEngine::instance()->onFrameUpdateCallback();
     CallBackFuncs::getFuncQueue()->CallAllFunc();
     return 0;
 }
 
 int RuntimeApi::deinit() {
-    V8Main::instance()->destroyV8Environment();
+    V8MainEngine::instance()->destroyV8Environment();
 }
 
 }

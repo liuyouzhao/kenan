@@ -8,12 +8,10 @@
 #include "Image.h"
 #include "EntityManager.h"
 #include "ReturnStatus.h"
-#include "RuntimeLoop.h"
 
 using namespace v8;
 using namespace kenan_graphics;
 using namespace kenan_system;
-using namespace kenan_runtime;
 
 #ifdef MODULE_POOL_NAME
 #undef MODULE_POOL_NAME
@@ -78,40 +76,6 @@ void V8Graphics::Graphics_Image_Destroy(const v8::FunctionCallbackInfo<v8::Value
 }
 
 
-class AsyncImageLoadDTO {
-public:
-    AsyncImageLoadDTO(std::string s, std::string i, Image *p):
-        source(s),
-        id(i),
-        ptr(p) {}
-
-    std::string source;
-    std::string id;
-    Image *ptr;
-};
-
-static void *__asyncImageLoadFunc(void *data) {
-    AsyncImageLoadDTO *dto = (AsyncImageLoadDTO*) data;
-    Image *image = dto->ptr;
-    ReturnStatus rs;
-    rs = image->load(dto->source.c_str());
-    if(!rs.status) {
-        V8EventService::instance()->postEvent(V8Event(
-                                              std::string(V8E_GRAPHICS_IMAGE_ONLOAD),
-                                              std::string(V8E_SUCCESS),
-                                              std::string(dto->id.c_str())));
-    }
-    else {
-        V8EventService::instance()->postEvent(V8Event(
-                                              std::string(V8E_GRAPHICS_IMAGE_ONLOAD),
-                                              std::string(V8E_FAILED),
-                                              std::string(dto->id.c_str()),
-                                              rs.error));
-    }
-    LOGD("%s %d", __FUNCTION__, __LINE__);
-    return NULL;
-}
-
 /**
 * @params:
     Compulsory: image_id(string)
@@ -139,32 +103,20 @@ void V8Graphics::Graphics_Image_SetSrc(const v8::FunctionCallbackInfo<v8::Value>
         return;
     }
 
-    /// load in this thread
-    if(args.Length() >= 3 && args[2]->ToBoolean()->Value()) {
-        ReturnStatus rs = image->load(src);
-        if(!rs.status) {
-            V8EventService::instance()->postEvent(V8Event(
-                                                  std::string(V8E_GRAPHICS_IMAGE_ONLOAD),
-                                                  std::string(V8E_SUCCESS),
-                                                  std::string(name)));
-        }
-        else {
-            V8EventService::instance()->postEvent(V8Event(
-                                                  std::string(V8E_GRAPHICS_IMAGE_ONLOAD),
-                                                  std::string(V8E_FAILED),
-                                                  std::string(name),
-                                                  rs.error));
-        }
+    ReturnStatus rs = image->load(src);
+    if(!rs.status) {
+        V8EventService::instance()->postEvent(V8Event(
+                                              std::string(V8E_GRAPHICS_IMAGE_ONLOAD),
+                                              std::string(V8E_SUCCESS),
+                                              std::string(name)));
     }
-    else { /// Do load in thread
-    /// TODO: finish this feature of async loading
-#if 0
-        AsyncImageLoadDTO  *ayncDto = new AsyncImageLoadDTO(std::string(src), std::string(name), image);
-        RuntimeMessage message(std::string(""), ayncDto, __asyncImageLoadFunc, DataDestructType::DELETE);
-        RuntimeLoop::instance()->sendMessage(message);
-#endif
+    else {
+        V8EventService::instance()->postEvent(V8Event(
+                                              std::string(V8E_GRAPHICS_IMAGE_ONLOAD),
+                                              std::string(V8E_FAILED),
+                                              std::string(name),
+                                              rs.error));
     }
-    /// TODO: load image in another thread
 }
 
 void V8Graphics::Graphics_Image_GetSrc(const v8::FunctionCallbackInfo<v8::Value>& args) {

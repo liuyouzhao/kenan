@@ -18,15 +18,20 @@ enum DataDestructType {
 
 class RuntimeMessage {
 public:
-    RuntimeMessage(std::string title,
-                    void *data, void* (*cb)(void *),
-                    DataDestructType dataDestructType = DataDestructType::NO_NEED);
-    void *invoke();
+    RuntimeMessage( unsigned long id,
+                    std::string ti,
+                    std::string ta,
+                    std::string msg):
+                    mid(id),
+                    title(ti),
+                    target(ta),
+                    message(msg)
+
+    {}
     std::string title;
-private:
-    void *data;
-    DataDestructType dataDestructType;
-    void* (*messageCallbackFunction)(void *);
+    std::string target;
+    std::string message;
+    unsigned long mid;
 };
 
 }

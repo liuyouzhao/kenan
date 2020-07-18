@@ -21,7 +21,7 @@ this.onEvent = function(title, arg0, arg1, arg2, arg3) {
 
 var x = 0;
 var y = 0;
-this.update = function() {
+this.onFrame = function() {
 
     orc2d.Gfx_SetClearColor(0.2, 0.2, 0.2, 1.0);
     orc2d.Gfx_Clear();

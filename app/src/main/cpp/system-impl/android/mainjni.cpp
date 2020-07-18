@@ -1,3 +1,4 @@
+#if 0
 #include <jni.h>
 #include <string.h>
 #include <stdio.h>
@@ -65,3 +66,4 @@ JNIEXPORT void JNICALL Java_com_kenan_jni_JNILIB_TouchMove(JNIEnv* env, jobject 
 
 JNIEXPORT void JNICALL Java_com_kenan_jni_JNILIB_OnLoadResource(JNIEnv* env, jobject obj, jint resId) {
 }
+#endif

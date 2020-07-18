@@ -3,25 +3,23 @@ package com.kenan.jni;
 import android.util.Log;
 
 public class JNILIB {
-    static {
-            System.loadLibrary("kenan");
-    }
     public static boolean hasInited = false;
     public static void over(){
-            if(hasInited){
-                    Log.e("over","over");
-                    ShutDown();
-            }
-            hasInited = false;
+        if(hasInited){
+                Log.e("over","over");
+                ShutDown();
+        }
+        hasInited = false;
     }
 
     public static void begin(int width, int height, String s, String dataDir){
-            if(!hasInited){
-                    Log.e("begin","**********************begin ********************");
-                    //SetBasePath("/sdcard/");
-                    init(width, height , s, dataDir);
-            }
-            hasInited = true;
+        System.loadLibrary("kenan");
+        if(!hasInited){
+                Log.e("begin","**********************begin ********************");
+                //SetBasePath("/sdcard/");
+                init(width, height , s, dataDir);
+        }
+        hasInited = true;
     }
 
     public static native void init(int width, int height, String s, String dataDir);

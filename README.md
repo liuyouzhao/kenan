@@ -13,6 +13,23 @@
         System Impl(Android/Linux/Windows)
 ```
 
+# Threads
+```
+|  Non-JS                                    |
+|  Resource Operation Threads Pool(Fixed)    |
+|-----------------------------------------   |
+                                             |
+|  JS Context-1-N                            |
+|  Customer Threads(Creatable)               | <<==>> Structure Sharing Interface
+|-----------------------------------------   |
+                                             |
+|  JS Context-0                              |
+|  Graphics Thread(Main)                     |
+|-----------------------------------------   |
+
+```
+
+
 ## Kenan modules
 ```
 kenan-engine2: 2d graphic speed engine based on openGLES

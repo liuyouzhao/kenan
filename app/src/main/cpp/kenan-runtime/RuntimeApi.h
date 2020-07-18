@@ -6,11 +6,16 @@
 #define KENAN_RUNTIMEAPI_H
 
 #include <string>
+#include <map>
+
+#include "V8Main.h"
+
+using namespace kenan_v8bindings;
 
 namespace kenan_runtime {
 
 class RuntimeOptions;
-
+class RuntimeMessageLoop;
 class RuntimeApi {
 
 public:
@@ -23,13 +28,15 @@ public:
     int deinit();
     int onFrame();
     bool isRunning() {  return mRunning; }
+
 private:
     RuntimeApi();
     int runCodeOnce(std::string code);
-
     static RuntimeApi *sThis;
-
     bool mRunning;
+
+    std::map<std::string, V8Main*> threadsV8Map;
+    std::map<std::string, RuntimeMessageLoop*> threadsLoopMap;
 };
 
 }

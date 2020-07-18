@@ -13,8 +13,10 @@ using namespace v8;
 
 namespace kenan_v8bindings {
 class V8Main {
-
 public:
+    V8Main();
+    ~V8Main();
+
     enum V8CodeState
     {
         NOT_READY,
@@ -23,26 +25,15 @@ public:
         RUNNING
     };
 
-    static V8Main *instance()
-    {
-        if(m_instance == NULL)
-        {
-            m_instance = new V8Main();
-            return m_instance;
-        }
-        return m_instance;
-    }
-
     void initV8Environment();
-    int firstRunJavascript(std::string javascript);
-    void runJavascript(std::string javascript);
 
+    int firstRunJavascript(std::string javascript);
+
+    void runJavascript(std::string javascript);
     void onFrameUpdateCallback();
 
     void destroyV8Environment();
-private:
-    static V8Main *m_instance;
-
+protected:
     Isolate *isolate;
     std::unique_ptr<v8::Platform> platform;
     v8::Isolate::CreateParams create_params;
