@@ -43,3 +43,5 @@ this.onFrame = function() {
 }
 
 kenan_api_task.start("test-resource-loader-01", "src/tutorials/test-resource-loader.js");
+kenan_api_task.start("test-resource-loader-02", "src/tutorials/test-resource-loader.js");
+kenan_api_task.start("test-resource-loader-03", "src/tutorials/test-resource-loader.js");

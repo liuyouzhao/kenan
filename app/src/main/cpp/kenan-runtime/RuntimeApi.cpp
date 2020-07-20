@@ -31,6 +31,7 @@ namespace kenan_runtime {
 RuntimeApi *RuntimeApi::sThis = NULL;
 RuntimeApi::RuntimeApi() {
     mRunning = false;
+    pthread_mutex_init(&mutex, NULL);
 }
 
 int RuntimeApi::init(RuntimeOptions &opts) {
@@ -86,26 +87,27 @@ int RuntimeApi::deinit() {
 
 int RuntimeApi::runTask(std::string taskId, std::string file, bool rw) {
 
-    LOGD("runTask %s %s", taskId.c_str(), file.c_str());
+    pthread_mutex_lock(&mutex);
+    if(taskMap[taskId]) {
+        LOGD("Task %s is already running", taskId.c_str());
+        pthread_mutex_unlock(&mutex);
+        return 0;
+    }
 
     RuntimeTask *task = RuntimeTask::create(taskId);
 
-    LOGD("RuntimeTask created %p ==1", task);
-    LOGD("RuntimeTask created %p ==2", task);
-    LOGD("RuntimeTask created %p ==3", task);
-    LOGD("RuntimeTask created %p ==4", task);
-    LOGD("RuntimeTask created %p ==5", task);
-    usleep(1000 * 500);
     if(task->setup(file, rw)) {
         RuntimeTask::destroy(task);
         LOGE("%s task setup error", __FUNCTION__);
+        pthread_mutex_unlock(&mutex);
         return -1;
     }
     taskMap[taskId] = task;
 
     LOGD("Run task will begin %s %s", taskId.c_str(), file.c_str());
-
+    pthread_mutex_unlock(&mutex);
     task->loop();
+
     return 0;
 }
 

@@ -43,6 +43,8 @@ private:
 
     std::map<std::string, RuntimeTask*> taskMap;
     RuntimeTask *engineTask;
+
+    pthread_mutex_t mutex;
 };
 
 }
