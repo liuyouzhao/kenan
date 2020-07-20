@@ -40,6 +40,7 @@ RuntimeMessage RuntimeMessageLoop::pollMessage() {
         IF_FAILED_EXIT(pthread_cond_wait(&cond, &competition), "pthread cond signal failed")
     }
     RuntimeMessage message = this->messageQueue.front();
+    this->messageQueue.pop();
     IF_FAILED_EXIT(pthread_mutex_unlock(&competition), "pthread unlock failed")
 
     return message;

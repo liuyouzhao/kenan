@@ -8,9 +8,11 @@
 #include "V8Sprite.h"
 #include "V8EventService.h"
 #include "V8Script.h"
+#include "V8Task.h"
 #include "V8Graphics.h"
 #include "Log.h"
 #include <unistd.h>
+#include <pthread.h>
 
 #undef LOG_TAG
 #define  LOG_TAG    "V8Main"
@@ -18,9 +20,10 @@
 using namespace kenan_system;
 
 namespace kenan_v8bindings {
-V8Main::V8Main() {}
+V8Main::V8Main() {
+    pthread_mutex_init(&mutex, NULL);
+}
 V8Main::~V8Main() {
-    this->destroyV8Environment();
 }
 
 void Print(const v8::FunctionCallbackInfo<v8::Value>& args)
@@ -31,7 +34,7 @@ void V8Main::setupJavascriptGlobalObjects(Isolate *isolate, Local<Context> conte
 {
     context->Global()->Set(String::NewFromUtf8(isolate, "log"), V8Log::genSingleton(isolate));
     context->Global()->Set(String::NewFromUtf8(isolate, "orc2d"), V8Kenan2d::genSingleton(isolate));
-    context->Global()->Set(String::NewFromUtf8(isolate, "kenan_api_script"), V8Script::genSingleton(isolate, context));
+    context->Global()->Set(String::NewFromUtf8(isolate, "kenan_api_task"), V8Task::genSingleton(isolate));
     context->Global()->Set(String::NewFromUtf8(isolate, "kenan_api_script"), V8Script::genSingleton(isolate, context));
     context->Global()->Set(String::NewFromUtf8(isolate, "kenan_api_graphics"), V8Graphics::genSingleton(isolate));
     codeState = NOT_READY;
@@ -45,14 +48,23 @@ v8::Local<v8::Context> V8Main::createJavascriptContext(Isolate *isolate)
 
 void V8Main::initV8Environment()
 {
-    v8::V8::InitializeICUDefaultLocation("./");
-    v8::V8::InitializeExternalStartupData("./");
-    platform = v8::platform::NewDefaultPlatform();
-    v8::V8::InitializePlatform(platform.get());
-    v8::V8::Initialize();
+    static bool globalInit = false;
+    pthread_mutex_lock(&mutex);
+
+    if(!globalInit) {
+        v8::V8::InitializeICUDefaultLocation("./");
+        v8::V8::InitializeExternalStartupData("./");
+        platform = v8::platform::NewDefaultPlatform();
+        v8::V8::InitializePlatform(platform.get());
+        v8::V8::Initialize();
+        globalInit = true;
+    }
 
     create_params.array_buffer_allocator = v8::ArrayBuffer::Allocator::NewDefaultAllocator();
     isolate = v8::Isolate::New(create_params);
+    pthread_mutex_unlock(&mutex);
+
+    LOGD("initV8Environment OK");
 }
 
 int V8Main::firstRunJavascript(std::string javascript)
@@ -201,11 +213,14 @@ int V8Main::onFrameCallback()
 
 void V8Main::destroyV8Environment()
 {
+    LOGD("===1");
     persistentContext.Reset();
+    LOGD("===2");
     isolate->Dispose();
-    v8::V8::Dispose();
-    v8::V8::ShutdownPlatform();
-    delete create_params.array_buffer_allocator;
+    LOGD("===3");
+    //v8::V8::Dispose();
+    //v8::V8::ShutdownPlatform();
+    //delete create_params.array_buffer_allocator;
 }
 
 }

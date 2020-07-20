@@ -41,13 +41,11 @@ struct SI_FileOp {
 };
 
 struct SI_TaskOp {
-    int SI_taskStart(const char *taskId, const char *file);
-    int SI_taskStart_Script(const char *taskId, const char *script);
-    int SI_taskPause();
-    int SI_taskDestroy(const char *taskId);
+    int (*SI_taskStart)(const char *taskId, const char *file, int rw);
+    int (*SI_taskStart_Script)(const char *taskId, const char *script);
 };
 
 extern SI_ImageOp   si_imageOp;
 extern SI_FileOp    si_fileOp;
-
+extern SI_TaskOp    si_taskOp;
 #endif //KENAN_SAL_H

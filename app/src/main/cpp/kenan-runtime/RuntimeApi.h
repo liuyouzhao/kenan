@@ -28,6 +28,10 @@ public:
     int init(RuntimeOptions &runtimeOptions);
     int deinit();
     int onFrame();
+
+    int runTask(std::string taskId, std::string file, bool rw);
+    void stopTask(std::string taskId);
+
     bool isRunning() {  return mRunning; }
 
 

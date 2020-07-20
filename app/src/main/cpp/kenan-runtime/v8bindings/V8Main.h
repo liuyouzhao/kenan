@@ -45,6 +45,8 @@ protected:
     Local<Context> createJavascriptContext(Isolate *isolate);
 
     V8CodeState codeState;
+
+    pthread_mutex_t mutex;
 };
 
 }

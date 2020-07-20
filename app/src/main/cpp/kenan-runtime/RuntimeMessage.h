@@ -9,7 +9,8 @@
 
 namespace kenan_runtime {
 
-#define M_TASK_START "task_on_start"
+#define M_TASK_ON_START "task_on_start"
+#define M_TASK_ON_STOP "task_on_stop"
 
 enum DataDestructType {
     NO_NEED,
@@ -28,9 +29,13 @@ public:
                     mid(id),
                     title(ti),
                     target(ta),
-                    message(msg)
+                    message(msg) {}
 
-    {}
+    RuntimeMessage( unsigned long id,
+                    std::string ti):
+                    mid(id),
+                    title(ti) {}
+
     std::string title;
     std::string target;
     std::string message;

@@ -19,6 +19,7 @@ static void init(JNIEnv *env, jobject obj, jint _width, jint _height, jstring co
 static void deinit(JNIEnv* env, jobject obj);
 static void onframe(JNIEnv* env, jobject obj);
 static void onresume(JNIEnv* env, jobject obj);
+static int taskloop(JNIEnv* env, jobject obj, jstring taskId, jstring file, jboolean rw) ;
 
 static const char *classPathName = "com/kenan/jni/JNILIB";
 
@@ -27,6 +28,7 @@ static JNINativeMethod methods[] = {
   {"deinit", "()V", (void*)deinit },
   {"OnFrame", "()V", (void*)onframe },
   {"OnResume", "()V", (void*)onresume },
+  {"taskLoop", "(Ljava/lang/String;Ljava/lang/String;Z)I", (int*)taskloop }
 };
 
 /*
@@ -101,10 +103,10 @@ bail:
 static void init(JNIEnv *env, jobject obj, jint _width, jint _height, jstring code, jstring dataDir) {
 
     LOGD("real env %p", env);
-    const char *dataDirectory = NULL;
-    const char *javascriptCode = NULL;
-    dataDirectory = (const char*)env->GetStringUTFChars(dataDir, 0);
-    javascriptCode = (const char*)env->GetStringUTFChars(code, 0);
+    char *dataDirectory = NULL;
+    char *javascriptCode = NULL;
+    dataDirectory = (char*)env->GetStringUTFChars(dataDir, 0);
+    javascriptCode = (char*)env->GetStringUTFChars(code, 0);
     RuntimeOptions opts;
     opts.setWorkingDirectory(dataDirectory);
     opts.setEntryScriptCode(std::string(javascriptCode));
@@ -125,14 +127,10 @@ static void onresume(JNIEnv* env, jobject obj) {
 
 }
 
-static int taskStartScript(JNIEnv* env, jobject obj, jstring taskId, jstring script) {
-
-}
-
-static int taskStart(JNIEnv* env, jobject obj, jstring taskId, jstring file) {
-
-}
-
-static int taskPoll(JNIEnv *env, jobject obj, jstring taskId) {
-
+static int taskloop(JNIEnv* env, jobject obj, jstring taskId, jstring jfile, jboolean rw) {
+    char *id = NULL;
+    char *file = NULL;
+    id = (char*)env->GetStringUTFChars(taskId, 0);
+    file = (char*)env->GetStringUTFChars(jfile, 0);
+    return RuntimeApi::instance()->runTask(std::string(id), std::string(file), rw);
 }

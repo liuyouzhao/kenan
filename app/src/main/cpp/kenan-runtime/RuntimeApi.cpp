@@ -3,6 +3,7 @@
 //
 #include <string.h>
 #include <stdio.h>
+#include <unistd.h>
 
 /** kenan components */
 #include "defines.h"
@@ -12,8 +13,11 @@
 
 #include "RuntimeApi.h"
 #include "RuntimeOptions.h"
+#include "RuntimeMessage.h"
 #include "RuntimeMessageLoop.h"
 #include "RuntimeTask.h"
+
+#include "UUID.h"
 
 #undef LOG_TAG
 #define  LOG_TAG    "kenan_runtime::RuntimeApi"
@@ -68,18 +72,53 @@ int RuntimeApi::onFrame() {
     if(!mRunning)
         return -1;
 
-    LOGD("------------------1");
     if(engineTask->frame()) {
         LOGE("%s error", __FUNCTION__);
         exit(-1);
     }
-    LOGD("------------------2");
     CallBackFuncs::getFuncQueue()->CallAllFunc();
     return 0;
 }
 
 int RuntimeApi::deinit() {
     RuntimeTask::destroy(engineTask);
+}
+
+int RuntimeApi::runTask(std::string taskId, std::string file, bool rw) {
+
+    LOGD("runTask %s %s", taskId.c_str(), file.c_str());
+
+    RuntimeTask *task = RuntimeTask::create(taskId);
+
+    LOGD("RuntimeTask created %p ==1", task);
+    LOGD("RuntimeTask created %p ==2", task);
+    LOGD("RuntimeTask created %p ==3", task);
+    LOGD("RuntimeTask created %p ==4", task);
+    LOGD("RuntimeTask created %p ==5", task);
+    usleep(1000 * 500);
+    if(task->setup(file, rw)) {
+        RuntimeTask::destroy(task);
+        LOGE("%s task setup error", __FUNCTION__);
+        return -1;
+    }
+    taskMap[taskId] = task;
+
+    LOGD("Run task will begin %s %s", taskId.c_str(), file.c_str());
+
+    task->loop();
+    return 0;
+}
+
+void RuntimeApi::stopTask(std::string taskId) {
+    RuntimeTask *task = taskMap[taskId];
+    if(!task)
+        return;
+    task->stop();
+    RuntimeMessage message(UUID_gen_ulong(), std::string(M_TASK_ON_STOP));
+    task->sendMessage(message);
+    while(!RuntimeTask::overDestroy(task)) {
+        usleep(1000 * 200);
+    }
 }
 
 }

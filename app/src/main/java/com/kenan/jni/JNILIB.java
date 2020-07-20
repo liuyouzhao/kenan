@@ -34,8 +34,6 @@ public class JNILIB {
     public static native void SetBasePath(String path);
     public static native void OnResume();
     public static native void OnLoadResource(int id);
-    public static native int taskStartScript(String taskId, String script);
-    public static native int taskStart(String taskId, String file);
-    public static native int taskPoll(String taskId);
+    public static native int taskLoop(String taskId, String file, boolean isRw);
 }
 

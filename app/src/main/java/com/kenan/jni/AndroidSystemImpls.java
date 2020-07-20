@@ -161,39 +161,14 @@ public class AndroidSystemImpls {
      *     int SI_taskPause();
      *     int SI_taskDestroy(const char *taskId);
      */
-    public static int Android_JavaIMPL_taskStartScript(String taskId, String script) {
-        final String _taskId = taskId;
-        final String _script = script;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int ret = JNILIB.taskStartScript(_taskId, _script);
-                if(ret != 0) {
-                    return;
-                }
-                int stop = 0;
-                while(stop == 0) {
-                    stop = JNILIB.taskPoll(_taskId);
-                }
-            }
-        }).start();
-        return 0;
-    }
-
-    public static int Android_JavaIMPL_taskStart(String taskId, String file) {
+    public static int Android_JavaIMPL_taskStart(String taskId, String file, boolean rw) {
         final String _taskId = taskId;
         final String _file = file;
+        final boolean isRw = rw;
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int ret = JNILIB.taskStart(_taskId, _file);
-                if(ret != 0) {
-                    return;
-                }
-                int stop = 0;
-                while(stop == 0) {
-                    stop = JNILIB.taskPoll(_taskId);
-                }
+                JNILIB.taskLoop(_taskId, _file, isRw);
             }
         }).start();
         return 0;

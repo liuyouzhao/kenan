@@ -166,6 +166,26 @@ static int android_writeFileToRWLocation_AppendNew(const char *filename, char *b
     return 0;
 }
 
+static int android_task_start(const char *taskId, const char *filename, int rw) {
+    __THREAD_ATTACHER __ta;
+
+    jstring jTaskID = javaEnvironment->NewStringUTF(taskId);
+    jstring jFileName = javaEnvironment->NewStringUTF(filename);
+    jboolean isRw = rw;
+
+    jclass clazz = javaEnvironment->FindClass("com/kenan/jni/AndroidSystemImpls");
+
+    jmethodID method_Android_JavaIMPL = javaEnvironment->GetStaticMethodID(clazz, "Android_JavaIMPL_taskStart", "(Ljava/lang/String;Ljava/lang/String;Z)I");
+
+    if(method_Android_JavaIMPL == 0) {
+        LOGE("Method method_Android_JavaIMPL_base64ToPixel is not exist");
+        return 0;
+    }
+
+    jint result = javaEnvironment->CallStaticIntMethod(clazz, method_Android_JavaIMPL, jTaskID, jFileName, isRw);
+    return result;
+}
+
 SI_ImageOp si_imageOp = {
     .SI_loadBase64ImageRGBA_Int32 = android_loadBase64ImageRGBA,
     .SI_loadImageFileRGBA_Int32 = android_loadImageFile,
@@ -177,4 +197,8 @@ SI_FileOp si_fileOp = {
     .SI_readFileFromROLocation = android_readFileFromROLocation,
     .SI_writeFileToRWLocation_UpdateNew = android_writeFileToRWLocation_UpdateNew,
     .SI_writeFileToRWLocation_AppendNew = android_writeFileToRWLocation_AppendNew
+};
+
+SI_TaskOp si_taskOp = {
+    .SI_taskStart = android_task_start
 };

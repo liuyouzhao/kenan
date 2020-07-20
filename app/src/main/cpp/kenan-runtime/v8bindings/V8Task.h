@@ -5,6 +5,8 @@
 #ifndef KENAN_V8TASK_H
 #define KENAN_V8TASK_H
 
+#include <v8.h>
+
 namespace kenan_v8bindings
 {
 
@@ -15,9 +17,8 @@ public:
     static v8::Handle<v8::Value> genSingleton(v8::Isolate *isolate);
 
     static void Task_Start(const v8::FunctionCallbackInfo<v8::Value>& args);
-    static void Task_Pause(const v8::FunctionCallbackInfo<v8::Value>& args);
-    static void Task_Destroy(const v8::FunctionCallbackInfo<v8::Value>& args);
-    static void Task_Get_Status(const v8::FunctionCallbackInfo<v8::Value>& args);
+    static void Task_Stop(const v8::FunctionCallbackInfo<v8::Value>& args);
+    static void Task_Has(const v8::FunctionCallbackInfo<v8::Value>& args);
 };
 
 }

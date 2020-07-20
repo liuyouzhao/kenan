@@ -1,4 +1,4 @@
-kenan_api_script.include("src/tutorials/test-renderer.js");
+kenan_api_script.include("src/tutorials/test-renderer-spirit.js");
 
 this.onEvent = function(title, arg0, arg1, arg2, arg3) {
     log.info("onEvent " + title, arg0, arg1, arg2, arg3);
@@ -41,3 +41,5 @@ this.onFrame = function() {
     }
     orc2d.Gfx_SwapBuffer();
 }
+
+kenan_api_task.start("test-resource-loader-01", "src/tutorials/test-resource-loader.js");

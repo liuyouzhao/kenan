@@ -1,5 +1,5 @@
 var resourceManager = {};
-kenan_api_script.include("src/tutorials/test-graphics.js");
+kenan_api_script.include("src/tutorials/test-render-graphics.js");
 
 var i = 0;
 var EN_EFFECT_STATE =

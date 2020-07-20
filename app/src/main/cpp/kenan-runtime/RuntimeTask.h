@@ -20,16 +20,27 @@ class RuntimeTask {
 public:
     static RuntimeTask *create(std::string id);
     static void destroy(RuntimeTask *task);
+    static bool overDestroy(RuntimeTask *task) {
+        if(task->isOver()) {
+            RuntimeTask::destroy(task);
+            return true;
+        }
+        return false;
+    }
+    bool isOver() { return over; }
 
     int setup(std::string file, bool rw = false);
     int setupScript(std::string script);
-    int poll();
+
+    void loop();
+    void stop() {   isRunning = false; }
     int frame();
     void sendMessage(RuntimeMessage &message);
 
 private:
     RuntimeTask(std::string id);
     ~RuntimeTask();
+    int poll();
 
     std::string taskId;
 
@@ -37,6 +48,7 @@ private:
     RuntimeMessageLoop *messageLoop;
 
     bool isRunning;
+    bool over;
 };
 
 }
