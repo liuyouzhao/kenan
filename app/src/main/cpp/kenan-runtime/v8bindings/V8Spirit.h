@@ -1,5 +1,5 @@
-#ifndef V8Sprite_H
-#define V8Sprite_H
+#ifndef V8Spirit_H
+#define V8Spirit_H
 
 #include <v8.h>
 #include "ObjectWrap.h"
@@ -14,12 +14,13 @@ namespace kenan_v8bindings
                             THROW_EXCEPTION(a.GetIsolate(), TError, "Cannot use a destroyed object"); \
                             return;}
 
-class V8Sprite
+class V8Spirit
 {
 
 public:
-	V8Sprite();
-    ~V8Sprite();
+	V8Spirit();
+    virtual ~V8Spirit();
+    static v8::Handle<v8::Value> genSingleton(v8::Isolate *isolate);
     static void Render(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void RenderEx(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void SetColor(const v8::FunctionCallbackInfo<v8::Value>& args);
@@ -39,4 +40,4 @@ private:
 
 } // namepace DCanvas
 
-#endif  // V8Sprite_H
+#endif  // V8Spirit_H

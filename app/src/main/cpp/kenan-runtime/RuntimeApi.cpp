@@ -7,6 +7,7 @@
 
 /** kenan components */
 #include "defines.h"
+#include "UUID.h"
 #include "PlatformConfig.h"
 #include "CallBackFuncs.h"
 #include "gl2d_impl.h"
@@ -64,7 +65,10 @@ int RuntimeApi::init(RuntimeOptions &opts) {
         ret = -1;
     }
 
-    if(!ret) mRunning = true;
+    if(!ret) {
+        mRunning = true;
+        taskMap[opts.mainTaskId] = engineTask;
+    }
     else mRunning = false;
     return ret;
 }
@@ -77,6 +81,7 @@ int RuntimeApi::onFrame() {
         LOGE("%s error", __FUNCTION__);
         exit(-1);
     }
+    engineTask->poll(false);
     CallBackFuncs::getFuncQueue()->CallAllFunc();
     return 0;
 }
@@ -120,6 +125,21 @@ void RuntimeApi::stopTask(std::string taskId) {
     task->sendMessage(message);
     while(!RuntimeTask::overDestroy(task)) {
         usleep(1000 * 200);
+    }
+}
+
+void RuntimeApi::sendUserMessage(std::string taskId, std::string target, std::string data) {
+    RuntimeTask *task = taskMap[taskId];
+    RuntimeMessage message(UUID_gen_ulong(), S("user_message"), target, data);
+    task->sendMessage(message);
+}
+
+void RuntimeApi::broadcastUserMessage(std::string target, std::string data) {
+    for( std::map<std::string, RuntimeTask*>::iterator it = taskMap.begin(); it != taskMap.end(); ++it )  {
+        std::string key = it->first;
+        RuntimeTask *task = it->second;
+        RuntimeMessage message(UUID_gen_ulong(), S("user_message"), target, data);
+        task->sendMessage(message);
     }
 }
 

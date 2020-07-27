@@ -17,6 +17,7 @@ class RuntimeMessage;
 class RuntimeMessageLoop;
 
 class RuntimeTask {
+friend class RuntimeApi;
 public:
     static RuntimeTask *create(std::string id);
     static void destroy(RuntimeTask *task);
@@ -40,7 +41,7 @@ public:
 private:
     RuntimeTask(std::string id);
     ~RuntimeTask();
-    int poll();
+    int poll(bool block = true);
 
     std::string taskId;
 

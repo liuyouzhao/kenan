@@ -19,6 +19,9 @@ public:
     static void Task_Start(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void Task_Stop(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void Task_Has(const v8::FunctionCallbackInfo<v8::Value>& args);
+
+    static void Task_SendMessage(const v8::FunctionCallbackInfo<v8::Value>& args);
+    static void Task_BroadcastMessage(const v8::FunctionCallbackInfo<v8::Value>& args);
 };
 
 }

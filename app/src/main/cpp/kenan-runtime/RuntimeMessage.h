@@ -21,6 +21,7 @@ enum DataDestructType {
 
 class RuntimeMessage {
 public:
+    RuntimeMessage() {}
     RuntimeMessage( unsigned long id,
                     std::string ti,
                     std::string ta,

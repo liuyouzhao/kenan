@@ -38,13 +38,9 @@ RuntimeTask::RuntimeTask(std::string id) {
 }
 
 RuntimeTask::~RuntimeTask() {
-    LOGD("-----------1");
     v8MainContext->destroyV8Environment();
-    LOGD("-----------2");
     delete v8MainContext;
-    LOGD("-----------3");
     delete messageLoop;
-    LOGD("-----------4");
 }
 
 void RuntimeTask::sendMessage(RuntimeMessage &message) {
@@ -56,7 +52,6 @@ int RuntimeTask::setupScript(std::string script) {
         LOGE("%s first run code failed", __FUNCTION__);
         return -1;
     }
-    LOGD("setupScript [OK] \n%s", script.c_str());
     isRunning = true;
     messageLoop->sendMessage(RuntimeMessage(UUID_gen_ulong(), S(M_TASK_ON_START), taskId, S("")));
     return 0;
@@ -87,9 +82,18 @@ int RuntimeTask::frame() {
     return v8MainContext->onFrameCallback();
 }
 
-int RuntimeTask::poll() {
-    RuntimeMessage message = messageLoop->pollMessage();
-    return v8MainContext->onMessageCallback(message.mid, message.title, message.target, message.message);
+int RuntimeTask::poll(bool block) {
+    if(block) {
+        RuntimeMessage message = messageLoop->pollMessage();
+        return v8MainContext->onMessageCallback(message.mid, message.title, message.target, message.message);
+    }
+    else {
+        RuntimeMessage message;
+        if(messageLoop->getMessage(message)) {
+            return v8MainContext->onMessageCallback(message.mid, message.title, message.target, message.message);
+        }
+    }
+    return 0;
 }
 
 void RuntimeTask::loop() {

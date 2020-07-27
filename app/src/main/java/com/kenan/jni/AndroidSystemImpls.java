@@ -76,8 +76,6 @@ public class AndroidSystemImpls {
             javaToCppDto.int0 = len;
             javaToCppDto.byteArray0 = buffer;
 
-            Log.d("Android_JavaIMPL", new String(buffer) + " len:" + len);
-
             return javaToCppDto;
         }
         catch(Exception ex) {

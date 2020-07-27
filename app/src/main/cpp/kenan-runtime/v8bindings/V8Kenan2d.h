@@ -59,11 +59,6 @@ public:
 	static void Transform_scale(const v8::FunctionCallbackInfo<v8::Value>& args);
 	static void Transform_scaleNonUniform(const v8::FunctionCallbackInfo<v8::Value>& args);
 
-    static void Resource_CreateImage(const v8::FunctionCallbackInfo<v8::Value>& args);
-    static void Resource_DestroyImage(const v8::FunctionCallbackInfo<v8::Value>& args);
-    static void Resource_CreateSound(const v8::FunctionCallbackInfo<v8::Value>& args);
-    static void Resource_DestroySound(const v8::FunctionCallbackInfo<v8::Value>& args);
-
     static void Factory_CreateSpirit(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void Factory_DestroySpirit(const v8::FunctionCallbackInfo<v8::Value>& args);
 

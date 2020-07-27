@@ -8,8 +8,7 @@
 #include "defines.h"
 #include "V8Kenan2d.h"
 #include "V8Log.h"
-#include "V8Sprite.h"
-#include "V8Image.h"
+#include "V8Spirit.h"
 #include "gl2d_impl.h"
 #include "ObjectWrap.h"
 #include "fs.h"
@@ -77,11 +76,6 @@ v8::Handle<v8::Value> V8Kenan2d::genSingleton(Isolate *isolate)
     proto_t->Set(isolate, "Transform_translate", FunctionTemplate::New(isolate, V8Kenan2d::Transform_translate));
     proto_t->Set(isolate, "Transform_scale", FunctionTemplate::New(isolate, V8Kenan2d::Transform_scale));
     proto_t->Set(isolate, "Transform_scaleNonUniform", FunctionTemplate::New(isolate, V8Kenan2d::Transform_scaleNonUniform));
-
-    proto_t->Set(isolate, "Resource_CreateImage", FunctionTemplate::New(isolate, V8Kenan2d::Resource_CreateImage));
-    proto_t->Set(isolate, "Resource_DestroyImage", FunctionTemplate::New(isolate, V8Kenan2d::Resource_DestroyImage));
-    proto_t->Set(isolate, "Resource_CreateSound", FunctionTemplate::New(isolate, V8Kenan2d::Resource_CreateSound));
-    proto_t->Set(isolate, "Resource_DestroySound", FunctionTemplate::New(isolate, V8Kenan2d::Resource_DestroySound));
 
     proto_t->Set(isolate, "Factory_CreateSpirit", FunctionTemplate::New(isolate, V8Kenan2d::Factory_CreateSpirit));
     proto_t->Set(isolate, "Factory_DestroySpirit", FunctionTemplate::New(isolate, V8Kenan2d::Factory_DestroySpirit));
@@ -623,41 +617,11 @@ void V8Kenan2d::Transform_scaleNonUniform(const v8::FunctionCallbackInfo<v8::Val
     impl->Transform_scaleNonUniform(sx, sy);
 }
 
-void V8Kenan2d::Resource_CreateImage(const v8::FunctionCallbackInfo<v8::Value>& args)
-{
-    HandleScope handleScope(args.GetIsolate());
-    if(args.Length() < 1)
-    {
-        THROW_EXCEPTION(args.GetIsolate(), TError, "Resource_CreateImage : number of args exception! argn must:1");
-        exit(-1);
-    }
-    Local<Object> instance = V8Image::Create(args.GetIsolate(), args);
-    args.GetReturnValue().Set(instance);
-}
-
-void V8Kenan2d::Resource_DestroyImage(const v8::FunctionCallbackInfo<v8::Value>& args)
-{
-    HandleScope handleScope(args.GetIsolate());
-    if(args.Length() < 1)
-    {
-        THROW_EXCEPTION(args.GetIsolate(), TError, "Resource_CreateImage : number of args exception! argn must:1");
-        exit(-1);
-    }
-    V8Image::Destroy(args.GetIsolate(), args);
-}
-
-void V8Kenan2d::Resource_CreateSound(const v8::FunctionCallbackInfo<v8::Value>& args)
-{
-}
-
-void V8Kenan2d::Resource_DestroySound(const v8::FunctionCallbackInfo<v8::Value>& args)
-{
-}
 
 void V8Kenan2d::Factory_CreateSpirit(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
-    Local<Object> instance = V8Sprite::Create(args.GetIsolate(), args);
+    Local<Object> instance = V8Spirit::Create(args.GetIsolate(), args);
     args.GetReturnValue().Set(instance);
 }
 

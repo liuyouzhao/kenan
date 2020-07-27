@@ -52,6 +52,7 @@ bool RuntimeMessageLoop::getMessage(RuntimeMessage &msg) {
 
     if(this->messageQueue.size() > 0) {
         RuntimeMessage message = this->messageQueue.front();
+        this->messageQueue.pop();
         msg = message;
         has = true;
     }

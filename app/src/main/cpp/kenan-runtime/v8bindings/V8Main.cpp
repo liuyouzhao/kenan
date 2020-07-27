@@ -5,7 +5,7 @@
 #include "V8Main.h"
 #include "V8Log.h"
 #include "V8Kenan2d.h"
-#include "V8Sprite.h"
+#include "V8Spirit.h"
 #include "V8EventService.h"
 #include "V8Script.h"
 #include "V8Task.h"
@@ -213,14 +213,8 @@ int V8Main::onFrameCallback()
 
 void V8Main::destroyV8Environment()
 {
-    LOGD("===1");
     persistentContext.Reset();
-    LOGD("===2");
     isolate->Dispose();
-    LOGD("===3");
-    //v8::V8::Dispose();
-    //v8::V8::ShutdownPlatform();
-    //delete create_params.array_buffer_allocator;
 }
 
 }

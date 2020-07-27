@@ -5,8 +5,6 @@
 #ifndef KENAN_UUID_H
 #define KENAN_UUID_H
 
-#warning "UUID====================="
-
 #include <string>
 #include <sys/time.h>
 #include <unistd.h>

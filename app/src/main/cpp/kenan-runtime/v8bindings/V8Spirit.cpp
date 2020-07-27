@@ -1,4 +1,4 @@
-#include "V8Sprite.h"
+#include "V8Spirit.h"
 #include "sprite2d.h"
 #include "defines.h"
 #include "ObjectWrap.h"
@@ -7,20 +7,20 @@
 #include <stdio.h>
 
 #undef LOG_TAG
-#define  LOG_TAG    "V8Sprite"
+#define  LOG_TAG    "V8Spirit"
 
 namespace kenan_v8bindings
 {
 
-V8Sprite::V8Sprite()
+V8Spirit::V8Spirit()
 {
 }
 
-V8Sprite::~V8Sprite()
+V8Spirit::~V8Spirit()
 {
 }
 
-void V8Sprite::Render(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Spirit::Render(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
 	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
@@ -35,7 +35,7 @@ void V8Sprite::Render(const v8::FunctionCallbackInfo<v8::Value>& args)
 	s->Render(x, y);
 }
 
-void V8Sprite::RenderEx(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Spirit::RenderEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
 	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
@@ -61,7 +61,7 @@ void V8Sprite::RenderEx(const v8::FunctionCallbackInfo<v8::Value>& args)
 	s->RenderEx(x, y, rot, hscale, vscale);
 }
 
-void V8Sprite::SetColor(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Spirit::SetColor(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
 	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
@@ -79,7 +79,7 @@ void V8Sprite::SetColor(const v8::FunctionCallbackInfo<v8::Value>& args)
 	s->SetColor(r, g, b, a, i);
 }
 
-void V8Sprite::SetHotSpot(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Spirit::SetHotSpot(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
 	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
@@ -94,7 +94,7 @@ void V8Sprite::SetHotSpot(const v8::FunctionCallbackInfo<v8::Value>& args)
 }
 
 //void        SetBlendMode(int blend) { quad.blend = blend; }
-void V8Sprite::SetBlendMode(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Spirit::SetBlendMode(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
 	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
@@ -108,7 +108,7 @@ void V8Sprite::SetBlendMode(const v8::FunctionCallbackInfo<v8::Value>& args)
 }
 
 //void Gl2dSprite::SetTexture(HTEXTURE tex)
-void V8Sprite::SetTexture(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Spirit::SetTexture(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
 	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
@@ -121,7 +121,7 @@ void V8Sprite::SetTexture(const v8::FunctionCallbackInfo<v8::Value>& args)
 	s->SetTexture(tex);
 }
 
-void V8Sprite::SetUV(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Spirit::SetUV(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
 	Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
@@ -139,7 +139,7 @@ void V8Sprite::SetUV(const v8::FunctionCallbackInfo<v8::Value>& args)
 	s->SetUV(tu1, tv1, tu2, tv2);
 }
 
-void V8Sprite::Resize(const v8::FunctionCallbackInfo<v8::Value>& args)
+void V8Spirit::Resize(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2dSprite *s = ObjectWrap::Unwrap<Gl2dSprite>(args.GetIsolate(), args.This());
@@ -164,8 +164,8 @@ static v8::Persistent<v8::FunctionTemplate> functionTemplate_t;
 static v8::Persistent<v8::Template> proto_t;
 static v8::Persistent<v8::ObjectTemplate> instance_t;
 
-bool V8Sprite::templateReady = false;
-Handle<Object> V8Sprite::Create(Isolate *isolate, const v8::FunctionCallbackInfo<v8::Value>& args)
+bool V8Spirit::templateReady = false;
+Handle<Object> V8Spirit::Create(Isolate *isolate, const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     EscapableHandleScope handleScope(isolate);
 
@@ -173,14 +173,14 @@ Handle<Object> V8Sprite::Create(Isolate *isolate, const v8::FunctionCallbackInfo
     {
         functionTemplate_t.Reset(isolate, v8::FunctionTemplate::New(isolate));
         proto_t.Reset(isolate, functionTemplate_t.Get(isolate)->PrototypeTemplate());
-        proto_t.Get(isolate)->Set(isolate, "Render", v8::FunctionTemplate::New(isolate, V8Sprite::Render));
-        proto_t.Get(isolate)->Set(isolate, "RenderEx", v8::FunctionTemplate::New(isolate, V8Sprite::RenderEx));
-        proto_t.Get(isolate)->Set(isolate, "SetColor", v8::FunctionTemplate::New(isolate, V8Sprite::SetColor));
-        proto_t.Get(isolate)->Set(isolate, "SetHotSpot", v8::FunctionTemplate::New(isolate, V8Sprite::SetHotSpot));
-        proto_t.Get(isolate)->Set(isolate, "SetBlendMode", v8::FunctionTemplate::New(isolate, V8Sprite::SetBlendMode));
-        proto_t.Get(isolate)->Set(isolate, "SetTexture", v8::FunctionTemplate::New(isolate, V8Sprite::SetTexture));
-        proto_t.Get(isolate)->Set(isolate, "SetUV", v8::FunctionTemplate::New(isolate, V8Sprite::SetUV));
-        proto_t.Get(isolate)->Set(isolate, "Resize", v8::FunctionTemplate::New(isolate, V8Sprite::Resize));
+        proto_t.Get(isolate)->Set(isolate, "Render", v8::FunctionTemplate::New(isolate, V8Spirit::Render));
+        proto_t.Get(isolate)->Set(isolate, "RenderEx", v8::FunctionTemplate::New(isolate, V8Spirit::RenderEx));
+        proto_t.Get(isolate)->Set(isolate, "SetColor", v8::FunctionTemplate::New(isolate, V8Spirit::SetColor));
+        proto_t.Get(isolate)->Set(isolate, "SetHotSpot", v8::FunctionTemplate::New(isolate, V8Spirit::SetHotSpot));
+        proto_t.Get(isolate)->Set(isolate, "SetBlendMode", v8::FunctionTemplate::New(isolate, V8Spirit::SetBlendMode));
+        proto_t.Get(isolate)->Set(isolate, "SetTexture", v8::FunctionTemplate::New(isolate, V8Spirit::SetTexture));
+        proto_t.Get(isolate)->Set(isolate, "SetUV", v8::FunctionTemplate::New(isolate, V8Spirit::SetUV));
+        proto_t.Get(isolate)->Set(isolate, "Resize", v8::FunctionTemplate::New(isolate, V8Spirit::Resize));
 
         instance_t.Reset(isolate, functionTemplate_t.Get(isolate)->InstanceTemplate());
         instance_t.Get(isolate)->SetInternalFieldCount(1);

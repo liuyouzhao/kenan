@@ -12,6 +12,7 @@ namespace kenan_runtime {
 class RuntimeOptions {
 friend class RuntimeApi;
 public:
+    RuntimeOptions();
     void setWorkingDirectory(const char *dir);
     void setDefaultScriptPath(const char *path);
     void setScreenSize(int screenWidth, int screenHeight);
@@ -25,6 +26,7 @@ private:
     std::string workingDirectory;
     std::string defaultScriptPath;
     std::string entryScriptCode;
+    std::string mainTaskId;
 
     int screenWidth;
     int screenHeight;

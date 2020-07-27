@@ -31,9 +31,13 @@ public:
 
     int runTask(std::string taskId, std::string file, bool rw);
     void stopTask(std::string taskId);
+    bool hasTask(std::string taskId) {  return taskMap[taskId] != NULL; }
 
+    RuntimeTask *getTask(std::string taskId) {  return taskMap[taskId]; }
     bool isRunning() {  return mRunning; }
 
+    void sendUserMessage(std::string taskId, std::string target, std::string data);
+    void broadcastUserMessage(std::string target, std::string data);
 
 private:
     RuntimeApi();

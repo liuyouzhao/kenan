@@ -10,6 +10,10 @@
 
 namespace kenan_runtime {
 
+RuntimeOptions::RuntimeOptions() {
+    mainTaskId = std::string("main_task");
+}
+
 void RuntimeOptions::setWorkingDirectory(const char *dir) {
     workingDirectory = std::string(dir);
 }
