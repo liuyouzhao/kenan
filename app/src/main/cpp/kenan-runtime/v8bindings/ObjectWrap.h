@@ -64,6 +64,46 @@ namespace kenan_v8bindings
     }
 #endif
 
+#ifndef CHECK_V8_ARGS5
+#define CHECK_V8_ARGS5(a,T1,T2,T3,T4,T5) \
+    if(!a[0]->Is##T1() || !a[1]->Is##T2() || !a[2]->Is##T3() || !a[3]->Is##T4() || !a[4]->Is##T5()) { \
+        char __msg[128] = {0}; \
+        sprintf(__msg, "%s called in wrong argument type.", __FUNCTION__); \
+        THROW_EXCEPTION(a.GetIsolate(), TError, __msg); \
+        return; \
+    }
+#endif
+
+#ifndef CHECK_V8_ARGS6
+#define CHECK_V8_ARGS6(a,T1,T2,T3,T4,T5,T6) \
+    if(!a[0]->Is##T1() || !a[1]->Is##T2() || !a[2]->Is##T3() || !a[3]->Is##T4() || !a[4]->Is##T5() || !a[5]->Is##T6()) { \
+        char __msg[128] = {0}; \
+        sprintf(__msg, "%s called in wrong argument type.", __FUNCTION__); \
+        THROW_EXCEPTION(a.GetIsolate(), TError, __msg); \
+        return; \
+    }
+#endif
+
+#ifndef CHECK_V8_ARGS7
+#define CHECK_V8_ARGS7(a,T1,T2,T3,T4,T5,T6,T7) \
+    if(!a[0]->Is##T1() || !a[1]->Is##T2() || !a[2]->Is##T3() || !a[3]->Is##T4() || !a[4]->Is##T5() || !a[5]->Is##T6() || !a[6]->Is##T7()) { \
+        char __msg[128] = {0}; \
+        sprintf(__msg, "%s called in wrong argument type.", __FUNCTION__); \
+        THROW_EXCEPTION(a.GetIsolate(), TError, __msg); \
+        return; \
+    }
+#endif
+
+#ifndef CHECK_V8_ARGS8
+#define CHECK_V8_ARGS8(a,T1,T2,T3,T4,T5,T6,T7,T8) \
+    if(!a[0]->Is##T1() || !a[1]->Is##T2() || !a[2]->Is##T3() || !a[3]->Is##T4() || !a[4]->Is##T5() || !a[5]->Is##T6() || !a[6]->Is##T7() || !a[7]->Is##T8()) { \
+        char __msg[128] = {0}; \
+        sprintf(__msg, "%s called in wrong argument type.", __FUNCTION__); \
+        THROW_EXCEPTION(a.GetIsolate(), TError, __msg); \
+        return; \
+    }
+#endif
+
 #ifndef CASTTOCLASS
 #define CASTTOCLASS(CLASSNAME, INFO)	\
 	Local<Object> self = INFO.Holder();	\

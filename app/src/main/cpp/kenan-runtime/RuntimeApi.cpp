@@ -53,12 +53,13 @@ int RuntimeApi::init(RuntimeOptions &opts) {
     (3) Start run javascript code
     */
     if(opts.entryScriptCode.length() > 0) {
-        LOGD("Run entryScriptCode");
+        LOGD("Run entryScriptCode [OK]");
         engineTask = RuntimeTask::create(S("kenan-engine-task"));
         if(engineTask->setupScript(opts.entryScriptCode)) {
             LOGE("RuntimeApi::init failed, code setup failed");
             return -1;
         }
+        LOGD("First run [OK]");
     }
     else {
         LOGE("RuntimeApi::init failed, no code here, call either setDefaultScriptPath or setEntryScriptCode in opts");
@@ -68,6 +69,7 @@ int RuntimeApi::init(RuntimeOptions &opts) {
     if(!ret) {
         mRunning = true;
         taskMap[opts.mainTaskId] = engineTask;
+        options = opts;
     }
     else mRunning = false;
     return ret;

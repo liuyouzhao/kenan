@@ -22,6 +22,9 @@ public:
     const char* getWorkingDirectory() { return workingDirectory.c_str();    }
     const char* getDefaultScriptPath() {    return defaultScriptPath.c_str();   }
 
+    int getScreenWidth() {  return screenWidth; }
+    int getScreenHeight() {  return screenHeight; }
+
 private:
     std::string workingDirectory;
     std::string defaultScriptPath;

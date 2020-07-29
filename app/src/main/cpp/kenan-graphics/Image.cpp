@@ -136,6 +136,7 @@ void Image::setPixels(int *pixels, int w, int h) {
 
 HTEXTURE Image::getTexture()
 {
+    convertTexture();
     return m_hTex;
 }
 
@@ -147,10 +148,9 @@ void Image::setTexture(HTEXTURE ht , Gl2d_Impl* gc, int canvasId)
 }
 
 void Image::convertTexture() {
-    if(m_hTex != NO_TEXTURE) {
-        m_context->Texture_Free(m_hTex);
+    if(m_hTex == NO_TEXTURE) {
+        m_hTex = m_context->Texture_Load(m_data, m_width, m_height);
     }
-    m_hTex = m_context->Texture_Load(m_data, m_width, m_height);
 }
 
 void Image::onLoad()
@@ -224,7 +224,7 @@ ReturnStatus Image::load(std::string src)
     if(m_width <= 0 || m_height <= 0 || !m_data) {
         return ReturnStatus(-1, std::string("load failed"), std::string("load image error"));
     }
-    convertTexture();
+
     return ReturnStatus(0, std::string("ok"));
 }
 

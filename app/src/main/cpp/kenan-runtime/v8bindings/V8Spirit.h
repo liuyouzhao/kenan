@@ -3,7 +3,9 @@
 
 #include <v8.h>
 #include "ObjectWrap.h"
+#include "V8Base.h"
 #include "sprite2d.h"
+
 
 using namespace v8;
 
@@ -14,13 +16,16 @@ namespace kenan_v8bindings
                             THROW_EXCEPTION(a.GetIsolate(), TError, "Cannot use a destroyed object"); \
                             return;}
 
-class V8Spirit
+class V8Spirit: public V8Base
 {
 
 public:
 	V8Spirit();
     virtual ~V8Spirit();
-    static v8::Handle<v8::Value> genSingleton(v8::Isolate *isolate);
+
+    static void Create(const v8::FunctionCallbackInfo<v8::Value>& args);
+    static void Destroy(const v8::FunctionCallbackInfo<v8::Value>& args);
+
     static void Render(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void RenderEx(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void SetColor(const v8::FunctionCallbackInfo<v8::Value>& args);
@@ -30,9 +35,6 @@ public:
     static void SetUV(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void Resize(const v8::FunctionCallbackInfo<v8::Value>& args);
 
-    static Handle<Object> Create(Isolate *isolate, const v8::FunctionCallbackInfo<v8::Value>& args);
-
-    static bool HasInstance(v8::Handle<v8::Value>);
 
 private:
     static bool templateReady;

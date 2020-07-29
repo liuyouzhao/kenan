@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 
@@ -46,7 +45,6 @@ public class MyActivity extends Activity {
         ResourceManager.getInstance().init(this);
         mCanvas = new GLView(getApplication());
         String code = readCode();
-        Log.e("HUJIA", code);
         mCanvas.setCode(code);
         //mCanvas.setEGLContextClientVersion(2);
         mCanvas.setPreserveEGLContextOnPause(true);

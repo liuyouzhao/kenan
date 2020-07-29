@@ -12,7 +12,7 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 #include "effect.h"
-#include "AliTransformationMatrix.h"
+#include "TransformMatrix.h"
 
 #if IN_ANDROID
 #if NATIVE_SURFACE
@@ -26,7 +26,7 @@
 
 #include "aligl.h"
 
-#define VERTEX_BUFFER_SIZE       4000
+#define VERTEX_BUFFER_SIZE       8000
 
 #define NO_TEXTURE               0x7FFFFFFF
 #define NO_TARGET                0x7FFFFFFF
@@ -187,9 +187,9 @@ public:
     virtual void        CALL    Transform_disable(){bUseTransformation = false;}
 
     virtual void        CALL    Transform_useMatrix2d(float m11, float m12, float m21, float m22, float dx, float dy);
-    virtual void        CALL    Transform_setMatrix(AliTransformationMatrix nm){mTransformMatrix = nm;}
+    virtual void        CALL    Transform_setMatrix(TransformMatrix nm){mTransformMatrix = nm;}
 
-    virtual AliTransformationMatrix
+    virtual TransformMatrix
                         CALL    Transform_getMatrix(){return mTransformMatrix;}
 
     virtual HTEXTURE    CALL    Gfx_RenderShadow(HTARGET shadowTaget, HTARGET shadowTaget_bak,
@@ -213,6 +213,13 @@ public:
     NativeEnv*           getNativeEnv() const { return m_nativeEnv; }
     void                 setNativeEnv(NativeEnv* nativeEnv) { m_nativeEnv = nativeEnv; }
 #endif //#if NATIVE_SURFACE
+    int getBatchCount() {
+        int c = m_batchCount;
+        m_batchCount = 0;
+        return c;
+    }
+
+
     // System States
     const char*          szIcon;
     char                 szWinTitle[256];
@@ -261,7 +268,7 @@ private:
     EGLContext           eglContext;
     EGLNativeWindowType  eglWindow;
 
-    DCanvas::AliTransformationMatrix mTransformMatrix;
+    DCanvas::TransformMatrix mTransformMatrix;
     bool                 bUseTransformation;
 
     float                m_lineWidth;
@@ -306,6 +313,8 @@ private:
     bool 				 m_isNative;
 
     static Gl2d_Impl *s_self;
+
+    int                  m_batchCount;
 };
 
 typedef class Gl2d_Impl * GLContextRef;

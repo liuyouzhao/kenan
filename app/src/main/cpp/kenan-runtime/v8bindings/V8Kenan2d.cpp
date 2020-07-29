@@ -66,6 +66,7 @@ v8::Handle<v8::Value> V8Kenan2d::genSingleton(Isolate *isolate)
     proto_t->Set(isolate, "Gfx_RenderTorusEx", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_RenderTorusEx));
 
     proto_t->Set(isolate, "Gfx_SwapBuffer", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_SwapBuffer));
+    proto_t->Set(isolate, "Gfx_GetBatchCount", FunctionTemplate::New(isolate, V8Kenan2d::Gfx_GetBatchCount));
 
     proto_t->Set(isolate, "Texture_Create", FunctionTemplate::New(isolate, V8Kenan2d::Texture_Create));
     proto_t->Set(isolate, "Texture_Load", FunctionTemplate::New(isolate, V8Kenan2d::Texture_Load));
@@ -190,7 +191,6 @@ void V8Kenan2d::Effect_Active(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     HandleScope handleScope(args.GetIsolate());
     Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
-
     if(args.Length() != 2)
     {
         THROW_EXCEPTION(args.GetIsolate(), TError, "Effect_Active : number of args exception!");
@@ -620,13 +620,14 @@ void V8Kenan2d::Transform_scaleNonUniform(const v8::FunctionCallbackInfo<v8::Val
 
 void V8Kenan2d::Factory_CreateSpirit(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    HandleScope handleScope(args.GetIsolate());
-    Local<Object> instance = V8Spirit::Create(args.GetIsolate(), args);
-    args.GetReturnValue().Set(instance);
+    //HandleScope handleScope(args.GetIsolate());
+    //Local<Object> instance = V8Spirit::Create(args.GetIsolate(), args);
+    //args.GetReturnValue().Set(instance);
 }
 
 void V8Kenan2d::Factory_DestroySpirit(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
+/*
     HandleScope handleScope(args.GetIsolate());
     if(args.Length() == 0)
     {
@@ -641,6 +642,12 @@ void V8Kenan2d::Factory_DestroySpirit(const v8::FunctionCallbackInfo<v8::Value>&
         delete ptr;
         ptr = NULL;
     }
+*/
+}
+
+void V8Kenan2d::Gfx_GetBatchCount(const v8::FunctionCallbackInfo<v8::Value>& args) {
+    Gl2d_Impl *impl = ObjectWrap::Unwrap<Gl2d_Impl>(args.GetIsolate(), args.This());
+    args.GetReturnValue().Set(v8::Integer::New(args.GetIsolate(), impl->getBatchCount()));
 }
 
 }

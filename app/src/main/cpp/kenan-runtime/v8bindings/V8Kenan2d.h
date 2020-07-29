@@ -48,6 +48,7 @@ public:
 
 	static void Gfx_SetMatrix(const v8::FunctionCallbackInfo<v8::Value>& args);
 	static void Gfx_SwapBuffer(const v8::FunctionCallbackInfo<v8::Value>& args);
+	static void Gfx_GetBatchCount(const v8::FunctionCallbackInfo<v8::Value>& args);
 
 	static void Texture_Create(const v8::FunctionCallbackInfo<v8::Value>& args);
 	static void Texture_Load(const v8::FunctionCallbackInfo<v8::Value>& args);

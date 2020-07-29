@@ -23,23 +23,23 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef AliTransformationMatrix_h
-#define AliTransformationMatrix_h
+#ifndef TransformMatrix_h
+#define TransformMatrix_h
 
 #include <string.h> //for memcpy
 
 namespace DCanvas
 {
-class AliTransformationMatrix
+class TransformMatrix
 {
 
 public:
     typedef float Matrix4[4][4];
 
-    AliTransformationMatrix() { makeIdentity(); }
-    AliTransformationMatrix(const DCanvas::AliTransformationMatrix& t) { *this = t; }
-    AliTransformationMatrix(float a, float b, float c, float d, float e, float f) { setMatrix(a, b, c, d, e, f); }
-    AliTransformationMatrix(float m11, float m12, float m13, float m14,
+    TransformMatrix() { makeIdentity(); }
+    TransformMatrix(const DCanvas::TransformMatrix& t) { *this = t; }
+    TransformMatrix(float a, float b, float c, float d, float e, float f) { setMatrix(a, b, c, d, e, f); }
+    TransformMatrix(float m11, float m12, float m13, float m14,
                          float m21, float m22, float m23, float m24,
                          float m31, float m32, float m33, float m34,
                          float m41, float m42, float m43, float m44)
@@ -66,13 +66,13 @@ public:
         m_matrix[3][0] = m41; m_matrix[3][1] = m42; m_matrix[3][2] = m43; m_matrix[3][3] = m44;
     }
 
-    AliTransformationMatrix& operator =(const AliTransformationMatrix &t)
+    TransformMatrix& operator =(const TransformMatrix &t)
     {
         setMatrix(t.m_matrix);
         return *this;
     }
 
-    AliTransformationMatrix& makeIdentity()
+    TransformMatrix& makeIdentity()
     {
         setMatrix(1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 0, 1);
         return *this;
@@ -144,42 +144,42 @@ public:
     void setF(float f) { m_matrix[3][1] = f; }
 
     // this = this * mat
-    AliTransformationMatrix& multiply(const AliTransformationMatrix&);
-    AliTransformationMatrix& multiply(float m11, float m12, float m21, float m22, float dx, float dy);
+    TransformMatrix& multiply(const TransformMatrix&);
+    TransformMatrix& multiply(float m11, float m12, float m21, float m22, float dx, float dy);
 
-    AliTransformationMatrix& scale(float s);
-    AliTransformationMatrix& scaleNonUniform(float sx, float sy);
-    AliTransformationMatrix& scale3d(float sx, float sy, float sz);
+    TransformMatrix& scale(float s);
+    TransformMatrix& scaleNonUniform(float sx, float sy);
+    TransformMatrix& scale3d(float sx, float sy, float sz);
 
-    AliTransformationMatrix& rotate(float d) { return rotate3d(0, 0, d); }
-    AliTransformationMatrix& rotateFromVector(float x, float y);
-    AliTransformationMatrix& rotate3d(float rx, float ry, float rz);
+    TransformMatrix& rotate(float d) { return rotate3d(0, 0, d); }
+    TransformMatrix& rotateFromVector(float x, float y);
+    TransformMatrix& rotate3d(float rx, float ry, float rz);
 
     // The vector (x,y,z) is normalized if it's not already. A vector of
     // (0,0,0) uses a vector of (0,0,1).
-    AliTransformationMatrix& rotate3d(float x, float y, float z, float angle);
+    TransformMatrix& rotate3d(float x, float y, float z, float angle);
 
-    AliTransformationMatrix& translate(float tx, float ty);
-    AliTransformationMatrix& translate3d(float tx, float ty, float tz);
+    TransformMatrix& translate(float tx, float ty);
+    TransformMatrix& translate3d(float tx, float ty, float tz);
 
     // translation added with a post-multiply
-    AliTransformationMatrix& translateRight(float tx, float ty);
-    AliTransformationMatrix& translateRight3d(float tx, float ty, float tz);
+    TransformMatrix& translateRight(float tx, float ty);
+    TransformMatrix& translateRight3d(float tx, float ty, float tz);
 
-    AliTransformationMatrix& flipX();
-    AliTransformationMatrix& flipY();
-    AliTransformationMatrix& skew(float angleX, float angleY);
-    AliTransformationMatrix& skewX(float angle) { return skew(angle, 0); }
-    AliTransformationMatrix& skewY(float angle) { return skew(0, angle); }
+    TransformMatrix& flipX();
+    TransformMatrix& flipY();
+    TransformMatrix& skew(float angleX, float angleY);
+    TransformMatrix& skewX(float angle) { return skew(angle, 0); }
+    TransformMatrix& skewY(float angle) { return skew(0, angle); }
 
-    AliTransformationMatrix& applyPerspective(float p);
+    TransformMatrix& applyPerspective(float p);
     bool hasPerspective() const { return m_matrix[2][3] != 0.0f; }
 
     bool isInvertible() const;
 
     // This method returns the identity matrix if it is not invertible.
     // Use isInvertible() before calling this if you need to know.
-    AliTransformationMatrix inverse() const;
+    TransformMatrix inverse() const;
 
     // decompose the matrix into its component parts
     typedef struct {
@@ -193,7 +193,7 @@ public:
     bool decompose(DecomposedType& decomp) const;
     void recompose(const DecomposedType& decomp);
 
-    void blend(const AliTransformationMatrix& from, float progress);
+    void blend(const TransformMatrix& from, float progress);
 
     bool isAffine() const
     {
@@ -204,7 +204,7 @@ public:
     // Throw away the non-affine parts of the matrix (lossy!)
     void makeAffine();
 
-    bool operator==(const AliTransformationMatrix& m2) const
+    bool operator==(const TransformMatrix& m2) const
     {
         return (m_matrix[0][0] == m2.m_matrix[0][0] &&
                 m_matrix[0][1] == m2.m_matrix[0][1] &&
@@ -224,28 +224,28 @@ public:
                 m_matrix[3][3] == m2.m_matrix[3][3]);
     }
 
-    bool operator!=(const AliTransformationMatrix& other) const { return !(*this == other); }
+    bool operator!=(const TransformMatrix& other) const { return !(*this == other); }
 
     // *this = *this * t
-    AliTransformationMatrix& operator*=(const AliTransformationMatrix& t)
+    TransformMatrix& operator*=(const TransformMatrix& t)
     {
         return multiply(t);
     }
 
     // result = *this * t
-    AliTransformationMatrix operator*(const AliTransformationMatrix& t) const
+    TransformMatrix operator*(const TransformMatrix& t) const
     {
-        AliTransformationMatrix result = *this;
+        TransformMatrix result = *this;
         result.multiply(t);
         return result;
     }
 /*
 #if PLATFORM(CA)
-    AliTransformationMatrix(const CATransform3D&);
+    TransformMatrix(const CATransform3D&);
     operator CATransform3D() const;
 #endif
 #if PLATFORM(CG)
-    AliTransformationMatrix(const CGAffineTransform&);
+    TransformMatrix(const CGAffineTransform&);
     operator CGAffineTransform() const;
 #elif PLATFORM(CAIRO)
     operator cairo_matrix_t() const;
@@ -287,4 +287,4 @@ private:
     Matrix4 m_matrix;
 };
 }
-#endif // AliTransformationMatrix_h
+#endif // TransformMatrix_h

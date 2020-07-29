@@ -7,7 +7,11 @@
 
 #include <map>
 #include <string>
+#include "defines.h"
 #include "EntityPool.h"
+
+#undef LOG_TAG
+#define  LOG_TAG    "EntityManager"
 
 namespace kenan_system {
 
@@ -37,9 +41,14 @@ public:
     T* retrieve(const char *name, const char *pool) {
         std::string stringPool = std::string(pool);
         if(pools.find(stringPool) != pools.end() && pools[stringPool] != NULL) {
-           EntityPool *entityPool =  pools[stringPool];
-           return entityPool->get<T>(name);
+            EntityPool *entityPool =  pools[stringPool];
+            T *ptr = entityPool->get<T>(name);
+            if(ptr == NULL) {
+                LOGE("Resource MARK: %s NOT exist.", name);
+            }
+            return entityPool->get<T>(name);
         }
+        LOGE("Resource POOL: %s NOT exist.", pool);
         return NULL;
     }
 

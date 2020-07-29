@@ -79,8 +79,20 @@ int V8Main::firstRunJavascript(std::string javascript)
 
     setupJavascriptGlobalObjects(isolate, context);
 
+    LOGD("setupJavascriptGlobalObjects [OK]");
+
     v8::Local<v8::String> source = v8::String::NewFromUtf8(isolate, javascript.c_str(), v8::NewStringType::kNormal).ToLocalChecked();
-    v8::Local<v8::Script> script = v8::Script::Compile(context, source).ToLocalChecked();
+
+    LOGD("create source code [OK]");
+    v8::MaybeLocal<v8::Script> preScript = v8::Script::Compile(context, source);
+    if(preScript.IsEmpty()) {
+        LOGE("V8 compile the code file failed\n %s", javascript.c_str());
+        exit(-1);
+    }
+
+    LOGD("Try to compile [OK]");
+    v8::Local<v8::Script> script = preScript.ToLocalChecked();
+    LOGD("firstRunJavascript compiled [OK]");
 
     if (script.IsEmpty())
     {
@@ -89,7 +101,10 @@ int V8Main::firstRunJavascript(std::string javascript)
     }
     codeState = COMPILED;
     //v8::Local<v8::Value> result = script->Run(context).ToLocalChecked();
+
     script->Run(context);
+    LOGD("firstRunJavascript run [OK]");
+
     if (try_catch.HasCaught())
     {
         v8::String::Utf8Value exception(try_catch.Exception());

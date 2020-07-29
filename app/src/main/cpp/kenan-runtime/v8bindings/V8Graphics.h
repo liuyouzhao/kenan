@@ -18,6 +18,9 @@ public:
     virtual ~V8Graphics();
     static v8::Handle<v8::Value> genSingleton(v8::Isolate *isolate);
 
+    static void Graphics_Screen_GetWidth(const v8::FunctionCallbackInfo<v8::Value>& args);
+    static void Graphics_Screen_GetHeight(const v8::FunctionCallbackInfo<v8::Value>& args);
+
     static void Graphics_Image_Create(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void Graphics_Image_Destroy(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void Graphics_Image_SetSrc(const v8::FunctionCallbackInfo<v8::Value>& args);

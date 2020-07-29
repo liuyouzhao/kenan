@@ -9,13 +9,13 @@
 #include <map>
 
 #include "V8Main.h"
+#include "RuntimeOptions.h"
 
 using namespace kenan_v8bindings;
 
 namespace kenan_runtime {
 
 class RuntimeTask;
-class RuntimeOptions;
 class RuntimeMessageLoop;
 
 class RuntimeApi {
@@ -39,6 +39,8 @@ public:
     void sendUserMessage(std::string taskId, std::string target, std::string data);
     void broadcastUserMessage(std::string target, std::string data);
 
+    RuntimeOptions getOptions() {   return options; }
+
 private:
     RuntimeApi();
     int runCodeOnce(std::string code);
@@ -47,6 +49,8 @@ private:
 
     std::map<std::string, RuntimeTask*> taskMap;
     RuntimeTask *engineTask;
+
+    RuntimeOptions options;
 
     pthread_mutex_t mutex;
 };

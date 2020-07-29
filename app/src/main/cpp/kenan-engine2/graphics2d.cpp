@@ -403,7 +403,6 @@ void CALL Gl2d_Impl::Gfx_RenderQuad(const gl2dQuad *quad)
     if (CurPrimType != GL2D_PRIM_QUADS || nPrim >= VERTEX_BUFFER_SIZE / GL2D_PRIM_QUADS
     || CurTexture != quad->tex || CurBlendMode != quad->blend || CurEffect != OldEffect)
     {
-        LOGE("Gfx_RunderQuad _render_batch immediately");
         _render_batch(false);
 
         // Update Scissor
@@ -1104,6 +1103,11 @@ HTEXTURE CALL Gl2d_Impl::Texture_Load(const  unsigned int *data, int width, int 
 {
     GLuint texture;
     glGenTextures(1, &texture);
+
+    if(texture == GL_INVALID_VALUE) {
+        LOGE("invalid texutre");
+    }
+
     //glGenerateMipmap(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture);
 
@@ -1136,6 +1140,7 @@ void CALL Gl2d_Impl::Texture_Free(HTEXTURE tex)
 //////// Implementation ////////
 void Gl2d_Impl::_render_batch(bool bEndScene)
 {
+    static int first = 1;
     if (!nPrim) {
         return;
     }
@@ -1234,6 +1239,8 @@ void Gl2d_Impl::_render_batch(bool bEndScene)
     _vertex_length = 0;
     _texcoord_length = 0;
     _color_length = 0;
+
+    m_batchCount ++;
 }
 
 void Gl2d_Impl::Gfx_SetLineWidth(float width)

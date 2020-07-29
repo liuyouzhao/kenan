@@ -24,7 +24,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "AliTransformationMatrix.h"
+#include "TransformMatrix.h"
 #include "math.h"
 
 //#include "AffineTransform.h"
@@ -113,7 +113,7 @@ static float determinant3x3(float a1, float a2, float a3, float b1, float b2, fl
 //
 //  calculate the determinant of a 4x4 matrix.
 
-static float determinant4x4(const AliTransformationMatrix::Matrix4& m)
+static float determinant4x4(const TransformMatrix::Matrix4& m)
 {
     // Assign to individual variable names to aid selecting
     // correct elements
@@ -160,7 +160,7 @@ static float determinant4x4(const AliTransformationMatrix::Matrix4& m)
 //  The matrix B = (b  ) is the adjoint of A
 //                   ij
 
-static void adjoint(const AliTransformationMatrix::Matrix4& matrix, AliTransformationMatrix::Matrix4& result)
+static void adjoint(const TransformMatrix::Matrix4& matrix, TransformMatrix::Matrix4& result)
 {
     // Assign to individual variable names to aid
     // selecting correct values
@@ -207,7 +207,7 @@ static void adjoint(const AliTransformationMatrix::Matrix4& matrix, AliTransform
 }
 
 // Returns false if the matrix is not invertible
-static bool inverse(const AliTransformationMatrix::Matrix4& matrix, AliTransformationMatrix::Matrix4& result)
+static bool inverse(const TransformMatrix::Matrix4& matrix, TransformMatrix::Matrix4& result)
 {
     // Calculate the adjoint matrix
     adjoint(matrix, result);
@@ -235,7 +235,7 @@ static bool inverse(const AliTransformationMatrix::Matrix4& matrix, AliTransform
 // From Graphics Gems: unmatrix.c
 
 // Transpose rotation portion of matrix a, return b
-static void transposeMatrix4(const AliTransformationMatrix::Matrix4& a, AliTransformationMatrix::Matrix4& b)
+static void transposeMatrix4(const TransformMatrix::Matrix4& a, TransformMatrix::Matrix4& b)
 {
     for (int i = 0; i < 4; i++)
         for (int j = 0; j < 4; j++)
@@ -243,7 +243,7 @@ static void transposeMatrix4(const AliTransformationMatrix::Matrix4& a, AliTrans
 }
 
 // Multiply a homogeneous point by a matrix and return the transformed point
-static void v4MulPointByMatrix(const Vector4 p, const AliTransformationMatrix::Matrix4& m, Vector4 result)
+static void v4MulPointByMatrix(const Vector4 p, const TransformMatrix::Matrix4& m, Vector4 result)
 {
     result[0] = (p[0] * m[0][0]) + (p[1] * m[1][0]) +
                 (p[2] * m[2][0]) + (p[3] * m[3][0]);
@@ -294,10 +294,10 @@ static void v3Cross(const Vector3 a, const Vector3 b, Vector3 result)
     result[2] = (a[0] * b[1]) - (a[1] * b[0]);
 }
 
-static bool decompose(const AliTransformationMatrix::Matrix4& mat, AliTransformationMatrix::DecomposedType& result)
+static bool decompose(const TransformMatrix::Matrix4& mat, TransformMatrix::DecomposedType& result)
 {
-    AliTransformationMatrix::Matrix4 localMatrix;
-    memcpy(localMatrix, mat, sizeof(AliTransformationMatrix::Matrix4));
+    TransformMatrix::Matrix4 localMatrix;
+    memcpy(localMatrix, mat, sizeof(TransformMatrix::Matrix4));
 
     // Normalize the matrix.
     if (localMatrix[3][3] == 0)
@@ -310,8 +310,8 @@ static bool decompose(const AliTransformationMatrix::Matrix4& mat, AliTransforma
 
     // perspectiveMatrix is used to solve for perspective, but it also provides
     // an easy way to test for singularity of the upper 3x3 component.
-    AliTransformationMatrix::Matrix4 perspectiveMatrix;
-    memcpy(perspectiveMatrix, localMatrix, sizeof(AliTransformationMatrix::Matrix4));
+    TransformMatrix::Matrix4 perspectiveMatrix;
+    memcpy(perspectiveMatrix, localMatrix, sizeof(TransformMatrix::Matrix4));
     for (i = 0; i < 3; i++)
         perspectiveMatrix[i][3] = 0;
     perspectiveMatrix[3][3] = 1;
@@ -332,7 +332,7 @@ static bool decompose(const AliTransformationMatrix::Matrix4& mat, AliTransforma
         // Solve the equation by inverting perspectiveMatrix and multiplying
         // rightHandSide by the inverse.  (This is the easiest way, not
         // necessarily the best.)
-        AliTransformationMatrix::Matrix4 inversePerspectiveMatrix, transposedInversePerspectiveMatrix;
+        TransformMatrix::Matrix4 inversePerspectiveMatrix, transposedInversePerspectiveMatrix;
         inverse(perspectiveMatrix, inversePerspectiveMatrix);
         transposeMatrix4(inversePerspectiveMatrix, transposedInversePerspectiveMatrix);
 
@@ -537,28 +537,28 @@ static void slerp(float qa[4], const float qb[4], float t)
 // End of Supporting Math Functions
 }
 
-AliTransformationMatrix& AliTransformationMatrix::scale(float s)
+TransformMatrix& TransformMatrix::scale(float s)
 {
     return scaleNonUniform(s, s);
 }
 
-AliTransformationMatrix& AliTransformationMatrix::rotateFromVector(float x, float y)
+TransformMatrix& TransformMatrix::rotateFromVector(float x, float y)
 {
     return rotate(rad2deg(atan2(y, x)));
 }
 
-AliTransformationMatrix& AliTransformationMatrix::flipX()
+TransformMatrix& TransformMatrix::flipX()
 {
     return scaleNonUniform(-1.0f, 1.0f);
 }
 
-AliTransformationMatrix& AliTransformationMatrix::flipY()
+TransformMatrix& TransformMatrix::flipY()
 {
     return scaleNonUniform(1.0f, -1.0f);
 }
 
 /*
-FloatPoint AliTransformationMatrix::projectPoint(const FloatPoint& p) const
+FloatPoint TransformMatrix::projectPoint(const FloatPoint& p) const
 {
     // This is basically raytracing. We have a point in the destination
     // plane with z=0, and we cast a ray parallel to the z-axis from that
@@ -590,7 +590,7 @@ FloatPoint AliTransformationMatrix::projectPoint(const FloatPoint& p) const
     return FloatPoint(static_cast<float>(outX), static_cast<float>(outY));
 }
 
-FloatQuad AliTransformationMatrix::projectQuad(const FloatQuad& q) const
+FloatQuad TransformMatrix::projectQuad(const FloatQuad& q) const
 {
     FloatQuad projectedQuad;
     projectedQuad.setP1(projectPoint(q.p1()));
@@ -600,7 +600,7 @@ FloatQuad AliTransformationMatrix::projectQuad(const FloatQuad& q) const
     return projectedQuad;
 }
 
-FloatPoint AliTransformationMatrix::mapPoint(const FloatPoint& p) const
+FloatPoint TransformMatrix::mapPoint(const FloatPoint& p) const
 {
     if (isIdentityOrTranslation())
         return FloatPoint(p.x() + static_cast<float>(m_matrix[3][0]), p.y() + static_cast<float>(m_matrix[3][1]));
@@ -610,7 +610,7 @@ FloatPoint AliTransformationMatrix::mapPoint(const FloatPoint& p) const
     return FloatPoint(static_cast<float>(x), static_cast<float>(y));
 }
 
-FloatPoint3D AliTransformationMatrix::mapPoint(const FloatPoint3D& p) const
+FloatPoint3D TransformMatrix::mapPoint(const FloatPoint3D& p) const
 {
     if (isIdentityOrTranslation())
         return FloatPoint3D(p.x() + static_cast<float>(m_matrix[3][0]),
@@ -622,12 +622,12 @@ FloatPoint3D AliTransformationMatrix::mapPoint(const FloatPoint3D& p) const
     return FloatPoint3D(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z));
 }
 
-IntRect AliTransformationMatrix::mapRect(const IntRect &rect) const
+IntRect TransformMatrix::mapRect(const IntRect &rect) const
 {
     return enclosingIntRect(mapRect(FloatRect(rect)));
 }
 
-FloatRect AliTransformationMatrix::mapRect(const FloatRect& r) const
+FloatRect TransformMatrix::mapRect(const FloatRect& r) const
 {
     if (isIdentityOrTranslation())
     {
@@ -640,7 +640,7 @@ FloatRect AliTransformationMatrix::mapRect(const FloatRect& r) const
     return resultQuad.boundingBox();
 }
 
-FloatQuad AliTransformationMatrix::mapQuad(const FloatQuad& q) const
+FloatQuad TransformMatrix::mapQuad(const FloatQuad& q) const
 {
     if (isIdentityOrTranslation())
     {
@@ -657,9 +657,9 @@ FloatQuad AliTransformationMatrix::mapQuad(const FloatQuad& q) const
     return result;
 }*/
 
-AliTransformationMatrix& AliTransformationMatrix::scaleNonUniform(float sx, float sy)
+TransformMatrix& TransformMatrix::scaleNonUniform(float sx, float sy)
 {
-    AliTransformationMatrix mat;
+    TransformMatrix mat;
     mat.m_matrix[0][0] = sx;
     mat.m_matrix[1][1] = sy;
 
@@ -667,9 +667,9 @@ AliTransformationMatrix& AliTransformationMatrix::scaleNonUniform(float sx, floa
     return *this;
 }
 
-AliTransformationMatrix& AliTransformationMatrix::scale3d(float sx, float sy, float sz)
+TransformMatrix& TransformMatrix::scale3d(float sx, float sy, float sz)
 {
-    AliTransformationMatrix mat;
+    TransformMatrix mat;
     mat.m_matrix[0][0] = sx;
     mat.m_matrix[1][1] = sy;
     mat.m_matrix[2][2] = sz;
@@ -678,7 +678,7 @@ AliTransformationMatrix& AliTransformationMatrix::scale3d(float sx, float sy, fl
     return *this;
 }
 
-AliTransformationMatrix& AliTransformationMatrix::rotate3d(float x, float y, float z, float angle)
+TransformMatrix& TransformMatrix::rotate3d(float x, float y, float z, float angle)
 {
     // angles are in degrees. Switch to radians
     angle = deg2rad(angle);
@@ -704,7 +704,7 @@ AliTransformationMatrix& AliTransformationMatrix::rotate3d(float x, float y, flo
         z /= length;
     }
 
-    AliTransformationMatrix mat;
+    TransformMatrix mat;
 
     // optimize case where axis is along major axis
     if (x == 1.0f && y == 0.0f && z == 0.0f)
@@ -775,14 +775,14 @@ AliTransformationMatrix& AliTransformationMatrix::rotate3d(float x, float y, flo
     return *this;
 }
 
-AliTransformationMatrix& AliTransformationMatrix::rotate3d(float rx, float ry, float rz)
+TransformMatrix& TransformMatrix::rotate3d(float rx, float ry, float rz)
 {
     // angles are in degrees. Switch to radians
     rx = deg2rad(rx);
     ry = deg2rad(ry);
     rz = deg2rad(rz);
 
-    AliTransformationMatrix mat;
+    TransformMatrix mat;
 
     rz /= 2.0f;
     float sinA = sin(rz);
@@ -802,7 +802,7 @@ AliTransformationMatrix& AliTransformationMatrix::rotate3d(float rx, float ry, f
     mat.m_matrix[3][0] = mat.m_matrix[3][1] = mat.m_matrix[3][2] = 0.0f;
     mat.m_matrix[3][3] = 1.0f;
 
-    AliTransformationMatrix rmat(mat);
+    TransformMatrix rmat(mat);
 
     ry /= 2.0f;
     sinA = sin(ry);
@@ -848,7 +848,7 @@ AliTransformationMatrix& AliTransformationMatrix::rotate3d(float rx, float ry, f
     return *this;
 }
 
-AliTransformationMatrix& AliTransformationMatrix::translate(float tx, float ty)
+TransformMatrix& TransformMatrix::translate(float tx, float ty)
 {
     m_matrix[3][0] += tx * m_matrix[0][0] + ty * m_matrix[1][0];
     m_matrix[3][1] += tx * m_matrix[0][1] + ty * m_matrix[1][1];
@@ -857,7 +857,7 @@ AliTransformationMatrix& AliTransformationMatrix::translate(float tx, float ty)
     return *this;
 }
 
-AliTransformationMatrix& AliTransformationMatrix::translate3d(float tx, float ty, float tz)
+TransformMatrix& TransformMatrix::translate3d(float tx, float ty, float tz)
 {
     m_matrix[3][0] += tx * m_matrix[0][0] + ty * m_matrix[1][0] + tz * m_matrix[2][0];
     m_matrix[3][1] += tx * m_matrix[0][1] + ty * m_matrix[1][1] + tz * m_matrix[2][1];
@@ -866,7 +866,7 @@ AliTransformationMatrix& AliTransformationMatrix::translate3d(float tx, float ty
     return *this;
 }
 
-AliTransformationMatrix& AliTransformationMatrix::translateRight(float tx, float ty)
+TransformMatrix& TransformMatrix::translateRight(float tx, float ty)
 {
     if (tx != 0)
     {
@@ -887,7 +887,7 @@ AliTransformationMatrix& AliTransformationMatrix::translateRight(float tx, float
     return *this;
 }
 
-AliTransformationMatrix& AliTransformationMatrix::translateRight3d(float tx, float ty, float tz)
+TransformMatrix& TransformMatrix::translateRight3d(float tx, float ty, float tz)
 {
     translateRight(tx, ty);
     if (tz != 0)
@@ -901,13 +901,13 @@ AliTransformationMatrix& AliTransformationMatrix::translateRight3d(float tx, flo
     return *this;
 }
 
-AliTransformationMatrix& AliTransformationMatrix::skew(float sx, float sy)
+TransformMatrix& TransformMatrix::skew(float sx, float sy)
 {
     // angles are in degrees. Switch to radians
     sx = deg2rad(sx);
     sy = deg2rad(sy);
 
-    AliTransformationMatrix mat;
+    TransformMatrix mat;
     mat.m_matrix[0][1] = tan(sy); // note that the y shear goes in the first row
     mat.m_matrix[1][0] = tan(sx); // and the x shear in the second row
 
@@ -915,9 +915,9 @@ AliTransformationMatrix& AliTransformationMatrix::skew(float sx, float sy)
     return *this;
 }
 
-AliTransformationMatrix& AliTransformationMatrix::applyPerspective(float p)
+TransformMatrix& TransformMatrix::applyPerspective(float p)
 {
-    AliTransformationMatrix mat;
+    TransformMatrix mat;
     if (p != 0)
         mat.m_matrix[2][3] = -1/p;
 
@@ -926,10 +926,10 @@ AliTransformationMatrix& AliTransformationMatrix::applyPerspective(float p)
 }
 
 /*
-AliTransformationMatrix AliTransformationMatrix::rectToRect(const FloatRect& from, const FloatRect& to)
+TransformMatrix TransformMatrix::rectToRect(const FloatRect& from, const FloatRect& to)
 {
     ASSERT(!from.isEmpty());
-    return AliTransformationMatrix(to.width() / from.width(),
+    return TransformMatrix(to.width() / from.width(),
                                 0, 0,
                                 to.height() / from.height(),
                                 to.x() - from.x(),
@@ -939,7 +939,7 @@ AliTransformationMatrix AliTransformationMatrix::rectToRect(const FloatRect& fro
 //
 // *this = mat * *this
 //
-AliTransformationMatrix& AliTransformationMatrix::multiply(const AliTransformationMatrix& mat)
+TransformMatrix& TransformMatrix::multiply(const TransformMatrix& mat)
 {
     Matrix4 tmp;
 
@@ -982,9 +982,9 @@ AliTransformationMatrix& AliTransformationMatrix::multiply(const AliTransformati
     setMatrix(tmp);
     return *this;
 }
-AliTransformationMatrix& AliTransformationMatrix::multiply(float m11, float m12, float m21, float m22, float dx, float dy)
+TransformMatrix& TransformMatrix::multiply(float m11, float m12, float m21, float m22, float dx, float dy)
 {
-    AliTransformationMatrix tmp;
+    TransformMatrix tmp;
     tmp.setM11(m11);
     tmp.setM12(m12);
     tmp.setM21(m21);
@@ -995,7 +995,7 @@ AliTransformationMatrix& AliTransformationMatrix::multiply(float m11, float m12,
 }
 
 
-void AliTransformationMatrix::multVecMatrix(float x, float y, float& resultX, float& resultY) const
+void TransformMatrix::multVecMatrix(float x, float y, float& resultX, float& resultY) const
 {
     resultX = m_matrix[3][0] + x * m_matrix[0][0] + y * m_matrix[1][0];
     resultY = m_matrix[3][1] + x * m_matrix[0][1] + y * m_matrix[1][1];
@@ -1007,7 +1007,7 @@ void AliTransformationMatrix::multVecMatrix(float x, float y, float& resultX, fl
     }
 }
 
-void AliTransformationMatrix::multVecMatrix(float x, float y, float z, float& resultX, float& resultY, float& resultZ) const
+void TransformMatrix::multVecMatrix(float x, float y, float z, float& resultX, float& resultY, float& resultZ) const
 {
     resultX = m_matrix[3][0] + x * m_matrix[0][0] + y * m_matrix[1][0] + z * m_matrix[2][0];
     resultY = m_matrix[3][1] + x * m_matrix[0][1] + y * m_matrix[1][1] + z * m_matrix[2][1];
@@ -1021,7 +1021,7 @@ void AliTransformationMatrix::multVecMatrix(float x, float y, float z, float& re
     }
 }
 
-bool AliTransformationMatrix::isInvertible() const
+bool TransformMatrix::isInvertible() const
 {
     if (isIdentityOrTranslation())
         return true;
@@ -1034,30 +1034,30 @@ bool AliTransformationMatrix::isInvertible() const
     return true;
 }
 
-AliTransformationMatrix AliTransformationMatrix::inverse() const
+TransformMatrix TransformMatrix::inverse() const
 {
     if (isIdentityOrTranslation())
     {
         // identity matrix
         if (m_matrix[3][0] == 0 && m_matrix[3][1] == 0 && m_matrix[3][2] == 0)
-            return AliTransformationMatrix();
+            return TransformMatrix();
 
         // translation
-        return AliTransformationMatrix(1, 0, 0, 0,
+        return TransformMatrix(1, 0, 0, 0,
                                     0, 1, 0, 0,
                                     0, 0, 1, 0,
                                     -m_matrix[3][0], -m_matrix[3][1], -m_matrix[3][2], 1);
     }
 
-    AliTransformationMatrix invMat;
+    TransformMatrix invMat;
     bool inverted = matrix::inverse(m_matrix, invMat.m_matrix);
     if (!inverted)
-        return AliTransformationMatrix();
+        return TransformMatrix();
 
     return invMat;
 }
 
-void AliTransformationMatrix::makeAffine()
+void TransformMatrix::makeAffine()
 {
     m_matrix[0][2] = 0;
     m_matrix[0][3] = 0;
@@ -1074,7 +1074,7 @@ void AliTransformationMatrix::makeAffine()
     m_matrix[3][3] = 1;
 }
 
-/*AffineTransform AliTransformationMatrix::toAffineTransform() const
+/*AffineTransform TransformMatrix::toAffineTransform() const
 {
     return AffineTransform(m_matrix[0][0], m_matrix[0][1], m_matrix[1][0],
                            m_matrix[1][1], m_matrix[3][0], m_matrix[3][1]);
@@ -1086,7 +1086,7 @@ static inline void blendFloat(float& from, float to, float progress)
         from = from + (to - from) * progress;
 }
 
-void AliTransformationMatrix::blend(const AliTransformationMatrix& from, float progress)
+void TransformMatrix::blend(const TransformMatrix& from, float progress)
 {
     if (from.isIdentity() && isIdentity())
         return;
@@ -1118,7 +1118,7 @@ void AliTransformationMatrix::blend(const AliTransformationMatrix& from, float p
     recompose(fromDecomp);
 }
 
-bool AliTransformationMatrix::decompose(DecomposedType& decomp) const
+bool TransformMatrix::decompose(DecomposedType& decomp) const
 {
     if (isIdentity())
     {
@@ -1134,7 +1134,7 @@ bool AliTransformationMatrix::decompose(DecomposedType& decomp) const
     return true;
 }
 
-void AliTransformationMatrix::recompose(const DecomposedType& decomp)
+void TransformMatrix::recompose(const DecomposedType& decomp)
 {
     makeIdentity();
 
@@ -1159,7 +1159,7 @@ void AliTransformationMatrix::recompose(const DecomposedType& decomp)
     float zw = decomp.quaternionZ * decomp.quaternionW;
 
     // Construct a composite rotation matrix from the quaternion values
-    AliTransformationMatrix rotationMatrix(1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), 0,
+    TransformMatrix rotationMatrix(1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), 0,
                            2 * (xy + zw), 1 - 2 * (xx + zz), 2 * (yz - xw), 0,
                            2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy), 0,
                            0, 0, 0, 1);
@@ -1169,21 +1169,21 @@ void AliTransformationMatrix::recompose(const DecomposedType& decomp)
     // now apply skew
     if (decomp.skewYZ)
     {
-        AliTransformationMatrix tmp;
+        TransformMatrix tmp;
         tmp.setM32((float) decomp.skewYZ);
         multiply(tmp);
     }
 
     if (decomp.skewXZ)
     {
-        AliTransformationMatrix tmp;
+        TransformMatrix tmp;
         tmp.setM31((float) decomp.skewXZ);
         multiply(tmp);
     }
 
     if (decomp.skewXY)
     {
-        AliTransformationMatrix tmp;
+        TransformMatrix tmp;
         tmp.setM21((float) decomp.skewXY);
         multiply(tmp);
     }
