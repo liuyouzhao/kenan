@@ -32,6 +32,8 @@ function loadAllImage() {
     ok = kenan_api_graphics.image_set_src(zazaka_image_id2, base64Image);
     if(ok) kenan_api_task.send_message("main_task", "image_on_load", zazaka_image_id2);
     else log.e("load " + zazaka_image_id1 + " failed");
+
+    log.info("task_id: " + task_id + " loadAllImage Finished!");
 }
 
 log.info("test-resource-loader.js onload");

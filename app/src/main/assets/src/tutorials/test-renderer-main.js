@@ -52,7 +52,7 @@ this.onFrame = function() {
 
     var bc = orc2d.Gfx_GetBatchCount();
 
-    if((frameCount ++) >= 60) {
+    if((frameCount ++) >= 600) {
         log.info("BatchCount: " + bc);
         frameCount = 0;
     }
@@ -60,6 +60,8 @@ this.onFrame = function() {
 }
 
 kenan_api_task.start("test-resource-loader-01", "src/tutorials/test-resource-loader.js");
+kenan_api_task.start("test-resource-loader-02", "src/tutorials/test-resource-loader.js");
+kenan_api_task.start("test-resource-loader-03", "src/tutorials/test-resource-loader.js");
 
 function bindSpiritImage(imageId, spiritId) {
     var w = kenan_api_graphics.image_get_width(imageId);

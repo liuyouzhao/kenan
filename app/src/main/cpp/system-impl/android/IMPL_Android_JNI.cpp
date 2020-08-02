@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <string.h>
 #include <stdio.h>
+#include <map>
 #include "defines.h"
 
 #include "RuntimeApi.h"
@@ -11,6 +12,7 @@
 
 using namespace kenan_runtime;
 
+std::map<int, JNIEnv*> g_envMap;
 JNIEnv *javaEnvironment;
 JavaVM *jvm = NULL;
 void init_all_java_methods();
@@ -111,7 +113,8 @@ static void init(JNIEnv *env, jobject obj, jint _width, jint _height, jstring co
     opts.setWorkingDirectory(dataDirectory);
     opts.setEntryScriptCode(std::string(javascriptCode));
     opts.setScreenSize(_width, _height);
-
+    /// set main thread env
+    g_envMap[pthread_self()] = env;
     RuntimeApi::instance()->init(opts);
 }
 
@@ -132,5 +135,7 @@ static int taskloop(JNIEnv* env, jobject obj, jstring taskId, jstring jfile, jbo
     char *file = NULL;
     id = (char*)env->GetStringUTFChars(taskId, 0);
     file = (char*)env->GetStringUTFChars(jfile, 0);
+    /// set task thread env
+    g_envMap[pthread_self()] = env;
     return RuntimeApi::instance()->runTask(std::string(id), std::string(file), rw);
 }

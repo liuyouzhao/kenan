@@ -7,6 +7,7 @@
 
 #include <map>
 #include <string>
+#include <pthread.h>
 #include "defines.h"
 #include "EntityPool.h"
 
@@ -17,6 +18,7 @@ namespace kenan_system {
 
 class EntityManager {
 public:
+    EntityManager();
 
     static EntityManager *instance() {
         if(sInstance == NULL) {
@@ -28,6 +30,7 @@ public:
     template<class T>
     void store(const char *name, const char *pool, T *ptr) {
         std::string stringPool = std::string(pool);
+        pthread_mutex_lock(&mutex);
         if(pools.find(stringPool) != pools.end() && pools[stringPool] != NULL) {
             pools[stringPool]->set<T>(name, ptr);
         }
@@ -35,10 +38,12 @@ public:
             pools[stringPool] = EntityPool::create(stringPool);
             pools[stringPool]->set<T>(name, ptr);
         }
+        pthread_mutex_unlock(&mutex);
     }
 
     template<class T>
     T* retrieve(const char *name, const char *pool) {
+        pthread_mutex_lock(&mutex);
         std::string stringPool = std::string(pool);
         if(pools.find(stringPool) != pools.end() && pools[stringPool] != NULL) {
             EntityPool *entityPool =  pools[stringPool];
@@ -46,9 +51,11 @@ public:
             if(ptr == NULL) {
                 LOGE("Resource MARK: %s NOT exist.", name);
             }
+            pthread_mutex_unlock(&mutex);
             return entityPool->get<T>(name);
         }
         LOGE("Resource POOL: %s NOT exist.", pool);
+        pthread_mutex_unlock(&mutex);
         return NULL;
     }
 
@@ -58,6 +65,7 @@ public:
 private:
     std::map<std::string, EntityPool*> pools;
     static EntityManager *sInstance;
+    pthread_mutex_t mutex;
 };
 
 }

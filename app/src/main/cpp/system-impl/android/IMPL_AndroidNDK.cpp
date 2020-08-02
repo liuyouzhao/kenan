@@ -6,15 +6,16 @@
 #include <jni.h>
 #include <string.h>
 #include <pthread.h>
+#include <map>
 #include "defines.h"
-
-//static JNIEnv *javaEnvironment = NULL;
-extern JNIEnv *javaEnvironment;
-extern JavaVM *jvm;
-
 #define LOG_TAG "IMPL_AndroidNDK"
 
+extern std::map<int, JNIEnv*> g_envMap;
 
+#define __GET_JAVA_ENV \
+        JNIEnv *javaEnvironment = g_envMap[pthread_self()];
+
+#if 0
 class __THREAD_ATTACHER {
 public:
     __THREAD_ATTACHER() {
@@ -34,10 +35,10 @@ public:
     ~__THREAD_ATTACHER() {
     }
 };
-
+#endif
 
 static unsigned int *android_loadBase64ImageRGBA(const char* base64, int &outWidth, int &outHeight) {
-    __THREAD_ATTACHER __ta;
+    __GET_JAVA_ENV
 
     jstring jstrBase64 = javaEnvironment->NewStringUTF(base64);
     jclass clazz = javaEnvironment->FindClass("com/kenan/jni/AndroidSystemImpls");
@@ -72,7 +73,7 @@ static unsigned int *android_loadBase64ImageRGBA(const char* base64, int &outWid
 }
 
 static unsigned int *android_loadImageFile(const char* fileName, int &outWidth, int &outHeight) {
-    __THREAD_ATTACHER __ta;
+    __GET_JAVA_ENV
 
     jstring jstrFilename = javaEnvironment->NewStringUTF(fileName);
     jclass clazz = javaEnvironment->FindClass("com/kenan/jni/AndroidSystemImpls");
@@ -105,6 +106,8 @@ static void android_unloadImageBuffer(unsigned int **pixels) {
 }
 
 static int readFileImpl(const char *filename, char *buf, int &len, int max, const char *methodName) {
+    __GET_JAVA_ENV
+
     jstring jstrFilename = javaEnvironment->NewStringUTF(filename);
 
     jclass integerClazz = javaEnvironment->FindClass("java/lang/Integer");
@@ -147,12 +150,10 @@ static int readFileImpl(const char *filename, char *buf, int &len, int max, cons
 }
 
 static int android_readFileFromROLocation(const char *filename, char *buf, int &len, int max) {
-    __THREAD_ATTACHER __ta;
     return readFileImpl(filename, buf, len, max, "Android_JavaIMPL_readFileAssets");
 }
 
 static int android_readFileFromRWLocation(const char *filename, char *buf, int &len, int max) {
-    __THREAD_ATTACHER __ta;
     return readFileImpl(filename, buf, len, max, "Android_JavaIMPL_readFileStorage");
 }
 
@@ -167,7 +168,7 @@ static int android_writeFileToRWLocation_AppendNew(const char *filename, char *b
 }
 
 static int android_task_start(const char *taskId, const char *filename, int rw) {
-    __THREAD_ATTACHER __ta;
+    __GET_JAVA_ENV
 
     jstring jTaskID = javaEnvironment->NewStringUTF(taskId);
     jstring jFileName = javaEnvironment->NewStringUTF(filename);
