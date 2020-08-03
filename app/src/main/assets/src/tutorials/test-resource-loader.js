@@ -29,7 +29,7 @@ function loadAllImage() {
     else log.e("load " + zazaka_image_id1 + " failed");
 
     kenan_api_graphics.image_create(zazaka_image_id2);
-    ok = kenan_api_graphics.image_set_src(zazaka_image_id2, base64Image);
+    ok = kenan_api_graphics.image_set_src(zazaka_image_id2, "res/images/logopng.png");
     if(ok) kenan_api_task.send_message("main_task", "image_on_load", zazaka_image_id2);
     else log.e("load " + zazaka_image_id1 + " failed");
 

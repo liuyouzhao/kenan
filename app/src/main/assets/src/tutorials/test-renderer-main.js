@@ -11,43 +11,45 @@ var EN_EFFECT_STATE =
     GL2D_NORMAL           : 21
 };
 var eff = orc2d.Effect_Load(EN_EFFECT_STATE.GL2D_NORMAL);
-var effBlur = orc2d.Effect_Load(EN_EFFECT_STATE.GL2D_BI);
-log.info("effect is: " + eff);
+var effBlur = orc2d.Effect_Load(EN_EFFECT_STATE.GL2D_BLUR);
+var effNoTex = orc2d.Effect_Load(EN_EFFECT_STATE.GL2D_NORMAL_NOTEXTURE);
+log.info("effect is: " + eff + ", " + effBlur);
 var zazaka1 = kenan_api_graphics.spirit_create("image_id_zazaka001_sp", -1, 0, 0, 1, 1, 32, 32, 1);
 var zazaka2 = kenan_api_graphics.spirit_create("image_id_zazaka002_sp", -1, 0, 0, 1, 1, 32, 32, 1);
 kenan_api_graphics.spirit_set_color(zazaka1, 1.0, 1.0, 1.0, 1.0, 0);
 kenan_api_graphics.spirit_set_color(zazaka1, 1.0, 1.0, 1.0, 1.0, 1);
 kenan_api_graphics.spirit_set_color(zazaka1, 1.0, 1.0, 1.0, 1.0, 2);
 kenan_api_graphics.spirit_set_color(zazaka1, 1.0, 1.0, 1.0, 1.0, 3);
-kenan_api_graphics.spirit_set_color(zazaka2, 0.2, 0.2, 0.2, 0.5, 0);
-kenan_api_graphics.spirit_set_color(zazaka2, 0.2, 0.2, 0.2, 0.5, 1);
-kenan_api_graphics.spirit_set_color(zazaka2, 0.2, 0.2, 0.2, 0.5, 2);
-kenan_api_graphics.spirit_set_color(zazaka2, 0.2, 0.2, 0.2, 0.5, 3);
+kenan_api_graphics.spirit_set_color(zazaka2, 0.0, 0.0, 0.0, 1.0, 0);
+kenan_api_graphics.spirit_set_color(zazaka2, 0.0, 0.0, 0.0, 1.0, 1);
+kenan_api_graphics.spirit_set_color(zazaka2, 0.0, 0.0, 0.0, 1.0, 2);
+kenan_api_graphics.spirit_set_color(zazaka2, 0.0, 0.0, 0.0, 1.0, 3);
 
 var rot = 0.001;
 var offset = 4;
-var margin = 64;
+var margin = 128;
 var frameCount = 0;
 this.onFrame = function() {
 
     orc2d.Gfx_SetClearColor(0.8, 0.8, 0.8, 1.0);
     orc2d.Gfx_Clear();
-    orc2d.Effect_Active(eff, true);
 
+    orc2d.Effect_Active(effBlur, true);
     for(var i = 0; i < kenan_api_graphics.screen_get_height() / margin; i ++) {
         for(var j = 0; j < kenan_api_graphics.screen_get_height() / margin; j ++) {
             kenan_api_graphics.spirit_render_ex(zazaka2, j * margin, i * margin, i + rot);
             rot += 0.00001;
         }
     }
+    orc2d.Gfx_SwapBuffer();
 
+    orc2d.Effect_Active(eff, true);
     for(var i = 0; i < kenan_api_graphics.screen_get_height() / margin; i ++) {
         for(var j = 0; j < kenan_api_graphics.screen_get_height() / margin; j ++) {
             kenan_api_graphics.spirit_render_ex(zazaka1, j * margin, i * margin, i + rot);
             rot += 0.00001;
         }
     }
-
     orc2d.Gfx_SwapBuffer();
 
     var bc = orc2d.Gfx_GetBatchCount();
@@ -66,7 +68,7 @@ kenan_api_task.start("test-resource-loader-03", "src/tutorials/test-resource-loa
 function bindSpiritImage(imageId, spiritId) {
     var w = kenan_api_graphics.image_get_width(imageId);
     var h = kenan_api_graphics.image_get_height(imageId);
-    var hTex = kenan_api_graphics.image_get_texture("image_id_zazaka001");
+    var hTex = kenan_api_graphics.image_get_texture(imageId);
 
     if(spiritId == zazaka2) {
         kenan_api_graphics.spirit_resize(spiritId, w, h);

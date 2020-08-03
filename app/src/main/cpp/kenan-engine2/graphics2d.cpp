@@ -417,6 +417,7 @@ void CALL Gl2d_Impl::Gfx_RenderQuad(const gl2dQuad *quad)
 
         OldEffect = CurEffect;
         GEFFECTS[OldEffect]->UseThisEffect();
+        GEFFECTS[OldEffect]->SetFloatv2(quad->v[1].x - quad->v[0].x, quad->v[2].y - quad->v[0].y, BLUE_TEX_SIZE);
 
         CurPrimType = GL2D_PRIM_QUADS;
         if (CurBlendMode != quad->blend)

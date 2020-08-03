@@ -112,7 +112,6 @@ Gl2dSprite::Gl2dSprite(HTEXTURE texture, float texx1, float texy1, float texx2, 
     quad.blend=BLEND_DEFAULT;
 
     referance ++;
-    LOGE("reference %d", referance);
 }
 
 Gl2dSprite::Gl2dSprite(const Gl2dSprite &spr)

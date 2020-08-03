@@ -15,7 +15,6 @@ public class JNILIB {
     public static void begin(int width, int height, String s, String dataDir){
         System.loadLibrary("kenan");
         if(!hasInited){
-                Log.e("begin","**********************begin ********************");
                 //SetBasePath("/sdcard/");
                 init(width, height , s, dataDir);
         }

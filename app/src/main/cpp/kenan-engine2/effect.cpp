@@ -3,7 +3,7 @@
 #include "effect.h"
 
 #define MAX_EFFECTS_NUMBER 100
-
+#define  LOG_TAG    "effect"
 
 Gl2DEffect* GEFFECTS[MAX_EFFECTS_NUMBER] = {0};
 
@@ -144,6 +144,7 @@ bool Gl2DEffect::CreateEffect(const char* _vertex_shader, const char* _flag_shad
     glGetShaderiv(uiFragShader, GL_COMPILE_STATUS, &bShaderCompiled);
     if (!bShaderCompiled)
     {
+        LOGE("[GLES 2.0] Error, frag shader compiled failed");
         return false;
     }
 
@@ -161,6 +162,7 @@ bool Gl2DEffect::CreateEffect(const char* _vertex_shader, const char* _flag_shad
     glGetShaderiv(uiVertShader, GL_COMPILE_STATUS, &bShaderCompiled);
     if (!bShaderCompiled)
     {
+        LOGE("[GLES 2.0] Error, vertex shader compiled failed");
         return false;
     }
 
@@ -198,10 +200,4 @@ void Gl2DEffect::UseThisEffect()
 
     // Sets the sampler2D variable to the first texture unit
     glUniform1i(glGetUniformLocation(uiProgramObject, "sampler2d"), 0);
-
-    //if(hasTex)
-    //{
-        // Sets the sampler2D variable to the first texture unit
-    //    glUniform1i(glGetUniformLocation(uiProgramObject, "sampler2d"), 0);
-    //}
 }

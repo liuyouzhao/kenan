@@ -17,6 +17,7 @@ namespace shaders
                                     attribute highp vec2 myUV;\
                                     varying mediump vec4 _color;\
                                     varying mediump vec2 _uv;\
+                                    uniform mediump vec2 u_tex_size;\
                                     void main()\
                                     {\
                                     _color = myColor;\
@@ -75,31 +76,17 @@ namespace shaders
                                     \
                                     mediump vec2 _uvg = vec2(0.0, 0.0);   \
                                     mediump float alpha = 0.0;\
-                                    lowp float a[5];\
-                                    bool isBig = false;\
+                                    mediump float j = 0.0; \
+                                    mediump float i = 0.0; \
                                     void main (void)\
                                     {\
-                                         a[0]=0.2; a[1]=a[2]=a[3]=a[4]=0.2;\
-                                          \
-                                        _uvg = vec2((_uv.x*_tex_size.x)/_tex_size.x, (_uv.y*_tex_size.y)/_tex_size.y);\
-                                        _colorTmp = texture2D(sampler2d, _uvg);\
-                                        alpha += _colorTmp.a * a[0];\
-                                          \
-                                        _uvg = vec2((_uv.x*_tex_size.x-1.0)/_tex_size.x, (_uv.y*_tex_size.y)/_tex_size.y);\
-                                        _colorTmp = texture2D(sampler2d, _uvg);\
-                                        alpha += _colorTmp.a * a[1];\
-                                        \
-                                        _uvg = vec2((_uv.x*_tex_size.x+1.0)/_tex_size.x, (_uv.y*_tex_size.y)/_tex_size.y);\
-                                        _colorTmp = texture2D(sampler2d, _uvg);\
-                                        alpha += _colorTmp.a * a[2];\
-                                        \
-                                        _uvg = vec2((_uv.x*_tex_size.x)/_tex_size.x, (_uv.y*_tex_size.y-1.0)/_tex_size.y);\
-                                        _colorTmp = texture2D(sampler2d, _uvg);\
-                                        alpha += _colorTmp.a * a[3];\
-                                        \
-                                        _uvg = vec2((_uv.x*_tex_size.x)/_tex_size.x, (_uv.y*_tex_size.y+1.0)/_tex_size.y);\
-                                        _colorTmp = texture2D(sampler2d, _uvg);\
-                                        alpha += _colorTmp.a * a[4];\
+                                         for (i = -2.0; i <= 2.0; i+=1.0) { \
+                                            for(j = -2.0; j <= 2.0; j+=1.0) { \
+                                                _uvg = vec2(_uv.x+(j/128.0), _uv.y+(i/128.0));\
+                                                _colorTmp = texture2D(sampler2d, _uvg);\
+                                                alpha += _colorTmp.a * 0.04;\
+                                            } \
+                                         } \
                                         \
                                         gl_FragColor = _color;\
                                         gl_FragColor.a = alpha * _color.a;\

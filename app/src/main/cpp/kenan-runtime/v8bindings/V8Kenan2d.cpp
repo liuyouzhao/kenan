@@ -87,7 +87,6 @@ v8::Handle<v8::Value> V8Kenan2d::genSingleton(Isolate *isolate)
     v8::Local<v8::Object> instance = instance_t->NewInstance();
 
     instance->SetInternalField(0, External::New(isolate, Gl2d_Impl::instance()));
-    LOGE("Kenan2d wrap end");
     return instance;
 }
 
